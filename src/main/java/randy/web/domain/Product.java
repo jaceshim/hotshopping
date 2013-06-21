@@ -1,5 +1,7 @@
 package randy.web.domain;
 
+import java.util.List;
+
 import randy.core.spring.domain.AbstractDomain;
 
 /**
@@ -9,18 +11,27 @@ import randy.core.spring.domain.AbstractDomain;
  */
 public class Product extends AbstractDomain {
 
+	/** 카테고리 id */
+	private List<Integer> cateIdList;
+
 	/** 상품명 */
 	private String prdName;
 	/** 상품 URL */
 	private String prdUrl;
 	/** 상품 가격 */
-	private int prdPrice;
+	private String prdPrice;
 	/** 썸네일 URL */
 	private String prdThumbUrl;
 	/** mall id */
 	private int mallId;
-	/** 카테고리 id */
-	private int cateId;
+
+	public List<Integer> getCateIdList() {
+		return cateIdList;
+	}
+
+	public void setCateIdList(List<Integer> cateIdList) {
+		this.cateIdList = cateIdList;
+	}
 
 	public String getPrdName() {
 		return prdName;
@@ -38,11 +49,11 @@ public class Product extends AbstractDomain {
 		this.prdUrl = prdUrl;
 	}
 
-	public int getPrdPrice() {
+	public String getPrdPrice() {
 		return prdPrice;
 	}
 
-	public void setPrdPrice(int prdPrice) {
+	public void setPrdPrice(String prdPrice) {
 		this.prdPrice = prdPrice;
 	}
 
@@ -60,14 +71,6 @@ public class Product extends AbstractDomain {
 
 	public void setMallId(int mallId) {
 		this.mallId = mallId;
-	}
-
-	public int getCateId() {
-		return cateId;
-	}
-
-	public void setCateId(int cateId) {
-		this.cateId = cateId;
 	}
 
 }

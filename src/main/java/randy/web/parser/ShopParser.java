@@ -14,6 +14,13 @@ import randy.web.domain.Promotion;
 public interface ShopParser {
 	
 	/**
+	 * 몰 아이디
+	 * 
+	 * @return String
+	 */
+	int getMallId();
+	
+	/**
 	 * event 페이지 url
 	 * 
 	 * @return String

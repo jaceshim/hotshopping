@@ -6,6 +6,8 @@ public class Category extends AbstractDomain {
 
 	/** 카테고리 아이디 */
 	private int cateId;
+	/** 부모 카테고리 아이디 */
+	private int parentCateId;
 	/** 카테고리 명 */
 	private String cateName;
 	/** 카테고리 토큰 ( 콤마를 구분자로 해당 카테고리에 속하는 문자열을 기술한다. ) */
@@ -17,6 +19,14 @@ public class Category extends AbstractDomain {
 
 	public void setCateId(int cateId) {
 		this.cateId = cateId;
+	}
+
+	public int getParentCateId() {
+		return parentCateId;
+	}
+
+	public void setParentCateId(int parentCateId) {
+		this.parentCateId = parentCateId;
 	}
 
 	public String getCateName() {
