@@ -4,6 +4,7 @@
 	<artifactId>hotshopping</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>hot shopping</name>
+	<packaging>war</packaging>
 	
 	<repositories>
 		<repository>
@@ -370,7 +371,6 @@
             </plugin>
 		</plugins>
 		
-	</build>	
+	</build>
 	
-	<packaging>war</packaging>
 </project>

@@ -6,6 +6,9 @@ import java.util.List;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Test;
 
 import randy.web.domain.Event;
@@ -77,7 +80,7 @@ public class Shop11st extends AbstractShopParser {
 		List<Product> resultList = new ArrayList<Product>();
 		
 		try {
-			String script = this.getHtml("http://www.11st.co.kr/js/local/main5Ad.js", getEnconding());
+			String script = this.getHtml("http://www.11st.co.kr/js/local/main5Ad.js");
 			
 			System.out.println("--> 응답값 : " + script);
 			
@@ -95,6 +98,8 @@ public class Shop11st extends AbstractShopParser {
 				Product prd = new Product();
 				prd.setMallId(this.getMallId());
 				
+				String prdUrl = "http://www.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=";
+				
 				for (Object obj : objs) {
 					String key = obj.toString();
 					String value = NativeObject.getProperty(tempObj, key).toString();
@@ -102,10 +107,10 @@ public class Shop11st extends AbstractShopParser {
 					if (key.equals("TXT1")) {
 						prd.setPrdName(value);
 					} else if (key.equals("JURL1")) {
-						String prdNo = NativeObject.getProperty(tempObj, "NUM1").toString(); 
-						String prdUrl = "http://www.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=" + prdNo;
-						prd.setPrdUrl(prdUrl);
+						String prdNo = NativeObject.getProperty(tempObj, "NUM1").toString();
+						prdUrl += prdNo;
 						
+						prd.setPrdUrl(prdUrl);
 					} else if (key.equals("IMG1")) {
 						prd.setPrdThumbUrl(value);
 					} else if (key.equals("PRC1")) {
@@ -113,7 +118,12 @@ public class Shop11st extends AbstractShopParser {
 					}
 				}
 				
-				// TODO: 상세페이지를 호출하여 최상위 카테고리 분류값을 찾은다음 카테고리 tags에 match되는 카테고리 상품군에 정보 저장.
+				// 상세페이지를 호출하여 최상위 카테고리 분류값을 찾은다음 카테고리 tags에 match되는 카테고리 상품군에 정보 저장.
+				String prdHtml = getProductInfoHtml(prdUrl, null);
+				if (StringUtils.isNotEmpty(prdHtml)) {
+					Document prdDetailDoc = Jsoup.parse(prdHtml);
+					
+				}				
 				
 				resultList.add(prd);
 				
@@ -132,7 +142,6 @@ public class Shop11st extends AbstractShopParser {
 		for (Product prd : pList) {
 			System.out.println(prd.toString());
 		}
-		
 	}	
 	
 }
