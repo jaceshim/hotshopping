@@ -11,14 +11,14 @@
 		</layout>
 	</appender>
 	
-	<logger name="com.nimdoo.hotshopping" additivity="false">
+	<logger name="randy.web" additivity="false">
 		<level value="debug" />
 		<appender-ref ref="console" />
 	</logger>
 
 	<!-- Root Logger 설정 -->
 	<root>
-		<level value="INFO" />
+		<level value="debug" />
 		<appender-ref ref="console"/>
 	</root>
 </log4j:configuration>

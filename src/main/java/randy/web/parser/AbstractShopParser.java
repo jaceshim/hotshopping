@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import randy.web.front.service.FrontService;
+import randy.web.front.service.CategoryService;
 
 @Component
 public abstract class AbstractShopParser implements ShopParser {
@@ -20,7 +20,7 @@ public abstract class AbstractShopParser implements ShopParser {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private FrontService frontService;	
+	private CategoryService categoryService;	
 
 	/**
 	 * 주어진 url의 응답 html 문자열을 얻는다.

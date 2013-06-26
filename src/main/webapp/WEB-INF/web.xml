@@ -17,8 +17,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:/spring/**/*-service-context.xml
-			classpath*:/spring/**/*-data-context.xml
+			classpath*:/spring/**/service-context.xml
+			classpath*:/spring/**/data-context.xml
 		</param-value>
 	</context-param>
  
@@ -65,7 +65,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				classpath*:/config/**/*-web-context.xml
+				classpath*:/spring/**/web-context.xml
 			</param-value>
 		</init-param>
 		<init-param>

@@ -20,9 +20,9 @@ public class Event extends AbstractDomain {
 	/** 이벤트 썸네일 URL */
 	private String evtThumbUrl;
 	/** 몰 아이디 */
-	private int mallId;
+	private Integer mallId;
 	/** 카테고리 아이디 */
-	private int cateId;
+	private Integer cateId;
 
 	public String getEvtName() {
 		return evtName;

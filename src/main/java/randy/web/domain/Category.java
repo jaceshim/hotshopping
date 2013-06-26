@@ -15,9 +15,9 @@ public class Category extends AbstractDomain {
 	private List<CategoryTag> cateTagList;
 
 	/** 카테고리 아이디 */
-	private int cateId;
+	private Integer cateId;
 	/** 부모 카테고리 아이디 */
-	private int pcateId;
+	private Integer pcateId;
 	/** 카테고리 명 */
 	private String cateName;
 
@@ -29,19 +29,19 @@ public class Category extends AbstractDomain {
 		this.cateTagList = cateTagList;
 	}
 
-	public int getCateId() {
+	public Integer getCateId() {
 		return cateId;
 	}
 
-	public void setCateId(int cateId) {
+	public void setCateId(Integer cateId) {
 		this.cateId = cateId;
 	}
 
-	public int getPcateId() {
+	public Integer getPcateId() {
 		return pcateId;
 	}
 
-	public void setPcateId(int pcateId) {
+	public void setPcateId(Integer pcateId) {
 		this.pcateId = pcateId;
 	}
 

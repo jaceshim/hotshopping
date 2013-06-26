@@ -20,9 +20,9 @@ public class Promotion extends AbstractDomain {
 	/** 기획전 기간 */
 	private String prmPeriod;
 	/** 카테고리 아이디 */
-	private int cateId;
+	private Integer cateId;
 	/** 몰 아이디 */
-	private int mallId;
+	private Integer mallId;
 
 	public String getPrmName() {
 		return prmName;
@@ -64,19 +64,19 @@ public class Promotion extends AbstractDomain {
 		this.prmPeriod = prmPeriod;
 	}
 
-	public int getCateId() {
+	public Integer getCateId() {
 		return cateId;
 	}
 
-	public void setCateId(int cateId) {
+	public void setCateId(Integer cateId) {
 		this.cateId = cateId;
 	}
 
-	public int getMallId() {
+	public Integer getMallId() {
 		return mallId;
 	}
 
-	public void setMallId(int mallId) {
+	public void setMallId(Integer mallId) {
 		this.mallId = mallId;
 	}
 

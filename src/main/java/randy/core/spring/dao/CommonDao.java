@@ -22,8 +22,6 @@ import randy.core.spring.util.MessageUtils;
  *  </bean>
  * </code>
  *
- * @see AbstractRowHandler
- * @see BatchDescriptor
  * @author cheonbo, shim
  */
 public class CommonDao extends AbstractDao {
@@ -38,46 +36,46 @@ public class CommonDao extends AbstractDao {
 	}
 
 	public Object insert(String statementName, Object obj) {
-		return getSqlMapClientTemplate().insert(defaultNamespace.concat(statementName), obj);
+		return getSqlSession().insert(defaultNamespace.concat(statementName), obj);
 	}
 
 	public Object insert(String namespace, String statementName, Object obj) {
-		return getSqlMapClientTemplate().insert(namespace.concat(".").concat(statementName), obj);
+		return getSqlSession().insert(namespace.concat(".").concat(statementName), obj);
 	}
 
 	public int update(String statementName, Object obj) {
-		return getSqlMapClientTemplate().update(defaultNamespace.concat(statementName), obj);
+		return getSqlSession().update(defaultNamespace.concat(statementName), obj);
 	}
 
 	public int update(String namespace, String statementName, Object obj) {
-		return getSqlMapClientTemplate().update(namespace.concat(".").concat(statementName), obj);
+		return getSqlSession().update(namespace.concat(".").concat(statementName), obj);
 	}
 
 	public int delete(String statementName, Object obj) {
-		return getSqlMapClientTemplate().delete(defaultNamespace.concat(statementName), obj);
+		return getSqlSession().delete(defaultNamespace.concat(statementName), obj);
 	}
 
 	public int delete(String namespace, String statementName, Object obj) {
-		return getSqlMapClientTemplate().delete(namespace.concat(".").concat(statementName), obj);
+		return getSqlSession().delete(namespace.concat(".").concat(statementName), obj);
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T selectOne(String statementName, Object obj) {
-		return (T)getSqlMapClientTemplate().queryForObject(defaultNamespace.concat(statementName), obj);
+		return (T)getSqlSession().selectOne(defaultNamespace.concat(statementName), obj);
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T selectOne(String namespace, String statementName, Object obj) {
-		return (T)getSqlMapClientTemplate().queryForObject(namespace.concat(".").concat(statementName), obj);
+		return (T)getSqlSession().selectOne(namespace.concat(".").concat(statementName), obj);
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T> List<T> selectList(String statementName, Object obj) {
-		return (List<T>)getSqlMapClientTemplate().queryForList(defaultNamespace.concat(statementName), obj);
+		return (List<T>)getSqlSession().selectList(defaultNamespace.concat(statementName), obj);
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T> List<T> selectList(String namespace, String statementName, Object obj) {
-		return (List<T>)getSqlMapClientTemplate().queryForList(namespace.concat(".").concat(statementName), obj);
+		return (List<T>)getSqlSession().selectList(namespace.concat(".").concat(statementName), obj);
 	}
 }

@@ -8,15 +8,15 @@ package randy.web.domain;
 public class CategoryTag extends Category {
 
 	/** 순번 */
-	private int seq;
+	private Integer seq;
 	/** 태그 */
 	private String tag;
 
-	public int getSeq() {
+	public Integer getSeq() {
 		return seq;
 	}
 
-	public void setSeq(int seq) {
+	public void setSeq(Integer seq) {
 		this.seq = seq;
 	}
 

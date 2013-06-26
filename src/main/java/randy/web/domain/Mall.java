@@ -10,7 +10,7 @@ import randy.core.spring.domain.AbstractDomain;
 public class Mall extends AbstractDomain {
 
 	/** 몰 아이디 */
-	private int mallId;
+	private Integer mallId;
 	/** 몰 이름 */
 	private String mallName;
 	/** 몰 URL */
@@ -22,7 +22,7 @@ public class Mall extends AbstractDomain {
 		return mallId;
 	}
 
-	public void setMallId(int mallId) {
+	public void setMallId(Integer mallId) {
 		this.mallId = mallId;
 	}
 

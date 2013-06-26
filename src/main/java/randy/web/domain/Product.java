@@ -23,7 +23,7 @@ public class Product extends AbstractDomain {
 	/** 썸네일 URL */
 	private String prdThumbUrl;
 	/** mall id */
-	private int mallId;
+	private Integer mallId;
 
 	public List<Integer> getCateIdList() {
 		return cateIdList;
@@ -65,11 +65,11 @@ public class Product extends AbstractDomain {
 		this.prdThumbUrl = prdThumbUrl;
 	}
 
-	public int getMallId() {
+	public Integer getMallId() {
 		return mallId;
 	}
 
-	public void setMallId(int mallId) {
+	public void setMallId(Integer mallId) {
 		this.mallId = mallId;
 	}
 

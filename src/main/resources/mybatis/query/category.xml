@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+
+	<sql id="selectCategorySql">
+			cate_id   AS cateId
+		,	cate_name AS cateName
+		,	pcate_id  AS pcateId
+		,	use_yn    AS useYn
+	</sql>
+	
+	<select id="getCategoryList" parameterType="category" resultType="category">
+		select <include refid="selectCategorySql"/>
+		from tb_category
+		<where>
+			<if test='pcateId != null'>
+				pcate_id = #{pcateId}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertCategory" parameterType="category">
+		insert into tb_category (
+			cate_name,   pcate_id,   use_yn
+		) values (
+			#{cateName}, #{pcateId}, 'Y'
+		)
+		<selectKey keyProperty="cateId" resultType="java.lang.Integer">
+			 LAST_INSERT_ID()
+		</selectKey>		
+	</insert>
+</mapper>

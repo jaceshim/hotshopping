@@ -9,13 +9,12 @@ import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
 
 /**
- * 프론트단 공통 서비스.
+ * 카테고리 서비스
  * 
  * @author jace
  */
 @Service
-public class FrontService extends AbstractService {
-
+public class CategoryService extends AbstractService {
 	/**
 	 * 주어진 카테고리를 부모로 하는 하위 카테고리 목록을 얻는다.
 	 * 
