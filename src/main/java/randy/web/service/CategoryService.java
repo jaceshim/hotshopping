@@ -1,4 +1,4 @@
-package randy.web.front.service;
+package randy.web.service;
 
 import java.util.List;
 
@@ -15,31 +15,26 @@ import randy.web.domain.CategoryTag;
  */
 @Service
 public class CategoryService extends AbstractService {
+
+	static final String NAMESPACE = "category";
+
 	/**
 	 * 주어진 카테고리를 부모로 하는 하위 카테고리 목록을 얻는다.
 	 * 
-	 * @param pcateId
+	 * @param category
 	 * @return List<Category>
 	 */
-	public List<Category> getCateList(int pcateId) {
-
-		Category category = new Category();
-		category.setPcateId(pcateId);
-
-		return commonDao.selectList("getCateList", category);
+	public List<Category> getCategoryList(Category category) {
+		return commonDao.selectList(NAMESPACE, "getCategoryList", category);
 	}
 
 	/**
 	 * 주어진 카테고리 아디디의 태그 목록을 얻는다.
 	 * 
-	 * @param cateId
+	 * @param categoryTag
 	 * @return List<CategoryTag>
 	 */
-	public List<CategoryTag> getCateTagList(int cateId) {
-
-		CategoryTag categoryTag = new CategoryTag();
-		categoryTag.setCateId(cateId);
-
-		return commonDao.selectList("getCateTagList", categoryTag);
+	public List<CategoryTag> getCategoryTagList(CategoryTag categoryTag) {
+		return commonDao.selectList(NAMESPACE, "getCategoryTagList", categoryTag);
 	}
 }

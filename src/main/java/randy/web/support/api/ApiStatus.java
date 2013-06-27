@@ -1,4 +1,4 @@
-package randy.web.front.support.api;
+package randy.web.support.api;
 
 public enum ApiStatus {
 

@@ -316,6 +316,19 @@
 	    	<artifactId>commons-dbcp</artifactId>
 	    	<version>1.4</version>
 	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>org.codehaus.jackson</groupId>
+	    	<artifactId>jackson-mapper-asl</artifactId>
+	    	<version>1.9.12</version>
+	    </dependency>
+	    
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.8</version>
+		</dependency>
+			    
 	</dependencies>
 	
 	<profiles>

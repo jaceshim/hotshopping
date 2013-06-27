@@ -32,4 +32,22 @@
 			 LAST_INSERT_ID()
 		</selectKey>		
 	</insert>
+	
+	
+	<select id="getCategoryTagList" parameterType="categoryTag" resultType="categoryTag">
+		select 
+				P.cate_id as cateId
+			,	P.cate_name as cateName
+			,	P.pcate_id as pcateId
+			,	P.use_yn as useYn
+			,	C.tag as tag
+		from tb_category P left join tb_category_tag C
+		<where>
+			<if test='pcateId != null'>
+				P.cate_id = #{pcateId}
+			</if>
+		</where> 
+			
+	</select>
+	
 </mapper>

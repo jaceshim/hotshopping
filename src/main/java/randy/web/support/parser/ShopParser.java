@@ -1,4 +1,4 @@
-package randy.web.parser;
+package randy.web.support.parser;
 
 import java.util.List;
 
@@ -18,28 +18,15 @@ public interface ShopParser {
 	 * 
 	 * @return String
 	 */
-	int getMallId();
+	Integer getMallId();
 	
 	/**
-	 * event 페이지 url
+	 * 스케쥴링 실행 주기.
+	 * ex) 60분에 한번씩 실행하길 원한다면 60을 리턴하면 된다.
 	 * 
-	 * @return String
+	 * @return long
 	 */
-	String getEventUrl();
-	
-	/**
-	 * 기획전 페이지 url
-	 * 
-	 * @return String
-	 */
-	String getPromotionUrl();
-	
-	/**
-	 * 상품페이지 url
-	 * 
-	 * @return String
-	 */
-	String getItemUrl();
+	long getScheduleInterval();
 	
 	/**
 	 * 인코딩

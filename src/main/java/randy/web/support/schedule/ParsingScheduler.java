@@ -1,4 +1,4 @@
-package randy.web.front.support.schedule;
+package randy.web.support.schedule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class ParsingScheduler {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Scheduled(fixedRate=5*1000)
+	@Scheduled(fixedRate=60*1000*60) // 60분에 한번식 실행.
 	public void run() {
 		logger.debug("--> 실행됨...");
 	}

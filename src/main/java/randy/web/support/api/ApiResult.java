@@ -1,4 +1,4 @@
-package randy.web.front.support.api;
+package randy.web.support.api;
 
 /**
  * API 응답처리 도메인.

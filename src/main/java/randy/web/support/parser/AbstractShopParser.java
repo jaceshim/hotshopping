@@ -1,4 +1,4 @@
-package randy.web.parser;
+package randy.web.support.parser;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import randy.web.front.service.CategoryService;
+import randy.web.service.CategoryService;
 
 @Component
 public abstract class AbstractShopParser implements ShopParser {

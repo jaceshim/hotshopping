@@ -13,10 +13,9 @@ import randy.core.spring.dao.CommonDao;
  * @author jace
  */
 public class AbstractService {
-	
-	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	@Resource(name="commonDao")
-	protected CommonDao commonDao;
 
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Resource(name = "commonDao")
+	protected CommonDao commonDao;
 }
