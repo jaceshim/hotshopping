@@ -4,6 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+    
     <settings>
         <setting name="cacheEnabled" value="false"/>
         <setting name="lazyLoadingEnabled" value="true"/>
@@ -13,5 +14,7 @@
         <setting name="useGeneratedKeys" value="false"/>
         <setting name="defaultExecutorType" value="SIMPLE"/>
     </settings>
+    
+    
     
 </configuration>

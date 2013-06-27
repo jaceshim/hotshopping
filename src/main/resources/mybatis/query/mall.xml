@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mall">
+
+
+	<sql id="selectMallSql">
+			mall_id           AS mallId
+		,	mall_name         AS mallName
+		,	mall_url          AS mallUrl
+		,	schedule_interval AS scheduleInterval
+		,	use_yn            AS useYn
+	</sql>
+	
+	<select id="getMallList" parameterType="mall" resultType="mall">
+		select <include refid="selectMallSql"/>
+		from tb_mall
+	</select>
+	
+	<insert id="insertMall" parameterType="mall">
+		insert into tb_mall (
+			mall_name,   mall_url,      schedule_interval,    use_yn
+		) values (
+			#{mallName}, #{mallUrl},    #{scheduleInterval},  'Y'  
+		)
+		<selectKey keyProperty="mallId" resultType="java.lang.Integer">
+			 LAST_INSERT_ID()
+		</selectKey>		
+	</insert>
+	
+	<update id="updateMall" parameterType="mall">
+		update tb_mall
+			<set>
+				<if test='mallName != null'>mall_name = #{mallName},</if>
+				<if test='mallUrl != null'>mall_url = #{mallUrl},</if>
+				<if test='scheduleInterval != null'>schedule_interval = #{scheduleInterval},</if>
+				<if test='useYn != null'>use_yn = #{useYn}</if>
+			</set>
+		where mall_id = #{mallId}
+	</update>
+	
+	
+</mapper>

@@ -23,14 +23,14 @@
 	</select>
 	
 	<insert id="insertCategory" parameterType="category">
+		<selectKey keyProperty="cateId" resultType="java.lang.Integer" order="AFTER">
+			 LAST_INSERT_ID()
+		</selectKey>	
 		insert into tb_category (
 			cate_name,   pcate_id,   use_yn
 		) values (
 			#{cateName}, #{pcateId}, 'Y'
-		)
-		<selectKey keyProperty="cateId" resultType="java.lang.Integer">
-			 LAST_INSERT_ID()
-		</selectKey>		
+		)		
 	</insert>
 	
 	

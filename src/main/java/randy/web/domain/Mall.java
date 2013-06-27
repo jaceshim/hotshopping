@@ -15,10 +15,10 @@ public class Mall extends AbstractDomain {
 	private String mallName;
 	/** 몰 URL */
 	private String mallUrl;
-	/** 몰 아이콘 URL */
-	private String mallIconUrl;
+	/** 스케쥴 주기 */
+	private Integer scheduleInterval;
 
-	public int getMallId() {
+	public Integer getMallId() {
 		return mallId;
 	}
 
@@ -42,12 +42,12 @@ public class Mall extends AbstractDomain {
 		this.mallUrl = mallUrl;
 	}
 
-	public String getMallIconUrl() {
-		return mallIconUrl;
+	public Integer getScheduleInterval() {
+		return scheduleInterval;
 	}
 
-	public void setMallIconUrl(String mallIconUrl) {
-		this.mallIconUrl = mallIconUrl;
+	public void setScheduleInterval(Integer scheduleInterval) {
+		this.scheduleInterval = scheduleInterval;
 	}
 
 }
