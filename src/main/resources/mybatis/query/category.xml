@@ -5,6 +5,10 @@
 
 <mapper namespace="category">
 
+	<cache 
+		eviction="LRU" 
+		flushInterval="60000"/>
+
 	<sql id="selectCategorySql">
 			cate_id   AS cateId
 		,	cate_name AS cateName
@@ -22,7 +26,7 @@
 		</where>
 	</select>
 	
-	<insert id="insertCategory" parameterType="category">
+	<insert id="insertCategory" parameterType="category" flushCache="true">
 		<selectKey keyProperty="cateId" resultType="java.lang.Integer" order="AFTER">
 			 LAST_INSERT_ID()
 		</selectKey>	
@@ -46,8 +50,38 @@
 			<if test='pcateId != null'>
 				P.cate_id = #{pcateId}
 			</if>
+			<if test='tag != null'>
+				and C.tag like concat('%', #{tag}, '%')
+			</if>
 		</where> 
 			
 	</select>
+	
+	<insert id="insertCategoryTag" parameterType="categoryTag" flushCache="true">
+		insert into tb_category_tag (
+			cate_id,   tag
+		) values (
+			#{cateId}, #{tag}
+		)
+	</insert>
+	
+	<select id="getCategoryTagUnregList" parameterType="categoryTagUnreg">
+		select
+				seq
+			,	mall_id AS mallId
+			,	prd_name AS prdName
+			,	tag
+			,	proc_yn AS procYn
+			,	DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS regDt
+		from tb_category_unreg
+	</select>
+	
+	<insert id="insertCategoryTagUnreg">
+		insert into tb_category_tag_unreg (
+		
+		) values (
+		
+		)
+	</insert>
 	
 </mapper>
