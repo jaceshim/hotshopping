@@ -58,6 +58,9 @@
 	</select>
 	
 	<insert id="insertCategoryTag" parameterType="categoryTag" flushCache="true">
+		<selectKey keyProperty="seq" resultType="java.lang.Integer" order="AFTER">
+			 LAST_INSERT_ID()
+		</selectKey>		
 		insert into tb_category_tag (
 			cate_id,   tag
 		) values (
@@ -77,10 +80,13 @@
 	</select>
 	
 	<insert id="insertCategoryTagUnreg">
+		<selectKey keyProperty="seq" resultType="java.lang.Integer" order="AFTER">
+			 LAST_INSERT_ID()
+		</selectKey>	
 		insert into tb_category_tag_unreg (
-		
+			mall_id,   prd_name,   tag,    proc_yn,   reg_dt
 		) values (
-		
+			#{mallId}, #{prdName}, #{tag}, 'N',       now() 
 		)
 	</insert>
 	

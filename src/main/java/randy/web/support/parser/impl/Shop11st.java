@@ -103,7 +103,11 @@ public class Shop11st extends AbstractShopParser {
 				String prdHtml = getProductInfoHtml(prdUrl, null);
 				if (StringUtils.isNotEmpty(prdHtml)) {
 					Document prdDetailDoc = Jsoup.parse(prdHtml);
-
+					
+					
+					
+					
+					
 				}
 
 				resultList.add(prd);

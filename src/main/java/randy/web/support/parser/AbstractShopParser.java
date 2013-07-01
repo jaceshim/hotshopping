@@ -20,7 +20,11 @@ public abstract class AbstractShopParser implements ShopParser {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private CategoryService categoryService;	
+	private CategoryService categoryService;
+	
+	protected void init() {
+		
+	}
 
 	/**
 	 * 주어진 url의 응답 html 문자열을 얻는다.
