@@ -2,9 +2,9 @@ package randy.web.support.api;
 
 public enum ApiStatus {
 
-	/** 에러 */
-	SUCCESS("success"),
 	/** 성공 */
+	SUCCESS("success"),
+	/** 에러 */
 	ERROR("error");
 
 	private String status;
