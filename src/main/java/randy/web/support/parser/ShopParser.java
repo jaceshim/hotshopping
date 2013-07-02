@@ -21,10 +21,9 @@ public interface ShopParser {
 	Integer getMallId();
 	
 	/**
-	 * 스케쥴링 실행 주기.
-	 * ex) 60분에 한번씩 실행하길 원한다면 60을 리턴하면 된다.
+	 * 스케쥴 실행 주기. (단위: 분)
 	 * 
-	 * @return long
+	 * @return
 	 */
 	long getScheduleInterval();
 	

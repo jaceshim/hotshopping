@@ -31,13 +31,13 @@ public class Shop11st extends AbstractShopParser {
 	}
 
 	@Override
-	public long getScheduleInterval() {
-		return 60;
+	public String getEnconding() {
+		return "euc-kr";
 	}
 
 	@Override
-	public String getEnconding() {
-		return "euc-kr";
+	public long getScheduleInterval() {
+		return DEFAULT_SCHEDULE_INTERVAL;
 	}
 
 	@Override
@@ -91,11 +91,17 @@ public class Shop11st extends AbstractShopParser {
 						String prdNo = NativeObject.getProperty(tempObj, "NUM1").toString();
 						prdUrl += prdNo;
 
+						// 상품 url세팅.
 						prd.setPrdUrl(prdUrl);
+						// 상품 원래 아이디 세팅.
+						prd.setPrdOrgId(prdNo);
+
 					} else if (key.equals("IMG1")) {
 						prd.setPrdThumbUrl(value);
 					} else if (key.equals("PRC1")) {
-						prd.setPrdPrice(value);
+						// 통화단위를 삭제처리.
+						value = StringUtils.replace(StringUtils.trim(value), ",", "");
+						prd.setPrdPrice(Integer.parseInt(value));
 					}
 				}
 
@@ -103,11 +109,11 @@ public class Shop11st extends AbstractShopParser {
 				String prdHtml = getProductInfoHtml(prdUrl, null);
 				if (StringUtils.isNotEmpty(prdHtml)) {
 					Document prdDetailDoc = Jsoup.parse(prdHtml);
-					
-					
-					
-					
-					
+
+					String categoryTag = prdDetailDoc.select("#headSel_1").text();
+					logger.debug("--> 카테고리 태그명 : {} ", categoryTag);
+
+					prd.setCategoryTag(categoryTag);
 				}
 
 				resultList.add(prd);
@@ -128,5 +134,4 @@ public class Shop11st extends AbstractShopParser {
 			System.out.println(prd.toString());
 		}
 	}
-
 }

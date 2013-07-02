@@ -14,7 +14,7 @@ import randy.web.domain.Mall;
  */
 @Service
 public class MallService extends AbstractService {
-	static final String NAMESPACE = "mall";
+	public static final String NAMESPACE = "mall";
 
 	/**
 	 * 몰 목록을 얻는다.

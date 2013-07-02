@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class ParsingScheduler {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Scheduled(fixedRate=60*1000*60) // 60분에 한번식 실행.
+	//@Scheduled(fixedRate=60*1000*60) // 60분에 한번식 실행.
 	public void run() {
 		logger.debug("--> 실행됨...");
 	}

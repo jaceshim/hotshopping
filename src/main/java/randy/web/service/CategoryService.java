@@ -16,7 +16,7 @@ import randy.web.domain.CategoryTag;
 @Service
 public class CategoryService extends AbstractService {
 
-	static final String NAMESPACE = "category";
+	public static final String NAMESPACE = "category";
 
 	/**
 	 * 주어진 카테고리를 부모로 하는 하위 카테고리 목록을 얻는다.

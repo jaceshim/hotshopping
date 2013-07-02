@@ -37,15 +37,19 @@
 		)		
 	</insert>
 	
+	<sql id="selectCategoryTagSql">
+			P.cate_id as cateId
+		,	P.cate_name as cateName
+		,	P.pcate_id as pcateId
+		,	P.use_yn as useYn
+		,	C.tag as tag	
+	</sql>
 	
 	<select id="getCategoryTagList" parameterType="categoryTag" resultType="categoryTag">
-		select 
-				P.cate_id as cateId
-			,	P.cate_name as cateName
-			,	P.pcate_id as pcateId
-			,	P.use_yn as useYn
-			,	C.tag as tag
-		from tb_category P left join tb_category_tag C
+		select <include refid="selectCategoryTagSql"/>
+		from tb_category P 
+		left join tb_category_tag C
+		on P.cate_id = C.cate_id
 		<where>
 			<if test='pcateId != null'>
 				P.cate_id = #{pcateId}
@@ -53,8 +57,25 @@
 			<if test='tag != null'>
 				and C.tag like concat('%', #{tag}, '%')
 			</if>
-		</where> 
-			
+		</where>
+	</select>
+	
+	<select id="getUniqueCategoryTagList" parameterType="categoryTag" resultType="categoryTag">
+		select distinct(cateId)
+		from (
+			select <include refid="selectCategoryTagSql"/>
+			from tb_category P 
+			left join tb_category_tag C
+			on C.cate_id = P.cate_id
+			<where>
+				<if test='pcateId != null'>
+					P.cate_id = #{pcateId}
+				</if>
+				<if test='tag != null'>
+					and C.tag like concat('%', #{tag}, '%')
+				</if>
+			</where>		
+		) OUT_TB
 	</select>
 	
 	<insert id="insertCategoryTag" parameterType="categoryTag" flushCache="true">
@@ -68,26 +89,48 @@
 		)
 	</insert>
 	
+	<sql id="selectCategoryTagUnregSql">
+			seq
+		,	prd_seq  AS prdSeq
+		,	mall_id  AS mallId
+		,	prd_name AS prdName
+		,	tag
+		,	proc_yn  AS procYn
+		,	DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS regDt
+	</sql>
+	
 	<select id="getCategoryTagUnregList" parameterType="categoryTagUnreg">
-		select
-				seq
-			,	mall_id AS mallId
-			,	prd_name AS prdName
-			,	tag
-			,	proc_yn AS procYn
-			,	DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS regDt
+		select <include refid="selectCategoryTagUnregSql"/>
 		from tb_category_unreg
 	</select>
 	
-	<insert id="insertCategoryTagUnreg">
+	<insert id="insertCategoryTagUnreg" parameterType="categoryTagUnreg" flushCache="true">
 		<selectKey keyProperty="seq" resultType="java.lang.Integer" order="AFTER">
 			 LAST_INSERT_ID()
 		</selectKey>	
 		insert into tb_category_tag_unreg (
-			mall_id,   prd_name,   tag,    proc_yn,   reg_dt
+				prd_seq
+			,	mall_id
+			,	prd_name
+			,	tag
+			,	proc_yn
+			,	reg_dt
 		) values (
-			#{mallId}, #{prdName}, #{tag}, 'N',       now() 
+				#{prdSeq}
+			,	#{mallId}
+			,	#{prdName}
+			,	#{tag}
+			,	'N'
+			,	now() 
 		)
 	</insert>
+	
+	<update id="updateCategoryTagUnreg" parameterType="categoryTagUnreg">
+		update tb_category_tag_unreg
+		<set >
+			<if test='useYn != null'>use_yn = #{useYn},</if>
+		</set>
+		where seq = #{seq}
+	</update>
 	
 </mapper>

@@ -5,14 +5,17 @@
 
 <mapper namespace="product">
 
-
 	<sql id="selectProductSql">
-			cate_id       AS cateId
+			prd_seq       AS prdSeq
+		,	prd_type      AS prdType
+		,	cate_id       AS cateId
 		,	mall_id       AS mallId
 		,	prd_name      AS prdName
+		,	prd_org_id    AS prdOrgId
 		,	prd_url       AS prdUrl
 		,	prd_price     AS prdPrice
 		,	prd_thumb_url AS prdThumbUrl
+		,	use_yn        AS useYn
 	</sql>
 	
 	<select id="getProductList" parameterType="product" resultType="product">
@@ -28,15 +31,40 @@
 		</where>
 	</select>
 	
-	<insert id="insertProduct" parameterType="product">
+	<insert id="insertProduct" parameterType="product" flushCache="true">
 		insert into tb_product (
-			cate_id,   pcate_id,   use_yn
+				prd_type
+			,	cate_id
+			,	mall_id
+			,	prd_name
+			,	prd_org_id
+			,	prd_url
+			,	prd_price
+			,	prd_thumb_url
+			,	use_yn
 		) values (
-			#{cateName}, #{pcateId}, 'Y'
+				#{prdType}
+			,	#{cateId}
+			,	#{mallId}
+			,	#{prdName}
+			,	#{prdOrgId}
+			,	#{prdUrl}
+			,	#{prdPrice}
+			,	#{prdThumbUrl}
+			,	#{useYn}
 		)
-		<selectKey keyProperty="cateId" resultType="java.lang.Integer">
+		<selectKey keyProperty="prdSeq" resultType="java.lang.Integer">
 			 LAST_INSERT_ID()
 		</selectKey>		
 	</insert>
+	
+	<delete id="deleteProduct" parameterType="product" flushCache="true">
+		delete form tb_product
+		<where>
+			<if test='mallId != null'>
+				mall_id = #{mallId}
+			</if>
+		</where>
+	</delete>
 	
 </mapper>

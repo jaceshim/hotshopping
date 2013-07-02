@@ -11,6 +11,8 @@ public class CategoryTagUnreg extends AbstractDomain {
 
 	/** 순번 */
 	private Integer seq;
+	/** 미등록 태그를 발생시킨 상푼순번 */
+	private Integer prdSeq;
 	/** 몰 아이디 */
 	private Integer mallId;
 	/** 상품명 */
@@ -28,6 +30,14 @@ public class CategoryTagUnreg extends AbstractDomain {
 
 	public void setSeq(Integer seq) {
 		this.seq = seq;
+	}
+
+	public Integer getPrdSeq() {
+		return prdSeq;
+	}
+
+	public void setPrdSeq(Integer prdSeq) {
+		this.prdSeq = prdSeq;
 	}
 
 	public Integer getMallId() {

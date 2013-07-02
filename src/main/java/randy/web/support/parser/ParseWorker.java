@@ -2,15 +2,23 @@ package randy.web.support.parser;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import randy.core.spring.dao.CommonDao;
+import randy.web.service.CategoryService;
+import randy.web.service.MallService;
+import randy.web.service.ProductService;
 
 /**
  * 파서를 실행시키는 worker클래스.
@@ -22,9 +30,21 @@ public class ParseWorker {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@Resource(name = "commonDao")
+	protected CommonDao commonDao;
+
 	private static Map<String, AbstractShopParser> parserMap = new ConcurrentHashMap<String, AbstractShopParser>();
 
 	public void run() {
+		if (parserMap == null || parserMap.size() == 0) {
+			logger.warn(" loaded parser is empty");
+			return;
+		}
+
+		// 로드되어 생성된 Processor객체 전체를 loop돌면서 실행.
+		for (AbstractShopParser item : parserMap.values()) {
+			item.execute();
+		}
 	}
 
 	/**
@@ -49,10 +69,8 @@ public class ParseWorker {
 						parser = item.newInstance();
 						parserName = parser.getClass().getSimpleName();
 
-						parser.init();
-						
-						// TODO: add dynamically schedule
-						
+						parser.init(this.commonDao);
+
 						parserMap.put(parserName, parser);
 
 					} catch (Exception e) {
@@ -71,6 +89,9 @@ public class ParseWorker {
 			}
 
 		}
+
+		// 파서실행.
+		this.run();
 	}
 
 	/**
@@ -78,9 +99,13 @@ public class ParseWorker {
 	 */
 	@PreDestroy
 	public void destory() {
-		
-		// TODO: release spring task in parser class
-		
+		// 등록된 timer 객체를 모두 cancel처리한다.
+		for (AbstractShopParser parser : parserMap.values()) {
+			Timer parsingTimer = parser.getParsingTimer();
+			if (parsingTimer != null) {
+				parsingTimer.cancel();
+			}
+		}
 	}
 
 }
