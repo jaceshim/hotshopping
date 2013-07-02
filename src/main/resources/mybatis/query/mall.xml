@@ -20,14 +20,20 @@
 	</select>
 	
 	<insert id="insertMall" parameterType="mall">
+		<selectKey keyProperty="mallId" resultType="java.lang.Integer" order="AFTER">
+			 SELECT  LAST_INSERT_ID()
+		</selectKey>	
 		insert into tb_mall (
-			mall_name,   mall_url,      schedule_interval,    use_yn
+				mall_name
+			,	mall_url
+			,	schedule_interval
+			,	use_yn
 		) values (
-			#{mallName}, #{mallUrl},    #{scheduleInterval},  'Y'  
-		)
-		<selectKey keyProperty="mallId" resultType="java.lang.Integer">
-			 LAST_INSERT_ID()
-		</selectKey>		
+				#{mallName}
+			,	#{mallUrl}
+			,	#{scheduleInterval}
+			,	'Y'  
+		)		
 	</insert>
 	
 	<update id="updateMall" parameterType="mall">

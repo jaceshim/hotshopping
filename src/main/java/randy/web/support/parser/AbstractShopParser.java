@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.lang.ObjectUtils;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +22,8 @@ import randy.web.domain.CategoryTagUnreg;
 import randy.web.domain.Product;
 import randy.web.service.CategoryService;
 import randy.web.service.ProductService;
+import randy.web.support.parser.domain.HttpResult;
+import randy.web.support.parser.domain.ProductType;
 
 public abstract class AbstractShopParser implements ShopParser {
 
@@ -35,6 +39,14 @@ public abstract class AbstractShopParser implements ShopParser {
 
 	public Timer getParsingTimer() {
 		return this.parsingTimer;
+	}
+	
+	private String lastModified;
+	protected String getLastModified() {
+		return this.lastModified;
+	}
+	protected void setLastModified(String lastModified) {
+		this.lastModified = lastModified;
 	}
 
 	/**
@@ -98,12 +110,12 @@ public abstract class AbstractShopParser implements ShopParser {
 		for (Product item : insertTodaySpecialList) {
 			// 오늘만 특가 상품유형 지정.
 			item.setPrdType(ProductType.TODAY.getType());
-			Integer prdSeq = (Integer)commonDao.insert(ProductService.NAMESPACE, "insertProduct", item);
+			commonDao.insert(ProductService.NAMESPACE, "insertProduct", item);
 
 			// 상품정보가 카테고리가 없는 상품정보의 경우 미등록 태그정보 등록.
 			CategoryTagUnreg tagUnreg = item.getCategoryTagUnreg();
 			if (tagUnreg != null) {
-				tagUnreg.setPrdSeq(prdSeq);
+				tagUnreg.setPrdSeq(item.getPrdSeq());
 				commonDao.insert(CategoryService.NAMESPACE, "insertCategoryTagUnreg", tagUnreg);
 			}
 
@@ -127,37 +139,19 @@ public abstract class AbstractShopParser implements ShopParser {
 	}
 
 	/**
-	 * 주어진 url의 응답 html 문자열을 얻는다.
-	 * 
-	 * @param url
-	 * @return String
-	 * @throws Exception
-	 */
-	protected String getHtml(String url) throws Exception {
-		HttpClient client = getHttpClient();
-		HttpMethod method = new GetMethod(url);
-
-		int statusCode = client.executeMethod(method);
-		if (statusCode == HttpStatus.SC_OK) {
-			return new String(method.getResponseBody(), this.getEnconding());
-		}
-
-		return "";
-	}
-
-	/**
-	 * 상품의 상세정보 html 문자열을 얻는다.
+	 * 주어진 url의 응답 결과를 얻는다.
 	 * 
 	 * @param url
 	 * @param params
-	 * @param encoding
-	 * @return String
-	 * @throws Exception
+	 * @return HttpResult
 	 */
-	protected String getProductInfoHtml(String url, Map<String, String> params) throws Exception {
+	protected HttpResult getHttp(String url, Map<String, String> params) {
+		
+		HttpResult result = new HttpResult();
+		
 		HttpClient client = getHttpClient();
 		HttpMethod method = new GetMethod(url);
-
+		
 		if (params != null) {
 			HttpMethodParams param = new HttpMethodParams();
 
@@ -167,12 +161,35 @@ public abstract class AbstractShopParser implements ShopParser {
 
 			method.setParams(param);
 		}
-
-		int statusCode = client.executeMethod(method);
-		if (statusCode == HttpStatus.SC_OK) {
-			return new String(method.getResponseBody(), this.getEnconding());
+		
+		try {
+			int statusCode = client.executeMethod(method);
+			result.setStatusCode(statusCode);
+			
+			if (statusCode == HttpStatus.SC_OK) {
+				// 동적페이지의 경우 last-modified 는 없음.
+				//result.setLastModified(method.getRequestHeader(HttpResult.LAST_MODIFIED_NAME).getValue());
+				
+				String content = new String(method.getResponseBody(), this.getEnconding());
+				result.setContent(content);
+			}
+			
+		} catch (Exception e) {
+			
+			logger.error(e.getMessage(), e);
 		}
-		return "";
+		
+		return result;
+	}
+	
+	/**
+	 * 주어진 url의 응답 결과를 얻는다.
+	 * 
+	 * @param url
+	 * @return
+	 */
+	protected HttpResult getHttp(String url) {
+		return getHttp(url, null);
 	}
 
 	/**

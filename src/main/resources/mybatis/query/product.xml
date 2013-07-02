@@ -32,6 +32,9 @@
 	</select>
 	
 	<insert id="insertProduct" parameterType="product" flushCache="true">
+		<selectKey keyProperty="prdSeq" resultType="java.lang.Integer" order="AFTER">
+			 SELECT  LAST_INSERT_ID()
+		</selectKey>	
 		insert into tb_product (
 				prd_type
 			,	cate_id
@@ -52,10 +55,7 @@
 			,	#{prdPrice}
 			,	#{prdThumbUrl}
 			,	#{useYn}
-		)
-		<selectKey keyProperty="prdSeq" resultType="java.lang.Integer">
-			 LAST_INSERT_ID()
-		</selectKey>		
+		)		
 	</insert>
 	
 	<delete id="deleteProduct" parameterType="product" flushCache="true">

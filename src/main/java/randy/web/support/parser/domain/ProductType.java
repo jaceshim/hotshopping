@@ -1,4 +1,4 @@
-package randy.web.support.parser;
+package randy.web.support.parser.domain;
 
 /**
  * 상품유형 

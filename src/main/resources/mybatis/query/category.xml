@@ -31,9 +31,13 @@
 			 LAST_INSERT_ID()
 		</selectKey>	
 		insert into tb_category (
-			cate_name,   pcate_id,   use_yn
+				cate_name
+			,	pcate_id
+			,	use_yn
 		) values (
-			#{cateName}, #{pcateId}, 'Y'
+				#{cateName}
+			,	#{pcateId}
+			,	'Y'
 		)		
 	</insert>
 	
@@ -83,9 +87,11 @@
 			 LAST_INSERT_ID()
 		</selectKey>		
 		insert into tb_category_tag (
-			cate_id,   tag
+				cate_id
+			,	tag
 		) values (
-			#{cateId}, #{tag}
+				#{cateId}
+			,	#{tag}
 		)
 	</insert>
 	
@@ -106,7 +112,7 @@
 	
 	<insert id="insertCategoryTagUnreg" parameterType="categoryTagUnreg" flushCache="true">
 		<selectKey keyProperty="seq" resultType="java.lang.Integer" order="AFTER">
-			 LAST_INSERT_ID()
+			 SELECT  LAST_INSERT_ID()
 		</selectKey>	
 		insert into tb_category_tag_unreg (
 				prd_seq
@@ -127,7 +133,7 @@
 	
 	<update id="updateCategoryTagUnreg" parameterType="categoryTagUnreg">
 		update tb_category_tag_unreg
-		<set >
+		<set>
 			<if test='useYn != null'>use_yn = #{useYn},</if>
 		</set>
 		where seq = #{seq}
