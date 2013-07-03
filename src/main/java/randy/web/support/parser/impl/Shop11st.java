@@ -65,8 +65,6 @@ public class Shop11st extends AbstractShopParser {
 
 			String mainHtml = httResult.getContent();
 
-			System.out.println("--> 응답값 : " + httResult.getContent());
-
 			Document mainDoc = Jsoup.parse(mainHtml);
 
 			Elements prdLiArray = mainDoc.select("div.top_menu > ul > li");
@@ -120,7 +118,8 @@ public class Shop11st extends AbstractShopParser {
 							String categoryTag = prdDetailDoc.select("#headSel_1").text();
 							if (StringUtils.isEmpty(categoryTag)) {
 								// TODO: <a href></a> 안에 있는 <span> 태그 삭제처리.
-								categoryTag = prdDetailDoc.select("#catestep0 > h3 > a").text(); 
+								logger.debug("--> 제거이전 : {} ", prdDetailDoc.select("#catestep0 > h3 > a").text() );
+								categoryTag = prdDetailDoc.select("#catestep0 > h3 > a").text().replaceAll("\\<.*?\\>", ""); 
 							}
 							logger.debug("--> 카테고리 태그명 : {} ", categoryTag);
 

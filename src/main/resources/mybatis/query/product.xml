@@ -59,11 +59,14 @@
 	</insert>
 	
 	<delete id="deleteProduct" parameterType="product" flushCache="true">
-		delete form tb_product
+		delete from tb_product
 		<where>
 			<if test='mallId != null'>
 				mall_id = #{mallId}
 			</if>
+			<if test='prdType != null'>
+				and prd_type = #{prdType}
+			</if>			
 		</where>
 	</delete>
 	

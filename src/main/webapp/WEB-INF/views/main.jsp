@@ -3,9 +3,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>booklog</title>
+<title>hot shopping</title>
 </head>
 <body>
-<h3>Welcome to booklog!</h3>
+<h3>hot shopping</h3>
 </body>
 </html>

@@ -1,18 +1,17 @@
 package randy.web.support.parser;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.lang.ObjectUtils;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,14 +38,6 @@ public abstract class AbstractShopParser implements ShopParser {
 
 	public Timer getParsingTimer() {
 		return this.parsingTimer;
-	}
-	
-	private String lastModified;
-	protected String getLastModified() {
-		return this.lastModified;
-	}
-	protected void setLastModified(String lastModified) {
-		this.lastModified = lastModified;
 	}
 
 	/**
@@ -80,6 +71,7 @@ public abstract class AbstractShopParser implements ShopParser {
 			param.setTag(item.getCategoryTag());
 			List<CategoryTag> tagList = this.commonDao.selectList(CategoryService.NAMESPACE, "getUniqueCategoryTagList", param);
 
+			Product addItem = null;
 			// 파서가 추출한 카테고리와 매치되는 카테고리 tag 정보를 호출하여 해당 건수만큼 상품정보를 등록한다. 
 			if (tagList != null && tagList.size() > 0) {
 				for (CategoryTag tagItem : tagList) {
@@ -87,7 +79,7 @@ public abstract class AbstractShopParser implements ShopParser {
 					insertPrd.setCateId(tagItem.getCateId());
 					insertPrd.setUseYn("Y");
 
-					insertTodaySpecialList.add(insertPrd);
+					addItem = insertPrd;
 				}
 			} else {
 				item.setUseYn("N");
@@ -102,23 +94,33 @@ public abstract class AbstractShopParser implements ShopParser {
 
 				item.setCategoryTagUnreg(tagUnreg);
 
-				insertTodaySpecialList.add(item);
+				addItem = item;
 			}
+
+			insertTodaySpecialList.add(addItem);
 		}
 
 		// 오늘의 특가 상품등록.
-		for (Product item : insertTodaySpecialList) {
-			// 오늘만 특가 상품유형 지정.
-			item.setPrdType(ProductType.TODAY.getType());
-			commonDao.insert(ProductService.NAMESPACE, "insertProduct", item);
+		if (insertTodaySpecialList != null && insertTodaySpecialList.size() > 0) {
+			// 기존 데이터 삭제처리.
+			Product deleteParam = new Product();
+			deleteParam.setMallId(this.getMallId());
+			deleteParam.setPrdType(ProductType.TODAY.getType());
 
-			// 상품정보가 카테고리가 없는 상품정보의 경우 미등록 태그정보 등록.
-			CategoryTagUnreg tagUnreg = item.getCategoryTagUnreg();
-			if (tagUnreg != null) {
-				tagUnreg.setPrdSeq(item.getPrdSeq());
-				commonDao.insert(CategoryService.NAMESPACE, "insertCategoryTagUnreg", tagUnreg);
+			commonDao.delete(ProductService.NAMESPACE, "deleteProduct", deleteParam);
+
+			for (Product item : insertTodaySpecialList) {
+				// 오늘만 특가 상품유형 지정.
+				item.setPrdType(ProductType.TODAY.getType());
+				commonDao.insert(ProductService.NAMESPACE, "insertProduct", item);
+
+				// 상품정보가 카테고리가 없는 상품정보의 경우 미등록 태그정보 등록.
+				CategoryTagUnreg tagUnreg = item.getCategoryTagUnreg();
+				if (tagUnreg != null) {
+					tagUnreg.setPrdSeq(item.getPrdSeq());
+					commonDao.insert(CategoryService.NAMESPACE, "insertCategoryTagUnreg", tagUnreg);
+				}
 			}
-
 		}
 	}
 
@@ -146,12 +148,12 @@ public abstract class AbstractShopParser implements ShopParser {
 	 * @return HttpResult
 	 */
 	protected HttpResult getHttp(String url, Map<String, String> params) {
-		
+
 		HttpResult result = new HttpResult();
-		
+
 		HttpClient client = getHttpClient();
 		HttpMethod method = new GetMethod(url);
-		
+
 		if (params != null) {
 			HttpMethodParams param = new HttpMethodParams();
 
@@ -161,27 +163,30 @@ public abstract class AbstractShopParser implements ShopParser {
 
 			method.setParams(param);
 		}
-		
+
 		try {
 			int statusCode = client.executeMethod(method);
 			result.setStatusCode(statusCode);
-			
+
 			if (statusCode == HttpStatus.SC_OK) {
 				// 동적페이지의 경우 last-modified 는 없음.
-				//result.setLastModified(method.getRequestHeader(HttpResult.LAST_MODIFIED_NAME).getValue());
-				
-				String content = new String(method.getResponseBody(), this.getEnconding());
-				result.setContent(content);
+				InputStream bodyAsStream = method.getResponseBodyAsStream();
+				StringBuilder sb = new StringBuilder();
+				byte[] b = new byte[1024];
+				for (int n; (n = bodyAsStream.read(b)) != -1;) {
+					sb.append(new String(b, 0, n, this.getEnconding()));
+				}
+				result.setContent(sb.toString());
 			}
-			
+
 		} catch (Exception e) {
-			
+
 			logger.error(e.getMessage(), e);
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * 주어진 url의 응답 결과를 얻는다.
 	 * 
