@@ -25,6 +25,9 @@ public class CategoryService extends AbstractService {
 	 * @return List<Category>
 	 */
 	public List<Category> getCategoryList(Category category) {
+		if (category == null) {
+			category = new Category();
+		}
 		return commonDao.selectList(NAMESPACE, "getCategoryList", category);
 	}
 
@@ -35,6 +38,20 @@ public class CategoryService extends AbstractService {
 	 * @return List<CategoryTag>
 	 */
 	public List<CategoryTag> getCategoryTagList(CategoryTag categoryTag) {
+		if (categoryTag == null) {
+			categoryTag = new CategoryTag();
+		}
 		return commonDao.selectList(NAMESPACE, "getCategoryTagList", categoryTag);
+	}
+
+	/**
+	 * 카테고리 태그 등록
+	 * 
+	 * @param categoryTag
+	 * @return Integer
+	 */
+	public Integer insertCategoryTag(CategoryTag categoryTag) {
+		commonDao.insert(NAMESPACE, "insertCategoryTag", categoryTag);
+		return categoryTag.getSeq();
 	}
 }

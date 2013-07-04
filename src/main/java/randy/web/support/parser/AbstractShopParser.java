@@ -27,7 +27,7 @@ import randy.web.support.parser.domain.ProductType;
 public abstract class AbstractShopParser implements ShopParser {
 
 	/** 기본 스케쥴러 실행 주기 */
-	protected static final long DEFAULT_SCHEDULE_INTERVAL = 1L;
+	protected static final long DEFAULT_SCHEDULE_INTERVAL = 60L;
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
