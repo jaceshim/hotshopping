@@ -4,7 +4,7 @@
 	<classpathentry excluding="**" kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/resources-local"/>
 	<classpathentry kind="src" path="src/test/java"/>
-	<classpathentry excluding="**" kind="src" path="src/test/resources"/>
+	<classpathentry kind="src" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>

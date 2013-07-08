@@ -17,6 +17,19 @@ import randy.web.domain.CategoryTag;
 public class CategoryService extends AbstractService {
 
 	public static final String NAMESPACE = "category";
+	
+	/**
+	 * 각 부모카테고리 하위 카테고리를 tree형태의 목록으로 조회한다. 
+	 * 
+	 * @param category
+	 * @return List<Category>
+	 */
+	public List<Category> getCategoryTreeList(Category category) {
+		if (category == null) {
+			category = new Category();
+		}
+		return commonDao.selectList(NAMESPACE, "getCategoryTreeList", category);
+	}	
 
 	/**
 	 * 주어진 카테고리를 부모로 하는 하위 카테고리 목록을 얻는다.

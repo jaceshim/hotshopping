@@ -60,7 +60,7 @@
 	
  	<filter>
 		<filter-name>xss</filter-name>
-		<filter-class>randy.core.http.filter.XssServletFilter</filter-class>
+		<filter-class>randy.core.j2ee.filter.XssServletFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>xss</filter-name>

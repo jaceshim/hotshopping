@@ -31,10 +31,7 @@ public class CategoryController extends AbstractRearController {
 	@RequestMapping(PATH + "tag/list")
 	public String getCategoryTagList(Model model) {
 
-		// 최상위 카테고리 호출.
-		Category categoryParam = new Category();
-		categoryParam.setPcateId(0);
-		model.addAttribute("categoryList", categoryService.getCategoryList(categoryParam));
+		model.addAttribute("categoryList", categoryService.getCategoryList(null));
 
 		return VIEW_PREFIX + "/category/getCategoryTagList";
 	}
