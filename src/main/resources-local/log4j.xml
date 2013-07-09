@@ -15,6 +15,11 @@
 		<level value="debug" />
 		<appender-ref ref="console" />
 	</logger>
+	
+	<logger name="org.sitemesh." additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+	</logger>	
 
 	<!-- Root Logger 설정 -->
 	<root>

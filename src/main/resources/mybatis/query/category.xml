@@ -16,6 +16,25 @@
 		,	use_yn    AS useYn
 	</sql>
 	
+	<select id="getCategoryTreeList" parameterType="category" resultType="category">
+		SELECT  CONCAT(REPEAT('    ', level - 1), CAST(hi.cate_id AS CHAR)) AS cateId
+			,	cate_name AS cateName
+			,	pcate_id  AS pcateId
+			,	use_yn    AS useYn 
+			,	level
+		FROM    (
+		        SELECT  category_connect_by(cate_id) AS cate_id, @level AS level
+		        FROM    (
+		                SELECT  @start_with := 0,
+		                        @id := @start_with,
+		                        @level := 0
+		                ) vars, tb_category
+		        WHERE   @id IS NOT NULL
+		        ) ho
+		JOIN    tb_category hi
+		ON      hi.cate_id = ho.cate_id
+	</select>
+	
 	<select id="getCategoryList" parameterType="category" resultType="category">
 		select <include refid="selectCategorySql"/>
 		from tb_category
