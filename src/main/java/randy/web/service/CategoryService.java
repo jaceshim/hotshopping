@@ -2,11 +2,13 @@ package randy.web.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import randy.core.spring.service.AbstractService;
 import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
+import redis.clients.jedis.JedisPool;
 
 /**
  * 카테고리 서비스
@@ -15,8 +17,11 @@ import randy.web.domain.CategoryTag;
  */
 @Service
 public class CategoryService extends AbstractService {
-
+	
 	public static final String NAMESPACE = "category";
+	
+	@Autowired
+	private JedisPool pool;
 	
 	/**
 	 * 각 부모카테고리 하위 카테고리를 tree형태의 목록으로 조회한다. 

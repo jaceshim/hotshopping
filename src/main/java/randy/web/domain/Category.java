@@ -9,7 +9,7 @@ import randy.core.spring.domain.AbstractDomain;
  * 
  * @author jace
  */
-public class Category extends AbstractDomain {
+public class Category extends AbstractDomain implements IRedisDomain {
 
 	/** 카테고리 태그 목록 */
 	private List<CategoryTag> cateTagList;
@@ -51,6 +51,16 @@ public class Category extends AbstractDomain {
 
 	public void setCateName(String cateName) {
 		this.cateName = cateName;
+	}
+
+	@Override
+	public String getKey() {
+		return String.valueOf(this.getCateId());
+	}
+
+	@Override
+	public String getObjectKey() {
+		return this.getClass().getSimpleName();
 	}
 
 }
