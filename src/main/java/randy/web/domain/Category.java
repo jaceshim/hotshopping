@@ -9,7 +9,7 @@ import randy.core.spring.domain.AbstractDomain;
  * 
  * @author jace
  */
-public class Category extends AbstractDomain implements IRedisDomain {
+public class Category extends AbstractDomain {
 
 	/** 카테고리 태그 목록 */
 	private List<CategoryTag> cateTagList;
@@ -20,6 +20,10 @@ public class Category extends AbstractDomain implements IRedisDomain {
 	private Integer pcateId;
 	/** 카테고리 명 */
 	private String cateName;
+	/** 사용여부 */
+	private String useYn;
+	/** tree구조 표현시 레벨 */
+	private Integer level;
 
 	public List<CategoryTag> getCateTagList() {
 		return cateTagList;
@@ -53,14 +57,20 @@ public class Category extends AbstractDomain implements IRedisDomain {
 		this.cateName = cateName;
 	}
 
-	@Override
-	public String getKey() {
-		return String.valueOf(this.getCateId());
+	public String getUseYn() {
+		return useYn;
 	}
 
-	@Override
-	public String getObjectKey() {
-		return this.getClass().getSimpleName();
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 }

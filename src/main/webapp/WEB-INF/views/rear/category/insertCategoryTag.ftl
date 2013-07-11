@@ -1,8 +1,5 @@
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>카테고리 태크 등록.</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 
 <script type="text/javascript">
 	function getCategoryList(pcateId) {
@@ -75,8 +72,7 @@
 	
 	<input type="text" id="tag" name="tag" /> <br />
 	
-	<button onclick="insertCategory(); return false;">등록</button>
+	<button onclick="insertCategoryForm(); return false;">등록</button>
 	
 	</form>
-	
 </body>

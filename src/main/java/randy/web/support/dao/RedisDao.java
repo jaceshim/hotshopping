@@ -11,7 +11,7 @@ import redis.clients.jedis.JedisPool;
  * 
  * @author jace
  */
-@Component
+//@Component
 public class RedisDao {
 	
 	@Autowired

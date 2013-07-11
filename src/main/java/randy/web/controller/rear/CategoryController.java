@@ -28,13 +28,30 @@ public class CategoryController extends AbstractRearController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(PATH + "tag/list")
-	public String getCategoryTagList(Model model) {
+	@RequestMapping(PATH + "list")
+	public String getCategoryList(Model model) {
 
-		model.addAttribute("categoryList", categoryService.getCategoryList(null));
+		model.addAttribute("categoryList", categoryService.getCategoryTreeList(null));
 
 		return VIEW_PREFIX + "/category/getCategoryTagList";
 	}
+	
+	/**
+	 * 카테고리 미등록 TAG목록 화면
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(PATH + "tag/unreg/list")
+	public String getCategoryTagUnregList(Model model) {
+
+		// 카테고리 tree목록 호출.
+		model.addAttribute("categoryList", categoryService.getCategoryTreeList(null));
+		
+		model.addAttribute("categoryUnregList", categoryService.getCategoryTagUnregList(null));
+
+		return VIEW_PREFIX + "/category/getCategoryTagUnregList";
+	}		
 
 	/**
 	 * 카테고리 TAG등록 화면

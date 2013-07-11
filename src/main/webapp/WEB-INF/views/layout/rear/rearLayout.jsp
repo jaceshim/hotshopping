@@ -7,12 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>관리자 :: <sitemesh:write property='title' /></title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 <style type="text/css">
 	#wrapper {width: 100%; height: 100%; border: 1px solid #BDC0C1;}
 	#headerWrapper {padding: 10px; border-bottom: 1px solid #BDC0C1;; height: 40px;}
 	#contentWrapper {padding: 10px;}
 	#footerWrapper {padding: 10px; border-top: 1px solid #BDC0C1; height: 40px;}
-	
 </style>
 
 <sitemesh:write property='head' />

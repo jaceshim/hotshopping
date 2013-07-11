@@ -61,27 +61,19 @@
 		<property name="defaultNamespace" value="randy.web" />
 	</bean>
 	
+	<!-- 
 	<bean id="redisConfig" class="randy.web.support.dao.GenericObjectPoolConfigWrapper">
 		<property name="whenExhaustedAction">
 			<util:constant static-field="org.apache.commons.pool.impl.GenericObjectPool.WHEN_EXHAUSTED_FAIL" />
 		</property>
-		<!-- Maximum active connections to Redis instance -->
 		<property name="maxActive" value="${redis.maxActive}" />
-		<!-- Number of connections to Redis that just sit there and do nothing -->
 		<property name="maxIdle" value="${redis.maxIdle}" />
-		<!-- Minimum number of idle connections to Redis - these can be seen as always open and ready to serve -->
 		<property name="minIdle" value="${redis.minIdle}" />
-		<!-- Tests whether connection is dead when connection retrieval method is called -->
 		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
-		<!-- Tests whether connection is dead when returning a connection to the pool -->
 		<property name="testOnReturn" value="${redis.testOnReturn}" />
-		<!-- Tests whether connections are dead during idle periods -->
 		<property name="testWhileIdle" value="${redis.testWhileIdle}" />
-		<!-- Maximum number of connections to test in each idle check -->
 		<property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}" />
-		<!-- Idle connection checking period -->
 		<property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" />
-		<!-- Maximum time, in milliseconds, to wait for a resource when exausted action is set to WHEN_EXAUSTED_BLOCK -->
 		<property name="maxWait" value="${redis.maxWait}" />
 	</bean>
 	
@@ -93,7 +85,7 @@
 		<constructor-arg index="2" value="${redis.timeout}" />
 		<constructor-arg index="3" value="${redis.password}" />
 	</bean>
-	
+	 -->
 	
 	<!--
 	<jdbc:initialize-database data-source="dataSource" enabled="true">

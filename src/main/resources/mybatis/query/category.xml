@@ -124,9 +124,9 @@
 		,	DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS regDt
 	</sql>
 	
-	<select id="getCategoryTagUnregList" parameterType="categoryTagUnreg">
+	<select id="getCategoryTagUnregList" resultType="categoryTagUnreg" parameterType="categoryTagUnreg">
 		select <include refid="selectCategoryTagUnregSql"/>
-		from tb_category_unreg
+		from tb_category_tag_unreg
 	</select>
 	
 	<insert id="insertCategoryTagUnreg" parameterType="categoryTagUnreg" flushCache="true">

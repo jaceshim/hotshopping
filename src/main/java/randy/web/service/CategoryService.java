@@ -2,13 +2,13 @@ package randy.web.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import randy.core.spring.service.AbstractService;
 import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
-import redis.clients.jedis.JedisPool;
+import randy.web.domain.CategoryTagUnreg;
 
 /**
  * 카테고리 서비스
@@ -17,12 +17,9 @@ import redis.clients.jedis.JedisPool;
  */
 @Service
 public class CategoryService extends AbstractService {
-	
+
 	public static final String NAMESPACE = "category";
-	
-	@Autowired
-	private JedisPool pool;
-	
+
 	/**
 	 * 각 부모카테고리 하위 카테고리를 tree형태의 목록으로 조회한다. 
 	 * 
@@ -34,7 +31,7 @@ public class CategoryService extends AbstractService {
 			category = new Category();
 		}
 		return commonDao.selectList(NAMESPACE, "getCategoryTreeList", category);
-	}	
+	}
 
 	/**
 	 * 주어진 카테고리를 부모로 하는 하위 카테고리 목록을 얻는다.
@@ -47,6 +44,22 @@ public class CategoryService extends AbstractService {
 			category = new Category();
 		}
 		return commonDao.selectList(NAMESPACE, "getCategoryList", category);
+	}
+
+	/**
+	 * 신규 카테고리 등록
+	 * 
+	 * @param category
+	 * @return Integer
+	 */
+	public Integer insertCategory(Category category) {
+
+		if (StringUtils.isEmpty(category.getUseYn())) {
+			category.setUseYn("Y");
+		}
+		commonDao.insert(NAMESPACE, "insertCategory", category);
+
+		return category.getCateId();
 	}
 
 	/**
@@ -71,5 +84,18 @@ public class CategoryService extends AbstractService {
 	public Integer insertCategoryTag(CategoryTag categoryTag) {
 		commonDao.insert(NAMESPACE, "insertCategoryTag", categoryTag);
 		return categoryTag.getSeq();
+	}
+
+	/**
+	 * 카테고리 미 등록 태그 목록을 얻는다.
+	 * 
+	 * @param categoryTag
+	 * @return List<CategoryTagUnreg>
+	 */
+	public List<CategoryTagUnreg> getCategoryTagUnregList(CategoryTagUnreg categoryTagUnreg) {
+		if (categoryTagUnreg == null) {
+			categoryTagUnreg = new CategoryTagUnreg();
+		}
+		return commonDao.selectList(NAMESPACE, "getCategoryTagUnregList", categoryTagUnreg);
 	}
 }
