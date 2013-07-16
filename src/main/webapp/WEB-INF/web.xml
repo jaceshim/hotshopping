@@ -109,5 +109,6 @@
 		<url-pattern>*.jpg</url-pattern>
 		<url-pattern>*.gif</url-pattern>
 		<url-pattern>*.ico</url-pattern>
+		<url-pattern>/static/*</url-pattern>
 	</servlet-mapping>
 </web-app>
