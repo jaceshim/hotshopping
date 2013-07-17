@@ -3018,6 +3018,7 @@ input[type="submit"].btn.btn-mini {
   margin-left: -20px;
   font-size: 20px;
   font-weight: 200;
+  width: 400px;
   line-height: 1;
   color: #333333;
 }
