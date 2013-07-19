@@ -31,10 +31,7 @@
 		</where>
 	</select>
 	
-	<insert id="insertProduct" parameterType="product" flushCache="true">
-		<selectKey keyProperty="prdSeq" resultType="java.lang.Integer" order="AFTER">
-			 SELECT  LAST_INSERT_ID()
-		</selectKey>	
+	<insert id="insertProduct" parameterType="product" flushCache="true" useGeneratedKeys="true" keyProperty="prdSeq">	
 		insert into tb_product (
 				prd_type
 			,	cate_id

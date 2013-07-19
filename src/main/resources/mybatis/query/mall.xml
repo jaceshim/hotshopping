@@ -19,10 +19,7 @@
 		from tb_mall
 	</select>
 	
-	<insert id="insertMall" parameterType="mall">
-		<selectKey keyProperty="mallId" resultType="java.lang.Integer" order="AFTER">
-			 SELECT  LAST_INSERT_ID()
-		</selectKey>	
+	<insert id="insertMall" parameterType="mall" useGeneratedKeys="true" keyProperty="mallId">
 		insert into tb_mall (
 				mall_name
 			,	mall_url

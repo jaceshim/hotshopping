@@ -69,18 +69,23 @@ $(document).ready(function(){
 	//ajaxify menus
 	$('a.ajax-link').click(function(e){
 		if($.browser.msie) e.which=1;
-		if(e.which!=1 || !$('#is-ajax').prop('checked') || $(this).parent().hasClass('active')) return;
+		//if(e.which!=1 || !$('#is-ajax').prop('checked') || $(this).parent().hasClass('active')) return;
+		if(e.which!=1 || $(this).parent().hasClass('active')) return;
 		e.preventDefault();
 		if($('.btn-navbar').is(':visible'))
 		{
 			$('.btn-navbar').click();
 		}
-		$('#loading').remove();
-		$('#content').fadeOut().parent().append('<div id="loading" class="center">Loading...<div class="center"></div></div>');
 		var $clink=$(this);
-		History.pushState(null, null, $clink.attr('href'));
+		ajaxLink($clink.attr('href'));
+		
 		$('ul.main-menu li.active').removeClass('active');
-		$clink.parent('li').addClass('active');	
+		$clink.parent('li').addClass('active');
+		
+		
+		if ($clink.hasClass('dev-submenu')) {
+			$clink.parentsUntil('#dev-menu').addClass('active');
+		}
 	});
 	
 	//animating menus on hover
@@ -94,6 +99,56 @@ $(document).ready(function(){
 	//other things to do on document ready, seperated for ajax calls
 	docReady();
 });
+
+function ajaxLink(link) {
+	$('#loading').remove();
+	$('#content').hide().parent().append('<div id="loading" class="center">로딩중...<div class="center"></div></div>');
+	History.pushState(null, null,link);
+}
+
+function menuDisplayHandler() {
+	// 선택된 메뉴 active처리.
+	var _docLocation = document.location.href;
+	var _menuDepthInfo = '<li><a href="/rear/main">Home</a><span class="divider">/</span></li>';
+	$('a.ajax-link').each(function() {
+		var $tempAlink = $(this);
+		if (_docLocation.indexOf($tempAlink.attr('href')) != -1) {
+			
+			
+			
+			var $tempParent = $(this).parent();
+			
+			if (!$tempParent.hasClass('active')) {
+				$tempParent.addClass('active');
+			}
+			
+			// 1차메뉴가 아닌 서브 메뉴인경우 상위 li도 active처리 해준다. (참고로 charisma, bootstrap 기타3rd party 모듈이 아닌 개발목적으로 사용된 css class의 경우 dev- 를 prefix로 한다.)
+			if ($(this).hasClass('dev-submenu')) {
+				var $targetParent = $tempParent.parentsUntil('#dev-menu');
+				
+				var $tempOneDepthMenu = $targetParent.children('a:first');
+				
+				_menuDepthInfo += '<li><a href="#">' + $tempOneDepthMenu.text() + '</a><span class="divider">/</span></li>';
+				
+				
+				if (!$targetParent.hasClass('active')) {
+					$targetParent.addClass('active');
+					
+					// 메뉴를 펼친다.
+					var $accordionBodyObj = $targetParent.find('.accordion-body');
+					if (!$accordionBodyObj.hasClass('in')) {
+						$accordionBodyObj.addClass('in');
+					}
+				}
+			}
+			
+			_menuDepthInfo += '<li><a href="' + $tempAlink.attr('href') +'">' + $tempAlink.text() + '</a></li>';
+			
+			// 컨텐츠 상단의 메뉴 
+			$('.breadcrumb').html(_menuDepthInfo);
+		}
+	});
+}
 		
 		
 function docReady(){

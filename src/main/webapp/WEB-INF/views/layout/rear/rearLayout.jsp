@@ -183,7 +183,7 @@
 			<!-- left menu starts -->
 			<div class="span2 main-menu-span">
 				<div class="well nav-collapse sidebar-nav">
-					<ul class="nav nav-tabs nav-stacked main-menu">
+					<ul id="dev-menu" class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Menu</li>
 						<li><a class="ajax-link" href="/rear/main"><i class="icon-home"></i><span class="hidden-tablet">Dashboard</span></a></li>
 						<li><a class="ajax-link" href="/rear/product/list"><i class="icon-tags"></i><span class="hidden-tablet">상품관리</span></a></li>
@@ -192,9 +192,9 @@
 							<div id="collapseOne" class="accordion-body collapse out">
 								<div class="accordion-inner">
 									<ul class="nav-stacked">
-										<li><a class="ajax-link" href="/rear/category/list"><span class="hidden-tablet">카테고리 목록</span></a></li>
-										<li><a class="ajax-link" href="/rear/category/tag/list"><span class="hidden-tablet">태그 목록</span></a></li>
-										<li><a class="ajax-link" href="/rear/category/tag/unreg/list"><span class="hidden-tablet">미등록 태그 목록</span></a></li>
+										<li><a class="ajax-link dev-submenu" href="/rear/category/list"><span class="hidden-tablet">카테고리 목록</span></a></li>
+										<li><a class="ajax-link dev-submenu" href="/rear/category/tag/list"><span class="hidden-tablet">태그 목록</span></a></li>
+										<li><a class="ajax-link dev-submenu" href="/rear/category/tag/unreg/list"><span class="hidden-tablet">미등록 태그 목록</span></a></li>
 									</ul>
 								</div>
 							</div>
