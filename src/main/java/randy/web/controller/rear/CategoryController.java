@@ -14,6 +14,11 @@ import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
 import randy.web.service.CategoryService;
 
+/**
+ * 카테고리 콘트롤러.
+ * 
+ * @author jace
+ */
 @Controller
 public class CategoryController extends AbstractRearController {
 
@@ -59,7 +64,7 @@ public class CategoryController extends AbstractRearController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(PATH + "tag/insertForm")
+	@RequestMapping(PATH + "tag/insertform")
 	public String insertCategoryTagForm(Model model) {
 
 		// 최상위 카테고리 호출.

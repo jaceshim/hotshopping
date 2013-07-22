@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
-	<mapping path="/*" decorator="/WEB-INF/views/layout/rear/rearLayout.jsp" />
+	
 	<mapping path="/api/*" exclue="true" />
+	<mapping path="/rear/*" decorator="/WEB-INF/views/layout/rear/rearLayout.jsp" />
+	<mapping path="/rear/manager/login*" decorator="/WEB-INF/views/layout/rear/noLayout.jsp"></mapping>	
+	
 </sitemesh>

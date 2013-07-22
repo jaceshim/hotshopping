@@ -6,7 +6,7 @@
 <html >
 <head>
 	<meta charset="utf-8">
-	<title>Hot Shopping Administration :: <sitemesh:write property='title' /></title>
+	<title>WCS Administration :: <sitemesh:write property='title' /></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- The styles -->
@@ -35,6 +35,11 @@
 	<link href="${ctx}/static/ui/css/jquery.iphone.toggle.css" rel="stylesheet">
 	<link href="${ctx}/static/ui/css/opa-icons.css" rel="stylesheet">
 	<link href="${ctx}/static/ui/css/uploadify.css" rel="stylesheet">
+	
+	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->	
 
 	<!-- The fav icon -->
 	<link rel="shortcut icon" href="${ctx}/static/ui/img/favicon.ico">
@@ -109,7 +114,6 @@
 	<!-- application script for Charisma demo -->
 	<script src="${ctx}/static/ui/js/charisma.js"></script>	
 	
-	
 	<sitemesh:write property='head' />
 		
 </head>
@@ -124,7 +128,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="index.html"> <img alt="WCS Logo" src="${ctx}/static/ui/img/logo20.png" /> <span>Hot Shopping</span></a>
+				<a class="brand" href="/rear/main"> <img alt="WCS Logo" src="${ctx}/static/ui/img/logo20.png" /> <span>WCS</span></a>
 				
 				<!-- theme selector starts -->
 				<div class="btn-group pull-right theme-container" >
@@ -149,13 +153,13 @@
 				<!-- user dropdown starts -->
 				<div class="btn-group pull-right" >
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i><span class="hidden-phone"> 홍길동</span>
+						<i class="icon-user"></i><span class="hidden-phone"> admin</span>
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">정보수정</a></li>
+						<li><a href="#">Profile</a></li>
 						<li class="divider"></li>
-						<li><a href="login.html">로그아웃</a></li>
+						<li><a href="login.html">Logout</a></li>
 					</ul>
 				</div>
 				<!-- user dropdown ends -->
@@ -185,13 +189,26 @@
 				<div class="well nav-collapse sidebar-nav">
 					<ul id="dev-menu" class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Menu</li>
-						<li><a class="ajax-link" href="/rear/main"><i class="icon-home"></i><span class="hidden-tablet">Dashboard</span></a></li>
-						<li><a class="ajax-link" href="/rear/product/list"><i class="icon-tags"></i><span class="hidden-tablet">상품관리</span></a></li>
+						<li>
+							<a class="ajax-link" href="/rear/main">
+								<i class="icon-home"></i>
+								<span class="hidden-tablet">Dashboard</span>
+							</a>
+						</li>
+						<li>
+							<a class="ajax-link" href="/rear/product/list">
+								<i class="icon-tags"></i>
+								<span class="hidden-tablet">상품관리</span>
+							</a>
+						</li>
 						<li id="#catemenu">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#catemenu" href="#collapseOne"><i class="icon-tasks"></i><span class="hidden-tablet">카테고리 관리</span></a>
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#catemenu" href="#collapseOne">
+								<i class="icon-tasks"></i>
+								<span class="hidden-tablet">카테고리 관리</span>
+							</a>
 							<div id="collapseOne" class="accordion-body collapse out">
 								<div class="accordion-inner">
-									<ul class="nav-stacked">
+									<ul class="nav nav-tabs nav-stacked main-menu">
 										<li><a class="ajax-link dev-submenu" href="/rear/category/list"><span class="hidden-tablet">카테고리 목록</span></a></li>
 										<li><a class="ajax-link dev-submenu" href="/rear/category/tag/list"><span class="hidden-tablet">태그 목록</span></a></li>
 										<li><a class="ajax-link dev-submenu" href="/rear/category/tag/unreg/list"><span class="hidden-tablet">미등록 태그 목록</span></a></li>
@@ -204,7 +221,10 @@
 						<li><a class="ajax-link" href="/rear/notice/list"><i class="icon-bullhorn"></i><span class="hidden-tablet">공지사항 관리</span></a></li>
 						<li><a class="ajax-link" href="/rear/manager/list"><i class="icon-user"></i><span class="hidden-tablet">관리자관리</span></a></li>
 					</ul>
+					
+					<!-- 
 					<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
+					 -->
 				</div><!--/.well -->
 			</div><!--/span-->
 			<!-- left menu ends -->

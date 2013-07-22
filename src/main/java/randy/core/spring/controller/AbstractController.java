@@ -1,7 +1,5 @@
 package randy.core.spring.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -18,6 +16,9 @@ import randy.core.spring.util.MessageUtils;
  * @author jace
  */
 public abstract class AbstractController {
+
+	protected static final String REDIRECT = "redirect:";
+	protected static final String FORWARD = "forward:";
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -53,6 +54,6 @@ public abstract class AbstractController {
 			}
 		}*/
 
-		return "redirect:" + MessageUtils.getMessage("global.alert.url");
+		return REDIRECT + MessageUtils.getMessage("global.alert.url");
 	}
 }
