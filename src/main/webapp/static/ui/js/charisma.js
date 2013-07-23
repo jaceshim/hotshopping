@@ -152,6 +152,9 @@ function menuDisplayHandler() {
 		
 		
 function docReady(){
+	
+	menuDisplayHandler();
+	
 	//prevent # links from moving to top
 	$('a[href="#"][data-top!=true]').click(function(e){
 		e.preventDefault();

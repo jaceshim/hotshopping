@@ -6,7 +6,7 @@
 <html >
 <head>
 	<meta charset="utf-8">
-	<title>WCS Administration :: <sitemesh:write property='title' /></title>
+	<title>Hot Shopping :: <sitemesh:write property='title' /></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- The styles -->
@@ -209,17 +209,52 @@
 							<div id="collapseOne" class="accordion-body collapse out">
 								<div class="accordion-inner">
 									<ul class="nav nav-tabs nav-stacked main-menu">
-										<li><a class="ajax-link dev-submenu" href="/rear/category/list"><span class="hidden-tablet">카테고리 목록</span></a></li>
-										<li><a class="ajax-link dev-submenu" href="/rear/category/tag/list"><span class="hidden-tablet">태그 목록</span></a></li>
-										<li><a class="ajax-link dev-submenu" href="/rear/category/tag/unreg/list"><span class="hidden-tablet">미등록 태그 목록</span></a></li>
+										<li>
+											<a class="ajax-link dev-submenu" href="/rear/category/list">
+												<i class="icon-tasks"></i>
+												<span class="hidden-tablet">카테고리 목록</span>
+											</a>
+										</li>
+										<li>
+											<a class="ajax-link dev-submenu" href="/rear/category/tag/list">
+												<i class="icon-tasks"></i>
+												<span class="hidden-tablet">태그 목록</span>
+											</a>
+										</li>
+										<li>
+											<a class="ajax-link dev-submenu" href="/rear/category/tag/unreg/list">
+												<i class="icon-tasks"></i>
+												<span class="hidden-tablet">미등록 태그 목록</span>
+											</a>
+										</li>
 									</ul>
 								</div>
 							</div>
 						</li>
-						<li><a class="ajax-link" href="/rear/member/list"><i class=" icon-user"></i><span class="hidden-tablet">회원 관리</span></a></li>
-						<li><a class="ajax-link" href="/rear/appver/list"><i class="icon-bell"></i><span class="hidden-tablet">어플 버전 관리</span></a></li>						
-						<li><a class="ajax-link" href="/rear/notice/list"><i class="icon-bullhorn"></i><span class="hidden-tablet">공지사항 관리</span></a></li>
-						<li><a class="ajax-link" href="/rear/manager/list"><i class="icon-user"></i><span class="hidden-tablet">관리자관리</span></a></li>
+						<li>
+							<a class="ajax-link" href="/rear/member/list">
+								<i class=" icon-user"></i>
+								<span class="hidden-tablet">회원 관리</span>
+							</a>
+						</li>
+						<li>
+							<a class="ajax-link" href="/rear/appver/list">
+								<i class="icon-bell"></i>
+								<span class="hidden-tablet">어플 버전 관리</span>
+							</a>
+						</li>						
+						<li>
+							<a class="ajax-link" href="/rear/notice/list">
+								<i class="icon-bullhorn"></i>
+								<span class="hidden-tablet">공지사항 관리</span>
+							</a>
+						</li>
+						<li>
+							<a class="ajax-link" href="/rear/manager/list">
+								<i class="icon-user"></i>
+								<span class="hidden-tablet">관리자관리</span>
+							</a>
+						</li>
 					</ul>
 					
 					<!-- 
@@ -258,20 +293,6 @@
 		</div><!--/fluid-row-->
 				
 		<hr>
-
-		<div class="modal hide fade" id="myModal">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>Settings</h3>
-			</div>
-			<div class="modal-body">
-				<p>Here settings can be configured...</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
-			</div>
-		</div>
 
 		<footer>
 			<p class="pull-left">&copy; <a href="#" target="_blank">GS SHOP</a> 2013</p>

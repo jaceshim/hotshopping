@@ -17,10 +17,10 @@
 	</sql>
 	
 	<select id="getCategoryTreeList" parameterType="category" resultType="category">
-		SELECT  CONCAT(REPEAT('    ', level - 1), CAST(hi.cate_id AS CHAR)) AS cateId
-			,	cate_name AS cateName
-			,	pcate_id  AS pcateId
-			,	use_yn    AS useYn 
+		SELECT  hi.cate_id AS cateId
+			,	cate_name  AS cateName
+			,	pcate_id   AS pcateId
+			,	use_yn     AS useYn 
 			,	level
 		FROM    (
 		        SELECT  category_connect_by(cate_id) AS cate_id, @level AS level
