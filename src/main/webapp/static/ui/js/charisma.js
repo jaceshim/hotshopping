@@ -201,7 +201,7 @@ function docReady(){
 	$('.slider').slider({range:true,values:[10,65]});
 
 	//tooltip
-	$('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
+	$('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"top",delay: { show: 400, hide: 200 }});
 
 	//auto grow textarea
 	$('textarea.autogrow').autogrow();

@@ -23,7 +23,7 @@ public class Category extends AbstractDomain {
 	/** 사용여부 */
 	private String useYn;
 	/** tree구조 표현시 레벨 */
-	private Integer level;
+	private int level;
 
 	public List<CategoryTag> getCateTagList() {
 		return cateTagList;
@@ -65,11 +65,11 @@ public class Category extends AbstractDomain {
 		this.useYn = useYn;
 	}
 
-	public Integer getLevel() {
+	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(Integer level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 
