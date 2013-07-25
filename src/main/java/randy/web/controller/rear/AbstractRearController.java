@@ -14,5 +14,5 @@ import randy.core.spring.controller.AbstractController;
 @RequestMapping("/rear/*")
 public abstract class AbstractRearController extends AbstractController {
 
-	protected static final String VIEW_PREFIX = "/rear/";
+	protected static final String VIEW_PREFIX = "/rear";
 }

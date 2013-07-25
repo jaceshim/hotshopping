@@ -1,33 +1,20 @@
 package randy.core.spring.util;
 
-import javax.servlet.ServletContext;
-
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.ServletContextAware;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.springframework.web.servlet.FrameworkServlet;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * Spring관련 유틸클래스.
  * 
  * @author jace
  */
-public final class SpringUtils implements ServletContextAware {
+public final class SpringUtils implements ApplicationContextAware {
 
-	private static final String SPRING_SERVLET_NAME = "appServlet";
-
-	private static ServletContext context;
-
-	public void setServletContext(ServletContext _context) {
-		context = _context;
-	}
-
-	public static ServletContext getContext() {
-		return context;
-	}
+	private static ApplicationContext context;
 
 	public static ApplicationContext getApplicationContext() {
-		return WebApplicationContextUtils.getWebApplicationContext(getContext(), FrameworkServlet.SERVLET_CONTEXT_PREFIX + SPRING_SERVLET_NAME);
+		return context;
 	}
 
 	public static Object getBean(String beanName) {
@@ -44,6 +31,11 @@ public final class SpringUtils implements ServletContextAware {
 
 	public static boolean containsBean(String name) {
 		return getApplicationContext().containsBean(name);
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		context = applicationContext;
 	}
 
 }

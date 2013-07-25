@@ -8,6 +8,7 @@ import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import randy.core.spring.alert.AlertInfo;
+import randy.core.spring.util.ConfigUtils;
 import randy.core.spring.util.MessageUtils;
 
 /**
@@ -39,12 +40,13 @@ public abstract class AbstractController {
 		String messageKey = alertInfo.getMessage();
 		String[] messageArgs = alertInfo.getMessageArgs();
 		String message = MessageUtils.getMessage(messageKey, messageArgs);
+		
 		// 해당 message key에 대한 값이 없는 경우 넘어온 message를 그냥 출력.
 		if (message == null || message.length() == 0) {
 			message = messageKey;
 		}
 
-		flashMap.put("message", alertInfo.getMessage());
+		flashMap.put("message", message);
 		flashMap.put("params", alertInfo.getParams());
 		/*
 		Map<String, Object> params = alertInfo.getParams();
@@ -53,7 +55,6 @@ public abstract class AbstractController {
 				flashMap.put(key, params.get(key));
 			}
 		}*/
-
-		return REDIRECT + MessageUtils.getMessage("global.alert.url");
+		return REDIRECT + ConfigUtils.getValue("global.alert.url");
 	}
 }

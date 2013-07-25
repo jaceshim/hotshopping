@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd">
 
-	<context:component-scan base-package="randy.web" use-default-filters="false">
+	<context:component-scan base-package="randy" use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="annotation"
@@ -22,6 +22,22 @@
 			expression="org.springframework.stereotype.Component" />			
 	</context:component-scan>
 	
+	<!-- enabling annotation driven configuration  -->
+	<context:annotation-config />
+	
+	<bean id="config" class="randy.core.spring.util.ConfigUtils">
+		<property name="locations">
+			<list>
+				<value>classpath:global-config.properties</value>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>		
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="defaultEncoding" value="${global.default-encoding}" />
+        <property name="basename" value="classpath:message/message"/>
+	</bean>
 
     <task:scheduler id="parseScheduler" pool-size="10" />
     <task:executor id="parseTaskExcutor" pool-size="10"/>

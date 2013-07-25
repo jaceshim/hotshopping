@@ -56,7 +56,7 @@ public final class RequestUtils {
 	public static String getRequestFullURI() {
 		String uri = UrlUtils.buildFullRequestUrl(getCurrentRequest());
 		try {
-			uri = URLEncoder.encode(uri, MessageUtils.getMessage("global.default-encoding"));
+			uri = URLEncoder.encode(uri, ConfigUtils.getValue("global.default-encoding"));
 		} catch (UnsupportedEncodingException ignore) {
 		}
 		return uri;

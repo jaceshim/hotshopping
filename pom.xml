@@ -336,10 +336,10 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.sitemesh</groupId>
+			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
-			<version>3.0-alpha-2</version>
-		</dependency>
+			<version>2.4.2</version>
+		</dependency>		
 		
 		<!-- [S] redis 관련 -->
 		<dependency>
@@ -361,7 +361,6 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/lucy-xss-1.1.2.jar</systemPath> 
 		</dependency>
-		
 	</dependencies>
 	
 	<profiles>

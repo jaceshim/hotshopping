@@ -53,7 +53,9 @@
 </script>
 
 <form id="alertForm" name="alertForm" onsubmit="return false;">
-	<#list params?keys as key>
-		<input type="hidden" name="${key}" value="${params.get(key)}" />
-	</#list>
+	<#if params?has_content>
+		<#list params?keys as key>
+			<input type="hidden" name="${key}" value="${params.get(key)}" />
+		</#list>
+	</#if>
 </form>
