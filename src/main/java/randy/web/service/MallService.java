@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import randy.core.spring.service.AbstractService;
+import randy.core.j2ee.service.AbstractService;
 import randy.web.domain.Mall;
 
 /**

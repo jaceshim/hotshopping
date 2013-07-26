@@ -78,12 +78,15 @@
         <init-param>
             <param-name>configFile</param-name>
             <param-value>/WEB-INF/classes/sitemesh/sitemesh.xml</param-value>
-        </init-param>        
+        </init-param>
     </filter>
 
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <servlet-name>hotshopping</servlet-name>
+		<dispatcher>FORWARD</dispatcher>       
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>   
     </filter-mapping>
  
 	<servlet>
@@ -101,10 +104,18 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
- 
 	<servlet-mapping>
 		<servlet-name>hotshopping</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>sitemesh-velocity</servlet-name>
+		<servlet-class>com.opensymphony.module.sitemesh.velocity.VelocityDecoratorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>sitemesh-velocity</servlet-name>
+		<url-pattern>*.vm</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
@@ -117,4 +128,5 @@
 		<url-pattern>*.ico</url-pattern>
 		<url-pattern>/static/*</url-pattern>
 	</servlet-mapping>
+	
 </web-app>

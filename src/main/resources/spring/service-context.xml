@@ -25,7 +25,7 @@
 	<!-- enabling annotation driven configuration  -->
 	<context:annotation-config />
 	
-	<bean id="config" class="randy.core.spring.util.ConfigUtils">
+	<bean id="config" class="randy.core.j2ee.util.ConfigUtils">
 		<property name="locations">
 			<list>
 				<value>classpath:global-config.properties</value>

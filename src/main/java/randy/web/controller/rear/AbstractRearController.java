@@ -3,7 +3,7 @@ package randy.web.controller.rear;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import randy.core.spring.controller.AbstractController;
+import randy.core.j2ee.controller.AbstractController;
 
 /**
  * 관리자단 추상 콘트롤러.

@@ -1,4 +1,4 @@
-package randy.core.spring.alert;
+package randy.core.j2ee.alert;
 
 /**
  * Alert를 처리하고 이동하는 유형

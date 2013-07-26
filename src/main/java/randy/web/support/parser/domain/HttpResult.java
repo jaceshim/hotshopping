@@ -1,6 +1,6 @@
 package randy.web.support.parser.domain;
 
-import randy.core.spring.domain.AbstractDomain;
+import randy.core.j2ee.domain.AbstractDomain;
 
 /**
  * HttpClient 요청 응답 결과 도메인.

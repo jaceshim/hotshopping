@@ -1,8 +1,8 @@
-package randy.core.spring.alert;
+package randy.core.j2ee.alert;
 
 import java.util.Map;
 
-import randy.core.spring.domain.AbstractDomain;
+import randy.core.j2ee.domain.AbstractDomain;
 
 /**
  * Alert처리 정보.

@@ -1,4 +1,4 @@
-package randy.core.spring.dao;
+package randy.core.j2ee.dao;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.Logger;

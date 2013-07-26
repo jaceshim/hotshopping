@@ -1,4 +1,4 @@
-package randy.core.spring.util;
+package randy.core.j2ee.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

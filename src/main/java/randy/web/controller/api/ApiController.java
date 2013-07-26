@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import randy.core.spring.controller.AbstractController;
+import randy.core.j2ee.controller.AbstractController;
 import randy.web.domain.Category;
 import randy.web.domain.Product;
 import randy.web.service.CategoryService;

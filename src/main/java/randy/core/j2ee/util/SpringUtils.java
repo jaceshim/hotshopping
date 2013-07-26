@@ -1,4 +1,4 @@
-package randy.core.spring.util;
+package randy.core.j2ee.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

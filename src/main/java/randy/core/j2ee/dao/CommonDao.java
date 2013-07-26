@@ -1,4 +1,4 @@
-package randy.core.spring.dao;
+package randy.core.j2ee.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import javax.sql.DataSource;
 
 import org.springframework.util.StringUtils;
 
-import randy.core.spring.util.MessageUtils;
+import randy.core.j2ee.util.MessageUtils;
 
 /**
  * 서비스레이어에서 공용으로 사용하는 Dao. <br>

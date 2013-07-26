@@ -1,4 +1,4 @@
-package randy.core.spring.controller;
+package randy.core.j2ee.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import randy.core.spring.alert.AlertInfo;
-import randy.core.spring.util.ConfigUtils;
-import randy.core.spring.util.MessageUtils;
+import randy.core.j2ee.alert.AlertInfo;
+import randy.core.j2ee.util.ConfigUtils;
+import randy.core.j2ee.util.MessageUtils;
 
 /**
  * Controller 추상 클래스.

@@ -1,6 +1,6 @@
 package randy.web.domain;
 
-import randy.core.spring.domain.AbstractDomain;
+import randy.core.j2ee.domain.AbstractDomain;
 
 /**
  * 이벤트 도메인.

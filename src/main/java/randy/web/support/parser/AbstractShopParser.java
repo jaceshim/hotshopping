@@ -15,7 +15,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import randy.core.spring.dao.CommonDao;
+import randy.core.j2ee.dao.CommonDao;
 import randy.web.domain.CategoryTag;
 import randy.web.domain.CategoryTagUnreg;
 import randy.web.domain.Product;

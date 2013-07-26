@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import randy.core.spring.alert.AlertInfo;
-import randy.core.spring.alert.AlertType;
+import randy.core.j2ee.alert.AlertInfo;
+import randy.core.j2ee.alert.AlertType;
 import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
 import randy.web.service.CategoryService;

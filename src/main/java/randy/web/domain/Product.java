@@ -2,7 +2,7 @@ package randy.web.domain;
 
 import java.util.List;
 
-import randy.core.spring.domain.AbstractDomain;
+import randy.core.j2ee.domain.AbstractDomain;
 
 /**
  * 상품 도메인.

@@ -1,4 +1,4 @@
-package randy.core.spring.domain;
+package randy.core.j2ee.domain;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;

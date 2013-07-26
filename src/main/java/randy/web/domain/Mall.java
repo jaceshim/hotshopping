@@ -1,6 +1,6 @@
 package randy.web.domain;
 
-import randy.core.spring.domain.AbstractDomain;
+import randy.core.j2ee.domain.AbstractDomain;
 
 /**
  * Mall 도메인.

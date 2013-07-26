@@ -12,7 +12,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import randy.core.spring.util.MessageUtils;
+import randy.core.j2ee.util.MessageUtils;
 
 /**
  * DES 기반의 대칭키 암호화 복호화
