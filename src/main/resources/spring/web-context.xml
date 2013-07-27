@@ -43,9 +43,6 @@
 		<property name="exposeSpringMacroHelpers" value="true" />
 	</bean>
 	
-
-	
-	
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="order" value="2" />
 		<property name="prefix" value="/WEB-INF/views/" />

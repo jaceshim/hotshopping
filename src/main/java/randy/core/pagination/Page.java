@@ -1,12 +1,18 @@
 package randy.core.pagination;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.util.Collection;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import randy.core.j2ee.util.ConfigUtils;
+import randy.core.j2ee.util.SpringUtils;
+import freemarker.template.Template;
 
 /**
  * 페이지 아이템
@@ -47,7 +53,9 @@ public class Page<T> implements Serializable {
 	private int totalRow;
 	/** 페이지 아이템 */
 	private Collection<T> items;
-
+	/** 페이지 html */
+	private String pageHtml;
+	
 	public Page(Collection<T> items, int totalRow, int startRow) {
 		this(items, totalRow, startRow, DEFAULT_ROW_PER_PAGE);
 	}
@@ -68,11 +76,11 @@ public class Page<T> implements Serializable {
 
 		if (rowPerPage == 0) {
 			return;
-		}	
+		}
 
 		if (startRow == 0) {
 			startRow = 1;
-		}	
+		}
 
 		currentPage = ((int)Math.ceil((double)startRow / (double)rowPerPage));
 
@@ -80,7 +88,7 @@ public class Page<T> implements Serializable {
 
 		if (lastPage < currentPage) {
 			currentPage = lastPage;
-		}	
+		}
 
 		if (currentPage <= pagePerBlock) {
 			blockFirstPage = 1;
@@ -138,10 +146,44 @@ public class Page<T> implements Serializable {
 			nextPageRow = (currentPage) * rowPerPage + 1;
 		} else {
 			nextPageRow = 0;
-		}	
+		}
 
 		lastPageRow = (lastPage - 1) * rowPerPage + 1;
 
+	}
+
+	/**
+	 * 페이지 객체를 페이지UI html변환하여 반환한다.
+	 * 
+	 * @return
+	 */
+	public String getPageHtml() {
+		
+		String resultHtml = "";
+
+		StringWriter stringWriter = null;
+		try {
+			FreeMarkerConfigurer config = SpringUtils.getBean(FreeMarkerConfigurer.class);
+
+			stringWriter = new StringWriter();
+
+			Template template = config.getConfiguration().getTemplate(ConfigUtils.getString("global.page.template"));
+
+			template.process(this, stringWriter);
+
+			resultHtml = stringWriter.toString();
+
+		} catch (Exception ignore) {
+			//nothing...
+		} finally {
+			try {
+				stringWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return resultHtml;
 	}
 
 	/*---------------------------------------------------------------

@@ -1,5 +1,7 @@
 package randy.web.controller.rear;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import randy.core.j2ee.alert.AlertInfo;
 import randy.core.j2ee.alert.AlertType;
@@ -149,6 +152,26 @@ public class CategoryController extends AbstractRearController {
 		alertInfo.setRedirectUrl(VIEW_PREFIX + PATH + "tag/list");
 
 		return this.alert(request, alertInfo);
+	}
+	
+	/**
+	 * 페이징 테스트 
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(PATH + "test/list")
+	public String getTestList(@RequestParam Map<String,Object> params, Model model) {
+		
+		int _currentPage = params.get("page") == null ? 0 : (Integer)params.get("page");
+		int _rowPerPage = 10;
+		
+		
+		
+		
+		model.addAttribute("data", categoryService.getTestList(params));
+
+		return VIEW_PREFIX + "/category/getTestList";
 	}
 
 }

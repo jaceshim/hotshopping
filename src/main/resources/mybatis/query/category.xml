@@ -149,4 +149,17 @@
 		where seq = #{seq}
 	</update>
 	
+	
+	<select id="getTestList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select co1, co2, co3, co4
+		from test_bbs
+		order by seq desc
+		LIMIT #{page}, #{rowPerPage}
+	</select>
+	
+	<select id="getTestListCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		select COUNT(*)
+		from test_bbs
+	</select>	
+	
 </mapper>

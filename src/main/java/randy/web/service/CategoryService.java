@@ -1,11 +1,14 @@
 package randy.web.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import randy.core.j2ee.service.AbstractService;
+import randy.core.pagination.Page;
 import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
 import randy.web.domain.CategoryTagUnreg;
@@ -97,5 +100,15 @@ public class CategoryService extends AbstractService {
 			categoryTagUnreg = new CategoryTagUnreg();
 		}
 		return commonDao.selectList(NAMESPACE, "getCategoryTagUnregList", categoryTagUnreg);
+	}
+
+	public Page getTestList(Map<String, Object> params) {
+
+		List<Map<String, Object>> dataList = commonDao.selectList(NAMESPACE, "getTestList", new HashMap<String, Object>());
+		int totalCount = commonDao.selectOne(NAMESPACE, "getTestListCount", params);
+		
+		int startRow = params.get("startRow") == null ? 1 : (Integer) params.get("startRow");
+		
+		return new Page(dataList, totalCount, startRow);
 	}
 }
