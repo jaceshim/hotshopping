@@ -21,6 +21,6 @@ public class ScriptController extends AbstractController {
 	 */
 	@RequestMapping("/common/alert")
 	public String alert() {
-		return ConfigUtils.getValue("global.alert.template");
+		return ConfigUtils.getString("global.alert.template");
 	}
 }

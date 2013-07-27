@@ -31,7 +31,27 @@ public class ConfigUtils extends PropertyPlaceholderConfigurer {
 		}
 	}
 
-	public static String getValue(String key) {
+	public static int getInt(String key) {
+		return Integer.parseInt(getString(key));
+	}
+
+	public static boolean getBoolean(String key) {
+		return Boolean.parseBoolean(getString(key));
+	}
+
+	public static double getDouble(String key) {
+		return Double.parseDouble(getString(key));
+	}
+
+	public static float getFloat(String key) {
+		return Float.parseFloat(getString(key));
+	}
+
+	public static long getLong(String key) {
+		return Long.parseLong(getString(key));
+	}
+
+	public static String getString(String key) {
 		return propertiesMap.get(key);
 	}
 

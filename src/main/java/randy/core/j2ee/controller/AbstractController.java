@@ -55,6 +55,6 @@ public abstract class AbstractController {
 				flashMap.put(key, params.get(key));
 			}
 		}*/
-		return REDIRECT + ConfigUtils.getValue("global.alert.url");
+		return REDIRECT + ConfigUtils.getString("global.alert.url");
 	}
 }

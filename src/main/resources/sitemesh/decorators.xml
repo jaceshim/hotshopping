@@ -12,11 +12,11 @@
         <pattern>*.excel*</pattern>
     </excludes>
     
-    <decorator name="rearDefaultLayout" page="rear/rearLayout.vm">
+    <decorator name="rearDefaultLayout" page="rear/rearLayout.jsp">
         <pattern>/rear/*</pattern>
     </decorator>
     
-    <decorator name="defaultLayout" page="rear/noLayout.vm">
+    <decorator name="defaultLayout" page="rear/noLayout.jsp">
         <pattern>/*</pattern>
     </decorator>    
 

@@ -109,6 +109,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 
 	<servlet>
 		<servlet-name>sitemesh-velocity</servlet-name>
 		<servlet-class>com.opensymphony.module.sitemesh.velocity.VelocityDecoratorServlet</servlet-class>
@@ -117,7 +118,9 @@
 		<servlet-name>sitemesh-velocity</servlet-name>
 		<url-pattern>*.vm</url-pattern>
 	</servlet-mapping>
-	
+	 -->
+	 
+	 
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.js</url-pattern>
