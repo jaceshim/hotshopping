@@ -2,9 +2,8 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="category">
-
+<!-- namespace는 반드시 data-context.xml의 commonDao Bean설정시 주어진 defaultNamespace를 prefix로 해야함. -->
+<mapper namespace="randy.sql.category">
 	<cache 
 		eviction="LRU" 
 		flushInterval="60000"/>
@@ -113,6 +112,8 @@
 		,	prd_seq  AS prdSeq
 		,	mall_id  AS mallId
 		,	prd_name AS prdName
+		,	prd_thumb_url AS prdThumbUrl
+		,	prd_url       AS prdUrl
 		,	tag
 		,	proc_yn  AS procYn
 		,	DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS regDt
@@ -123,11 +124,25 @@
 		from tb_category_tag_unreg
 	</select>
 	
+	<select id="getCategoryTagUnregPageList" resultType="categoryTagUnreg" parameterType="categoryTagUnreg" >
+		select <include refid="selectCategoryTagUnregSql"/>
+		from tb_category_tag_unreg
+		order by seq desc 
+		limit #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="getCategoryTagUnregPageListCount" resultType="java.lang.Integer" parameterType="categoryTagUnreg" >
+		select count(*)
+		from tb_category_tag_unreg
+	</select>	
+	
 	<insert id="insertCategoryTagUnreg" parameterType="categoryTagUnreg" flushCache="true" useGeneratedKeys="true" keyProperty="seq">
 		insert into tb_category_tag_unreg (
 				prd_seq
 			,	mall_id
 			,	prd_name
+			,	prd_thumb_url
+			,	prd_url
 			,	tag
 			,	proc_yn
 			,	reg_dt
@@ -135,6 +150,8 @@
 				#{prdSeq}
 			,	#{mallId}
 			,	#{prdName}
+			,	#{prdThumbUrl}
+			,	#{prdUrl}
 			,	#{tag}
 			,	'N'
 			,	now() 
@@ -150,14 +167,14 @@
 	</update>
 	
 	
-	<select id="getTestList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select co1, co2, co3, co4
+	<select id="getTestList" parameterType="testBbs" resultType="testBbs" useCache="false">
+		select seq, co1, co2, co3, co4
 		from test_bbs
 		order by seq desc
-		LIMIT #{page}, #{rowPerPage}
+		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
-	<select id="getTestListCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+	<select id="getTestListCount" parameterType="testBbs" resultType="java.lang.Integer" useCache="false">
 		select COUNT(*)
 		from test_bbs
 	</select>	

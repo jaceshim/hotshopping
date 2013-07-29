@@ -14,7 +14,7 @@ import randy.web.domain.Mall;
  */
 @Service
 public class MallService extends AbstractService {
-	public static final String NAMESPACE = "mall";
+	public static final String NAMESPACE = "mall" + ".";
 
 	/**
 	 * 몰 목록을 얻는다.
@@ -23,7 +23,7 @@ public class MallService extends AbstractService {
 	 * @return List<Category>
 	 */
 	public List<Mall> getMallList(Mall mall) {
-		return commonDao.selectList(NAMESPACE, "getMallList", mall);
+		return commonDao.selectList(NAMESPACE + "getMallList", mall);
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class MallService extends AbstractService {
 	 * @return Integer
 	 */
 	public Integer isnertMall(Mall mall) {
-		commonDao.insert(NAMESPACE, "insertMall", mall);
+		commonDao.insert(NAMESPACE + "insertMall", mall);
 		
 		return mall.getMallId();
 	}
@@ -45,6 +45,6 @@ public class MallService extends AbstractService {
 	 * @return Integer
 	 */
 	public int updateMall(Mall mall) {
-		return commonDao.update(NAMESPACE, "updateMall", mall);
+		return commonDao.update(NAMESPACE + "updateMall", mall);
 	}
 }

@@ -1,7 +1,5 @@
 package randy.web.controller.rear;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import randy.core.j2ee.alert.AlertInfo;
 import randy.core.j2ee.alert.AlertType;
 import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
+import randy.web.domain.CategoryTagUnreg;
+import randy.web.domain.TestBbs;
 import randy.web.service.CategoryService;
 
 /**
@@ -70,14 +69,12 @@ public class CategoryController extends AbstractRearController {
 	 * @return
 	 */
 	@RequestMapping(PATH + "tag/unreg/list")
-	public String getCategoryTagUnregList(Model model) {
+	public String getCategoryTagUnregList(@ModelAttribute CategoryTagUnreg categoryTagUnreg, Model model) {
 
 		// 최상위 카테고리 호출.
-		Category cateParam = new Category();
-		cateParam.setPcateId(0);
-		model.addAttribute("categoryList", categoryService.getCategoryList(cateParam));
+		model.addAttribute("categoryList", categoryService.getCategoryTreeList(null));
 
-		model.addAttribute("categoryUnregList", categoryService.getCategoryTagUnregList(null));
+		model.addAttribute("page", categoryService.getCategoryTagUnregPageList(categoryTagUnreg));
 
 		return VIEW_PREFIX + "/category/getCategoryTagUnregList";
 	}
@@ -153,7 +150,7 @@ public class CategoryController extends AbstractRearController {
 
 		return this.alert(request, alertInfo);
 	}
-	
+
 	/**
 	 * 페이징 테스트 
 	 * 
@@ -161,15 +158,9 @@ public class CategoryController extends AbstractRearController {
 	 * @return
 	 */
 	@RequestMapping(PATH + "test/list")
-	public String getTestList(@RequestParam Map<String,Object> params, Model model) {
-		
-		int _currentPage = params.get("page") == null ? 0 : (Integer)params.get("page");
-		int _rowPerPage = 10;
-		
-		
-		
-		
-		model.addAttribute("data", categoryService.getTestList(params));
+	public String getTestList(@ModelAttribute TestBbs testBbs, Model model) {
+
+		model.addAttribute("page", categoryService.getTestList(testBbs));
 
 		return VIEW_PREFIX + "/category/getTestList";
 	}

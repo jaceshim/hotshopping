@@ -3,6 +3,11 @@
 <body>
 
 <div class="box-content">
+
+<form name="testForm" id="testForm">
+	<input type="hidden" name="seq" value="10"/>
+</form>
+
 	<table class="table">
 		  <thead>
 			  <tr>
@@ -14,7 +19,7 @@
 			  </tr>
 		  </thead>   
 		  <tbody>
-		  	<#list data.items as item>
+		  	<#list page.items as item>
 			<tr>
 				<td>${item.seq}</td>
 				<td class="center">${item.co1}</td>
@@ -26,7 +31,7 @@
 		  </tbody>
 	 </table>
 	 
-	 ${data.pageHtml}
+	 ${page.getPageHtml("testForm")}
 	     
 </div>
 

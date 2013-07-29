@@ -1,48 +1,56 @@
-
-<#if startRow != 0 || rowPerPage != 0>
 <script type="text/javascript">
-	function jsMovePage(currentPage) {
-	    var form = document.forms[0];
-	    form.currentPage.value = currentPage;
-	    form.action = '/rear/category/test/list';
+	function jsMovePage(pageNum) {
+	    var form = document.${page.formName};
+	    if (form.pageNum === undefined) {
+	    	var newPageNumEl = document.createElement('input');
+	    	newPageNumEl.name='pageNum';
+	    	newPageNumEl.type = 'hidden';
+	    	
+	    	form.appendChild(newPageNumEl);
+	    }
+	    
+	    form.pageNum.value = pageNum;
+	    form.action = document.location.pathname;
 	    form.submit();		
 	}
 </script>
 <div class="pagination pagination-centered">
 	<ul>
-		<#if blockFirstPage > 1>
-		<li><a href="#" onclick="jsMovePage(1); return false;">맨처음</a></li>
+
+		<#-- TODO: 로직검토 
+		<#if page.hasPrevPageUnit()>
+		<li><a href="#" onclick="jsMovePage(${page.pageOfPrevPageUnit}); return false;">맨처음</a></li>
+		</#if>
+		-->
+		
+		<#if page.hasPrevPage()>
+		<li><a href="#" onclick="jsMovePage(${page.prevPage}); return false;">Prev</a></li>
 		</#if>
 		
-		<#if prevPageRow  > 0>
-		<li><a href="#" onclick="jsMovePage(${prevPageRow}); return false;">Prev</a></li>
-		</#if>
-		
-		<#assign pageNum = blockFirstPage>
-		<#list pageNum..blockLastPage as num>
-			<#assign isActive = (num==currentPage)>
+		<#assign pageIdx = page.beginUnitPage>
+		<#list pageIdx..page.endItemsPage as num>
+			<#assign isActive = (num == page.currentPage)>
 			
 			<#if isActive>
 				<li class="active">
 					<a href="#">${num}</a>
 				</li>
 			<#else>
-				 <#assign firstRow = ((num - 1) * rowPerPage) + 1>
 				<li>
-					<a href="#" onclick="jsMovePage(${firstRow}); return false;">${num}</a>
+					<a href="#" onclick="jsMovePage(${num}); return false;">${num}</a>
 				</li>				 
 			</#if>
 		
 		</#list>
 		
-		<#if nextPageRow > 0>
-		<li><a href="#"  onclick="jsMovePage(${nextPageRow}); return false;">Next</a></li>
+		<#if page.hasNextPage()>
+		<li><a href="#"  onclick="jsMovePage(${page.nextPage}); return false;">Next</a></li>
 		</#if>
 		
-		<#if blockLastPage < lastPage && currentPage != lastPage>
-		<li><a href="#" onclick="jsMovePage(${lastPageRow}); return false;">맨마지막</a></li>
+		<#-- TODO: 로직검토
+		<#if page.hasNextPageUnit()>
+		<li><a href="#" onclick="jsMovePage(${page.pageOfNextPageUnit}); return false;">맨마지막</a></li>
 		</#if>
-		
+		-->		
 	</ul>
 </div>
-</#if>

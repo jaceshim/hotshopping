@@ -14,7 +14,7 @@ import randy.web.domain.Product;
  */
 @Service
 public class ProductService extends AbstractService {
-	public static final String NAMESPACE = "product";
+	public static final String NAMESPACE = "product" + ".";
 
 	/**
 	 * 상품 목록을 얻는다.
@@ -23,6 +23,6 @@ public class ProductService extends AbstractService {
 	 * @return List<Category>
 	 */
 	public List<Product> getProductList(Product product) {
-		return commonDao.selectList(NAMESPACE, "getProductList", product);
+		return commonDao.selectList(NAMESPACE + "getProductList", product);
 	}
 }

@@ -114,7 +114,6 @@ public class Shop11st extends AbstractShopParser {
 						if (StringUtils.isNotEmpty(prdContent)) {
 							Document prdDetailDoc = Jsoup.parse(prdContent);
 
-							
 							String categoryTag = prdDetailDoc.select("#headSel_1").text();
 							if (StringUtils.isEmpty(categoryTag)) {
 								// TODO: <a href></a> 안에 있는 <span> 태그 삭제처리.

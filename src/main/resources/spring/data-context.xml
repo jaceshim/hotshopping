@@ -53,7 +53,7 @@
 	</bean>
 	
 	<bean name="commonDao" class="randy.core.j2ee.dao.CommonDao">
-		<property name="defaultNamespace" value="randy.web" />
+		<property name="defaultNamespace" value="randy.sql" />
 	</bean>
 	
 	<!-- 

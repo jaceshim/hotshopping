@@ -11,16 +11,42 @@
 		</layout>
 	</appender>
 	
-	<logger name="randy.web" additivity="false">
+	<logger name="randy" additivity="false">
 		<level value="debug" />
 		<appender-ref ref="console" />
 	</logger>
 	
-	<logger name="org.sitemesh." additivity="false">
+	<logger name="java.sql.Connection" additivity="false">
 		<level value="debug" />
 		<appender-ref ref="console" />
-	</logger>	
-
+	</logger>
+	
+	<logger name="java.sql.PreparedStatement" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="java.sql.ResultSet" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="org.apache.ibatis">
+		<level value="debug" />
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="org.mybatis" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+	</logger>
+	
+	<!-- for mybatis sql logging (is same mapper default namespace) -->
+	<logger name="randy.sql" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+	</logger>
+	
 	<!-- Root Logger 설정 -->
 	<root>
 		<level value="info" />

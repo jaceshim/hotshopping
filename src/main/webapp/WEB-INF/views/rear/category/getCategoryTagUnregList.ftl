@@ -1,78 +1,79 @@
 <head>
 	<title>카테고리 미등록 태그 목록</title>
 	<script type="text/javascript">
-		function insertCategoryTag() {
-			var form = document.cateForm;
-			form.action = "insertForm";
-			form.submit();			
+		function insertCategoryTag(seq, cateId) {
+			alert(seq + ' : ' + cateId);
 		}	
 	</script>
 </head>
 <body>
-<form name="cateForm" method="get">
+
+<form name="cateForm" id="cateForm">
 
 </form>
-
-
-	<div class="row-fluid">		
-		<div class="box span12">
-			<div class="box-header well" data-original-title>
-				<h2><i class="icon-tasks"></i> 로그 그룹 목록</h2>
-			</div>
-			<div class="box-content">
-				<div class="row-fluid">
-					<form name="searchForm" id="searchForm">
-					<div class="span2">
-						<select name="siteId" onchange="jsSearch();">
-							<option value="">전체</option>
-							<#list siteList as item>
-							<option value="${item.siteId}" >${item.siteName}</option>
+<div class="box-content">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>순번</th>
+				<th>몰</th>
+				<th>상품순번</th>
+				<th>상품이미지</th>
+				<th>상품명</th>
+				<th>태그</th>
+				<th>처리여부</th>
+				<th>등록일시</th>
+				<th>Action</th> 
+			</tr>
+		</thead>
+		<tbody>
+			<#list page.items as item>
+			<tr>
+				<td>${item.seq?c}</td>
+				<td>${item.mallId}</td>
+				<td>${item.prdSeq?c}</td>
+				<td><a href="${item.prdUrl}" target="_blank"><img src="${item.prdThumbUrl}"></a></td>
+				<td><a href="${item.prdUrl}" target="_blank"><a ${item.prdName}</a></td>
+				<td>${item.tag}</td>
+				<td>${item.procYn}</td>
+				<td>${item.regDt}</td>
+				<td>
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary">태그등록</button>
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<#assign tempPcateId=-1>
+							<#list categoryList as cate>
+								<#if tempPcateId != -1 && tempPcateId != cate.pcateId>
+								<li class="divider"></li>
+								</#if>
+								<li>
+									<a href="#" onclick="insertCategoryTag(${item.seq}, ${cate.cateId});">
+										<#if 1 < cate.level>
+											&nbsp;&nbsp;&nbsp;
+										</#if>
+										${cate.cateName}
+									</a>
+								</li>
+								<#assign tempPcateId=cate.pcateId>
 							</#list>
-						</select>	
-					</div>
-					</form>
-				</div>
-				
-				<table class="table table-striped table-bordered">
-					<thead>
-						<tr>
-							<th>그룹 순번</th>
-							<th>그룹명(국문)</th>
-							<th>그룹명(영문)</th>
-							<th>사이트명</th>
-							<th>구분자</th>
-							<th>Actions</th>
-						</tr>
-					</thead>   
-					<tbody>
-						<#list categoryUnregList as item>
-						<tr>
-							<td>${item.seq}</td>
-							<td>${item.mallId}</td>
-							<td>${item.prdSeq}</td>
-							<td>${item.prdName}</td>
-							<td>${item.tag}</td>
-							<td>${item.procYn}</td>
-							<td>${item.regDt}</td>
-							<td>
-								<a class="btn btn-info" href="#" onclick="insertCategoryTag(); return false;">
-									<i class="icon-edit icon-white"></i> 카테고리 태그 등록                                            
-								</a>								
-								<button onclick="insertCategoryTag();">카테고리 태그 등록</button>
-							</td>
-						</tr>
-						</#list>
-						<#if !categoryUnregList?has_content>
-						<tr>
-							<td class="center" colspan="6">등록된 그룹이 없습니다.</td>
-						</tr>
-						</#if>
-					</tbody>
-				</table>				
-				
-			</div>
-		</div>
-	</div>
+						</ul>
+					</div>		
+				</td>
+			</tr>
+			</#list>
+			<#if !page.items?has_content>
+			<tr>
+				<td colspan="9">등록된 데이터가 없습니다.</td>
+			</tr>
+			</#if>
+		</tbody>
+	</table>
+	
+	${page.getPageHtml("cateForm")}
+	
+</div>
+
 </body>
 
 

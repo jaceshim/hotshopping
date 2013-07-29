@@ -1,13 +1,13 @@
 package randy.web.domain;
 
-import randy.core.j2ee.domain.AbstractDomain;
+import randy.core.j2ee.domain.AbstractPageDomain;
 
 /**
  * 카테고리 미 등록 태그.
  * 
  * @author jace
  */
-public class CategoryTagUnreg extends AbstractDomain {
+public class CategoryTagUnreg extends AbstractPageDomain {
 
 	/** 순번 */
 	private Integer seq;
@@ -17,6 +17,10 @@ public class CategoryTagUnreg extends AbstractDomain {
 	private Integer mallId;
 	/** 상품명 */
 	private String prdName;
+	/** 상품 썸네일 URL */
+	private String prdThumbUrl;
+	/** 상품 URL */
+	private String prdUrl;
 	/** 태그 */
 	private String tag;
 	/** 처리여부 */
@@ -54,6 +58,22 @@ public class CategoryTagUnreg extends AbstractDomain {
 
 	public void setPrdName(String prdName) {
 		this.prdName = prdName;
+	}
+
+	public String getPrdThumbUrl() {
+		return prdThumbUrl;
+	}
+
+	public void setPrdThumbUrl(String prdThumbUrl) {
+		this.prdThumbUrl = prdThumbUrl;
+	}
+
+	public String getPrdUrl() {
+		return prdUrl;
+	}
+
+	public void setPrdUrl(String prdUrl) {
+		this.prdUrl = prdUrl;
 	}
 
 	public String getTag() {

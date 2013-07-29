@@ -1,8 +1,6 @@
 package randy.web.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -12,6 +10,7 @@ import randy.core.pagination.Page;
 import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
 import randy.web.domain.CategoryTagUnreg;
+import randy.web.domain.TestBbs;
 
 /**
  * 카테고리 서비스
@@ -21,7 +20,7 @@ import randy.web.domain.CategoryTagUnreg;
 @Service
 public class CategoryService extends AbstractService {
 
-	public static final String NAMESPACE = "category";
+	public static final String NAMESPACE = "category" + ".";
 
 	/**
 	 * 각 부모카테고리 하위 카테고리를 tree형태의 목록으로 조회한다. 
@@ -33,7 +32,7 @@ public class CategoryService extends AbstractService {
 		if (category == null) {
 			category = new Category();
 		}
-		return commonDao.selectList(NAMESPACE, "getCategoryTreeList", category);
+		return commonDao.selectList(NAMESPACE + "getCategoryTreeList", category);
 	}
 
 	/**
@@ -46,7 +45,7 @@ public class CategoryService extends AbstractService {
 		if (category == null) {
 			category = new Category();
 		}
-		return commonDao.selectList(NAMESPACE, "getCategoryList", category);
+		return commonDao.selectList(NAMESPACE + "getCategoryList", category);
 	}
 
 	/**
@@ -60,7 +59,7 @@ public class CategoryService extends AbstractService {
 		if (StringUtils.isEmpty(category.getUseYn())) {
 			category.setUseYn("Y");
 		}
-		commonDao.insert(NAMESPACE, "insertCategory", category);
+		commonDao.insert(NAMESPACE + "insertCategory", category);
 
 		return category.getCateId();
 	}
@@ -75,7 +74,7 @@ public class CategoryService extends AbstractService {
 		if (categoryTag == null) {
 			categoryTag = new CategoryTag();
 		}
-		return commonDao.selectList(NAMESPACE, "getCategoryTagList", categoryTag);
+		return commonDao.selectList(NAMESPACE + "getCategoryTagList", categoryTag);
 	}
 
 	/**
@@ -85,7 +84,7 @@ public class CategoryService extends AbstractService {
 	 * @return Integer
 	 */
 	public Integer insertCategoryTag(CategoryTag categoryTag) {
-		commonDao.insert(NAMESPACE, "insertCategoryTag", categoryTag);
+		commonDao.insert(NAMESPACE + "insertCategoryTag", categoryTag);
 		return categoryTag.getSeq();
 	}
 
@@ -99,16 +98,34 @@ public class CategoryService extends AbstractService {
 		if (categoryTagUnreg == null) {
 			categoryTagUnreg = new CategoryTagUnreg();
 		}
-		return commonDao.selectList(NAMESPACE, "getCategoryTagUnregList", categoryTagUnreg);
+		return commonDao.selectList(NAMESPACE + "getCategoryTagUnregList", categoryTagUnreg);
 	}
 
-	public Page getTestList(Map<String, Object> params) {
+	/**
+	 * 카테고리 미 등록 태그 목록을 얻는다.
+	 * 
+	 * @param categoryTag
+	 * @return List<CategoryTagUnreg>
+	 */
+	public Page<CategoryTagUnreg> getCategoryTagUnregPageList(CategoryTagUnreg categoryTagUnreg) {
+		if (categoryTagUnreg == null) {
+			categoryTagUnreg = new CategoryTagUnreg();
+		}
+		// 페이지당 100개씩 노출.
+		categoryTagUnreg.setPageSize(100);
+		return commonDao.selectPageList(NAMESPACE + "getCategoryTagUnregPageList", categoryTagUnreg);
+	}
 
-		List<Map<String, Object>> dataList = commonDao.selectList(NAMESPACE, "getTestList", new HashMap<String, Object>());
-		int totalCount = commonDao.selectOne(NAMESPACE, "getTestListCount", params);
-		
-		int startRow = params.get("startRow") == null ? 1 : (Integer) params.get("startRow");
-		
-		return new Page(dataList, totalCount, startRow);
+	/**
+	 * 페이징 테스트용.
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public Page<TestBbs> getTestList(TestBbs params) {
+
+		params.setPageSize(1000);
+
+		return commonDao.selectPageList(NAMESPACE + "getTestList", params);
 	}
 }

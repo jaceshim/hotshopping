@@ -6,7 +6,9 @@ import javax.sql.DataSource;
 
 import org.springframework.util.StringUtils;
 
+import randy.core.j2ee.domain.AbstractPageDomain;
 import randy.core.j2ee.util.MessageUtils;
+import randy.core.pagination.Page;
 
 /**
  * 서비스레이어에서 공용으로 사용하는 Dao. <br>
@@ -38,44 +40,30 @@ public class CommonDao extends AbstractDao {
 	public Object insert(String statementName, Object obj) {
 		return getSqlSession().insert(defaultNamespace.concat(statementName), obj);
 	}
-
-	public Object insert(String namespace, String statementName, Object obj) {
-		return getSqlSession().insert(namespace.concat(".").concat(statementName), obj);
-	}
-
 	public int update(String statementName, Object obj) {
 		return getSqlSession().update(defaultNamespace.concat(statementName), obj);
-	}
-
-	public int update(String namespace, String statementName, Object obj) {
-		return getSqlSession().update(namespace.concat(".").concat(statementName), obj);
 	}
 
 	public int delete(String statementName, Object obj) {
 		return getSqlSession().delete(defaultNamespace.concat(statementName), obj);
 	}
-
-	public int delete(String namespace, String statementName, Object obj) {
-		return getSqlSession().delete(namespace.concat(".").concat(statementName), obj);
-	}
-
 	@SuppressWarnings("unchecked")
 	public <T> T selectOne(String statementName, Object obj) {
 		return (T)getSqlSession().selectOne(defaultNamespace.concat(statementName), obj);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T selectOne(String namespace, String statementName, Object obj) {
-		return (T)getSqlSession().selectOne(namespace.concat(".").concat(statementName), obj);
-	}
-
-	@SuppressWarnings("unchecked")
 	public <T> List<T> selectList(String statementName, Object obj) {
 		return (List<T>)getSqlSession().selectList(defaultNamespace.concat(statementName), obj);
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	public <T> List<T> selectList(String namespace, String statementName, Object obj) {
-		return (List<T>)getSqlSession().selectList(namespace.concat(".").concat(statementName), obj);
+	public <T> Page<T> selectPageList(String statementName, AbstractPageDomain obj) {
+		
+		List<T> dataList = (List<T>)getSqlSession().selectList(defaultNamespace.concat(statementName), obj);
+		// 주어진  statement에 Count가 추가되는 규약. ex) getDataList 이면 getDataListCount가 된다.
+		Integer totalCount = getSqlSession().selectOne(defaultNamespace.concat(statementName + "Count"), obj);
+
+		return new Page<T>(dataList, obj.getPageNum(), totalCount, obj.getPageSize(), obj.getPageUnit());
 	}
 }

@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,169 +16,148 @@ import randy.core.j2ee.util.SpringUtils;
 import freemarker.template.Template;
 
 /**
- * 페이지 아이템
+ * 페이징
  * 
  * @author jace
- *
- * @param <T>
  */
 public class Page<T> implements Serializable {
 
-	private static final long serialVersionUID = -4234639773749160197L;
+	private static final long serialVersionUID = -2805408045242748580L;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private static final int DEFAULT_ROW_PER_PAGE = ConfigUtils.getInt("global.page.default-row-per-page");
+	private static final int DEFAULT_PAGE_SIZE = ConfigUtils.getInt("global.page.default-page-size");
 
-	/** 시작 Page 번호 */
-	private int startRow;
-	/** 이전 Page 번호 */
-	private int prevPageRow;
-	/** 다음 Page 번호 */
-	private int nextPageRow;
-	/** 페이지블럭의 시작 페이지 번호 */
-	private int blockFirstPage;
-	/** 페이지블럭의 마지막 페이지 번호 */
-	private int blockLastPage;
-	/** 현재 Page 번호 */
-	private int currentPage;
-	/** 마지막 Page 번호 */
-	private int lastPage;
-	/** 마지막 Page의 Row */
-	private int lastPageRow;
-	/** 페이지당 Row 수 */
-	private int rowPerPage;
-	/** 블럭당 페이지 수 */
-	private int pagePerBlock;
-	/** 전체 Row 수 */
-	private int totalRow;
+	private static final int DEFAULT_PAGE_UNIT = ConfigUtils.getInt("global.page.default-page-unit");
+
 	/** 페이지 아이템 */
 	private Collection<T> items;
-	/** 페이지 html */
-	private String pageHtml;
-	
-	public Page(Collection<T> items, int totalRow, int startRow) {
-		this(items, totalRow, startRow, DEFAULT_ROW_PER_PAGE);
+	/** 현재 페이지 */
+	private int currentPage;
+	/** 총 개수 */
+	private int totalCount;
+	/** 페이지 번호가 화면에 보여질 개수 ex) [1], [2], [3].. [10] */
+	private int pageUnit;
+	/** 한 페이지에 보여질  개수 */
+	private int pageSize;
+	/** 최대 페이지 번호 (전체 페이지 개수) */
+	private int maxPage;
+	/** 화면에 보여지는 페이지번호의 처음 페이지번호 */
+	private int beginUnitPage;
+	/** 화면에 보여지는 페이지번호의 마지막 페이지번호 */
+	private int endUnitPage;
+	/** form 명 */
+	public String formName;
+
+	public Page(Collection<T> items, int currentPage, int totalCount) {
+		this(items, currentPage, totalCount, DEFAULT_PAGE_SIZE);
 	}
 
-	public Page(Collection<T> items, int totalRow, int startRow, int rowPerPage) {
+	public Page(Collection<T> items, int currentPage, int totalCount, int pageSize) {
+		this(items, currentPage, totalCount, pageSize, DEFAULT_PAGE_UNIT);
+	}
 
-		pagePerBlock = ConfigUtils.getInt("global.page.default-page-per-block");
-		if (rowPerPage <= 0) {
-			this.rowPerPage = DEFAULT_ROW_PER_PAGE;
-		} else {
-			this.rowPerPage = rowPerPage;
-		}
-
-		this.totalRow = totalRow;
-		this.startRow = startRow;
+	public Page(Collection<T> items, int currentPage, int totalCount, int pageSize, int pageUnit) {
 
 		this.items = items;
+		this.totalCount = totalCount;
+		this.pageUnit = pageUnit;
+		this.pageSize = pageSize;
+		this.maxPage = pageSize == 0 ? this.totalCount : (totalCount - 1) / pageSize + 1;
+		this.currentPage = currentPage > maxPage ? maxPage : currentPage;
+		this.beginUnitPage = ((currentPage - 1) / pageUnit) * pageUnit + 1;
+		this.endUnitPage = beginUnitPage + (pageUnit - 1);
+	}
 
-		if (rowPerPage == 0) {
-			return;
-		}
+	public boolean hasNextPage() {
+		return currentPage < maxPage;
+	}
 
-		if (startRow == 0) {
-			startRow = 1;
-		}
+	public boolean hasPrevPage() {
+		return currentPage > 1;
+	}
 
-		currentPage = ((int)Math.ceil((double)startRow / (double)rowPerPage));
+	public int getNextPage() {
+		return currentPage + 1;
+	}
 
-		lastPage = (int)Math.ceil((double)getTotalRow() / (double)rowPerPage);
+	public void setNextPage(int val) {
+		// not called
+	}
 
-		if (lastPage < currentPage) {
-			currentPage = lastPage;
-		}
+	public int getPrevPage() {
+		return currentPage - 1;
+	}
 
-		if (currentPage <= pagePerBlock) {
-			blockFirstPage = 1;
-			blockLastPage = pagePerBlock;
-		} else {
+	public void setPrevPage(int val) {
+		// not called
+	}
 
-			int tempFirstPage = (currentPage % pagePerBlock);
+	public boolean hasNextPageUnit() {
+		return endUnitPage < maxPage;
+	}
 
-			// 페이지 블럭의 마지막 페이지를 클릭한 경우임.
-			if (tempFirstPage == 0) {
+	public boolean hasPrevPageUnit() {
+		return currentPage >= pageUnit + 1;
+	}
 
-				blockFirstPage = (currentPage - pagePerBlock) + 1;
-				blockLastPage = currentPage;
-			} else {
-				blockFirstPage = currentPage - (currentPage % pagePerBlock) + 1;
-				blockLastPage = (currentPage + pagePerBlock) - (currentPage % pagePerBlock);
-			}
-		}
+	public int getStartOfNextPageUnit() {
+		return endUnitPage + 1;
+	}
 
-		// 마지막 페이지보다 블럭 마지막 페이지가 큰 경우 마지막 페이지값을 블럭값으로 지정.
-		if (blockLastPage > lastPage) {
-			blockLastPage = lastPage;
-		}
+	public int getStartOfPrevPageUnit() {
+		return beginUnitPage - 1;
+	}
 
-		/*
-		// 블럭 시작 페이지 세팅
-		blockFirstPage = currentPage - (int)Math.floor(pagePerBlock / 2);
+	public int getPageOfNextPageUnit() {
+		return (currentPage + pageUnit < maxPage) ? currentPage + pageUnit : maxPage;
+	}
 
-		if (blockFirstPage < 1)
-			blockFirstPage = 1;
+	public int getPageOfPrevPageUnit() {
+		return (currentPage - pageUnit > 1) ? currentPage - pageUnit : 1;
+	}
 
-		// 블럭 끝 페이지 세팅
-		blockLastPage = blockFirstPage + pagePerBlock - 1;
-		
+	public int getEndItemsPage() {
+		return (endUnitPage > maxPage) ? this.maxPage : this.endUnitPage;
+	}
 
-		if (blockLastPage > lastPage)
-			blockLastPage = lastPage;
-
-		// 블럭 시작 페이지 보정
-		if (blockFirstPage > blockLastPage - pagePerBlock + 1)
-			blockFirstPage = blockLastPage - pagePerBlock + 1;
-
-		if (blockFirstPage < 1)
-			blockFirstPage = 1;
-		*/
-
-		/* 다음, 이전 페이지 세팅 */
-		if (currentPage > 1) {
-			prevPageRow = (currentPage - 2) * rowPerPage + 1;
-		} else {
-			prevPageRow = 0;
-		}
-
-		if (currentPage < lastPage) {
-			nextPageRow = (currentPage) * rowPerPage + 1;
-		} else {
-			nextPageRow = 0;
-		}
-
-		lastPageRow = (lastPage - 1) * rowPerPage + 1;
-
+	public boolean isEmptyPage() {
+		return (this.items == null || items.size() == 0) ? true : false;
 	}
 
 	/**
-	 * 페이지 객체를 페이지UI html변환하여 반환한다.
+	 * form기반으로 페이징이 처리되는 html을 얻는다.
 	 * 
+	 * @param formName
 	 * @return
 	 */
-	public String getPageHtml() {
-		
+	public String getPageHtml(String formName) {
+
+		this.setFormName(formName);
+
 		String resultHtml = "";
 
 		StringWriter stringWriter = null;
 		try {
-			FreeMarkerConfigurer config = SpringUtils.getBean(FreeMarkerConfigurer.class);
-
+			FreeMarkerConfigurer config = SpringUtils.getBean("freemarkerConfig", FreeMarkerConfigurer.class);
 			stringWriter = new StringWriter();
-
 			Template template = config.getConfiguration().getTemplate(ConfigUtils.getString("global.page.template"));
 
-			template.process(this, stringWriter);
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("page", this);
+
+			template.process(data, stringWriter);
 
 			resultHtml = stringWriter.toString();
 
 		} catch (Exception ignore) {
+			logger.error(ignore.getMessage(), ignore);
 			//nothing...
 		} finally {
 			try {
-				stringWriter.close();
+				if (stringWriter != null) {
+					stringWriter.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -186,48 +166,15 @@ public class Page<T> implements Serializable {
 		return resultHtml;
 	}
 
-	/*---------------------------------------------------------------
-	 * below setter, getter method.
-	 *---------------------------------------------------------------*/
-
-	public int getStartRow() {
-		return startRow;
+	/*--------------------------------------------
+	 * define getter, setter 
+	 *---------------------------------------------*/
+	public Collection<T> getItems() {
+		return items;
 	}
 
-	public void setStartRow(int startRow) {
-		this.startRow = startRow;
-	}
-
-	public int getPrevPageRow() {
-		return prevPageRow;
-	}
-
-	public void setPrevPageRow(int prevPageRow) {
-		this.prevPageRow = prevPageRow;
-	}
-
-	public int getNextPageRow() {
-		return nextPageRow;
-	}
-
-	public void setNextPageRow(int nextPageRow) {
-		this.nextPageRow = nextPageRow;
-	}
-
-	public int getBlockFirstPage() {
-		return blockFirstPage;
-	}
-
-	public void setBlockFirstPage(int blockFirstPage) {
-		this.blockFirstPage = blockFirstPage;
-	}
-
-	public int getBlockLastPage() {
-		return blockLastPage;
-	}
-
-	public void setBlockLastPage(int blockLastPage) {
-		this.blockLastPage = blockLastPage;
+	public void setItems(Collection<T> items) {
+		this.items = items;
 	}
 
 	public int getCurrentPage() {
@@ -238,52 +185,60 @@ public class Page<T> implements Serializable {
 		this.currentPage = currentPage;
 	}
 
-	public int getLastPage() {
-		return lastPage;
+	public int getTotalCount() {
+		return totalCount;
 	}
 
-	public void setLastPage(int lastPage) {
-		this.lastPage = lastPage;
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 
-	public int getLastPageRow() {
-		return lastPageRow;
+	public int getPageUnit() {
+		return pageUnit;
 	}
 
-	public void setLastPageRow(int lastPageRow) {
-		this.lastPageRow = lastPageRow;
+	public void setPageUnit(int pageUnit) {
+		this.pageUnit = pageUnit;
 	}
 
-	public int getRowPerPage() {
-		return rowPerPage;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public void setRowPerPage(int rowPerPage) {
-		this.rowPerPage = rowPerPage;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
-	public int getPagePerBlock() {
-		return pagePerBlock;
+	public int getMaxPage() {
+		return maxPage;
 	}
 
-	public void setPagePerBlock(int pagePerBlock) {
-		this.pagePerBlock = pagePerBlock;
+	public void setMaxPage(int maxPage) {
+		this.maxPage = maxPage;
 	}
 
-	public int getTotalRow() {
-		return totalRow;
+	public int getBeginUnitPage() {
+		return beginUnitPage;
 	}
 
-	public void setTotalRow(int totalRow) {
-		this.totalRow = totalRow;
+	public void setBeginUnitPage(int beginUnitPage) {
+		this.beginUnitPage = beginUnitPage;
 	}
 
-	public Collection<T> getItems() {
-		return items;
+	public int getEndUnitPage() {
+		return endUnitPage;
 	}
 
-	public void setItems(Collection<T> items) {
-		this.items = items;
+	public void setEndUnitPage(int endUnitPage) {
+		this.endUnitPage = endUnitPage;
+	}
+
+	public void setFormName(String formName) {
+		this.formName = formName;
+	}
+
+	public String getFormName() {
+		return this.formName;
 	}
 
 }

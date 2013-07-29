@@ -69,7 +69,7 @@ public abstract class AbstractShopParser implements ShopParser {
 			// 해당 아이템의 카테고리 태그 정보가 존재하는 판단.
 			CategoryTag param = new CategoryTag();
 			param.setTag(item.getCategoryTag());
-			List<CategoryTag> tagList = this.commonDao.selectList(CategoryService.NAMESPACE, "getUniqueCategoryTagList", param);
+			List<CategoryTag> tagList = this.commonDao.selectList(CategoryService.NAMESPACE + "getUniqueCategoryTagList", param);
 
 			Product addItem = null;
 			// 파서가 추출한 카테고리와 매치되는 카테고리 tag 정보를 호출하여 해당 건수만큼 상품정보를 등록한다. 
@@ -88,7 +88,10 @@ public abstract class AbstractShopParser implements ShopParser {
 				CategoryTagUnreg tagUnreg = new CategoryTagUnreg();
 				tagUnreg.setMallId(item.getMallId());
 				tagUnreg.setPrdName(item.getPrdName());
+				tagUnreg.setPrdThumbUrl(item.getPrdThumbUrl());
+				tagUnreg.setPrdUrl(item.getPrdUrl());
 				tagUnreg.setTag(item.getCategoryTag());
+				
 				// 미처리로 등록.
 				tagUnreg.setProcYn("N");
 
@@ -107,18 +110,18 @@ public abstract class AbstractShopParser implements ShopParser {
 			deleteParam.setMallId(this.getMallId());
 			deleteParam.setPrdType(ProductType.TODAY.getType());
 
-			commonDao.delete(ProductService.NAMESPACE, "deleteProduct", deleteParam);
+			commonDao.delete(ProductService.NAMESPACE + "deleteProduct", deleteParam);
 
 			for (Product item : insertTodaySpecialList) {
 				// 오늘만 특가 상품유형 지정.
 				item.setPrdType(ProductType.TODAY.getType());
-				commonDao.insert(ProductService.NAMESPACE, "insertProduct", item);
+				commonDao.insert(ProductService.NAMESPACE + "insertProduct", item);
 
 				// 상품정보가 카테고리가 없는 상품정보의 경우 미등록 태그정보 등록.
 				CategoryTagUnreg tagUnreg = item.getCategoryTagUnreg();
 				if (tagUnreg != null) {
 					tagUnreg.setPrdSeq(item.getPrdSeq());
-					commonDao.insert(CategoryService.NAMESPACE, "insertCategoryTagUnreg", tagUnreg);
+					commonDao.insert(CategoryService.NAMESPACE + "insertCategoryTagUnreg", tagUnreg);
 				}
 			}
 		}

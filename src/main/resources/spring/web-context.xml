@@ -39,7 +39,7 @@
 		<property name="order" value="1" />
 		<property name="cache" value="false" />
 		<property name="suffix" value=".ftl" />
-		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="contentType" value="text/html; charset=${global.default-encoding}" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 	</bean>
 	
