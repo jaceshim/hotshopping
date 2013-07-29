@@ -10,7 +10,6 @@ import randy.core.pagination.Page;
 import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
 import randy.web.domain.CategoryTagUnreg;
-import randy.web.domain.TestBbs;
 
 /**
  * 카테고리 서비스
@@ -65,7 +64,7 @@ public class CategoryService extends AbstractService {
 	}
 
 	/**
-	 * 주어진 카테고리 아디디의 태그 목록을 얻는다.
+	 * 카테고리 목록 호출.
 	 * 
 	 * @param categoryTag
 	 * @return List<CategoryTag>
@@ -78,6 +77,21 @@ public class CategoryService extends AbstractService {
 	}
 
 	/**
+	 * 카테고리 페이지 목록 호출.
+	 * 
+	 * @param categoryTagUnreg
+	 * @return Page<CategoryTag>
+	 */
+	public Page<CategoryTag> getCategoryTagPageList(CategoryTag categoryTag) {
+		if (categoryTag.getPageSize() == null) {
+			// 페이지당 100개씩 노출.
+			categoryTag.setPageSize(50);
+		}
+
+		return commonDao.selectPageList(NAMESPACE + "getCategoryTagPageList", categoryTag);
+	}
+
+	/**
 	 * 카테고리 태그 등록
 	 * 
 	 * @param categoryTag
@@ -87,6 +101,37 @@ public class CategoryService extends AbstractService {
 		commonDao.insert(NAMESPACE + "insertCategoryTag", categoryTag);
 		return categoryTag.getSeq();
 	}
+
+	/**
+	 * 미등록 태그 등록처리.
+	 * 
+	 * @param categoryTagUnreg
+	 * @return int
+	 */
+	public int updateCategoryTagUnreg(CategoryTagUnreg categoryTagUnreg) {
+		
+		CategoryTagUnreg tagUnreg = this.getCategoryTagUnreg(categoryTagUnreg);
+		
+		CategoryTag categoryTag = new CategoryTag();
+		categoryTag.setCateId(categoryTagUnreg.getCateId());
+		categoryTag.setTag(tagUnreg.getTag());
+
+		commonDao.insert(NAMESPACE + "insertCategoryTag", categoryTag);
+
+		// 등록 후 미등록 태그 처리여부를 Y로 업데이트.
+		categoryTagUnreg.setProcYn("Y");
+		return commonDao.update(NAMESPACE + "updateCategoryTagUnreg", categoryTagUnreg);
+	}
+	
+	/**
+	 * 카테고리 미 등록 태그 상세정보.
+	 * 
+	 * @param categoryTag
+	 * @return List<CategoryTagUnreg>
+	 */
+	public CategoryTagUnreg getCategoryTagUnreg(CategoryTagUnreg categoryTagUnreg) {
+		return commonDao.selectOne(NAMESPACE + "getCategoryTagUnreg", categoryTagUnreg);
+	}	
 
 	/**
 	 * 카테고리 미 등록 태그 목록을 얻는다.
@@ -105,27 +150,14 @@ public class CategoryService extends AbstractService {
 	 * 카테고리 미 등록 태그 목록을 얻는다.
 	 * 
 	 * @param categoryTag
-	 * @return List<CategoryTagUnreg>
+	 * @return Page<CategoryTagUnreg>
 	 */
 	public Page<CategoryTagUnreg> getCategoryTagUnregPageList(CategoryTagUnreg categoryTagUnreg) {
-		if (categoryTagUnreg == null) {
-			categoryTagUnreg = new CategoryTagUnreg();
+		if (categoryTagUnreg.getPageSize() == null) {
+			// 페이지당 100개씩 노출.
+			categoryTagUnreg.setPageSize(50);
 		}
-		// 페이지당 100개씩 노출.
-		categoryTagUnreg.setPageSize(100);
+
 		return commonDao.selectPageList(NAMESPACE + "getCategoryTagUnregPageList", categoryTagUnreg);
-	}
-
-	/**
-	 * 페이징 테스트용.
-	 * 
-	 * @param params
-	 * @return
-	 */
-	public Page<TestBbs> getTestList(TestBbs params) {
-
-		params.setPageSize(1000);
-
-		return commonDao.selectPageList(NAMESPACE + "getTestList", params);
 	}
 }

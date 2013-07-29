@@ -4,9 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace는 반드시 data-context.xml의 commonDao Bean설정시 주어진 defaultNamespace를 prefix로 해야함. -->
 <mapper namespace="randy.sql.category">
-	<cache 
-		eviction="LRU" 
-		flushInterval="60000"/>
+	<cache  eviction="LRU" 
+			flushInterval="60000"/>
 
 	<sql id="selectCategorySql">
 			cate_id   AS cateId
@@ -79,6 +78,26 @@
 		</where>
 	</select>
 	
+	<select id="getCategoryTagPageList" resultType="categoryTag" parameterType="categoryTag" >
+		select <include refid="selectCategoryTagSql"/>
+		from tb_category_tag
+		<where>
+			<if test='cateId != null'>cate_id = #{cateId}</if>
+			<if test='tag != null'>and tag like concat('%', #{tag}, '%')</if>
+		</where>
+		order by seq desc 
+		limit #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="getCategoryTagPageListCount" resultType="java.lang.Integer" parameterType="categoryTagUnreg" >
+		select count(*)
+		from tb_category_tag
+		<where>
+			<if test='cateId != null'>cate_id = #{cateId}</if>
+			<if test='tag != null'>and tag like concat('%', #{tag}, '%')</if>
+		</where>		
+	</select>
+	
 	<select id="getUniqueCategoryTagList" parameterType="categoryTag" resultType="categoryTag">
 		select distinct(cateId)
 		from (
@@ -119,14 +138,37 @@
 		,	DATE_FORMAT(reg_dt, '%Y-%m-%d %H:%i:%s') AS regDt
 	</sql>
 	
-	<select id="getCategoryTagUnregList" resultType="categoryTagUnreg" parameterType="categoryTagUnreg">
+	<resultMap id="categoryTagUnregResult" type="categoryTagUnreg">
+		<result column="seq" property="seq"/>
+		<result column="prdSeq" property="prdSeq"/>
+		<result column="mallId" property="mallId"/>
+		<result column="prdName" property="prdName"/>
+		<result column="prdThumbUrl" property="prdThumbUrl"/>
+		<result column="prdUrl" property="prdUrl"/>
+		<result column="tag" property="tag"/>
+		<result column="procYn" property="procYn"/>
+		<result column="regDt" property="regDt"/>
+		<association property="mall" column="{mallId=mallId}" select="randy.sql.mall.getMall" />
+	</resultMap>
+	
+	<select id="getCategoryTagUnreg" resultMap="categoryTagUnregResult" parameterType="categoryTagUnreg">
+		select <include refid="selectCategoryTagUnregSql"/>
+		from tb_category_tag_unreg
+		where seq = #{seq}
+	</select>
+	
+	<select id="getCategoryTagUnregList" resultMap="categoryTagUnregResult" parameterType="categoryTagUnreg">
 		select <include refid="selectCategoryTagUnregSql"/>
 		from tb_category_tag_unreg
 	</select>
 	
-	<select id="getCategoryTagUnregPageList" resultType="categoryTagUnreg" parameterType="categoryTagUnreg" >
+	<select id="getCategoryTagUnregPageList" resultMap="categoryTagUnregResult" parameterType="categoryTagUnreg" >
 		select <include refid="selectCategoryTagUnregSql"/>
 		from tb_category_tag_unreg
+		<where>
+			proc_yn = 'N'
+			<if test='mallId'>and mall_id=#{mallId}</if>
+		</where>
 		order by seq desc 
 		limit #{startRow}, #{pageSize}
 	</select>
@@ -134,6 +176,10 @@
 	<select id="getCategoryTagUnregPageListCount" resultType="java.lang.Integer" parameterType="categoryTagUnreg" >
 		select count(*)
 		from tb_category_tag_unreg
+		<where>
+			proc_yn = 'N'
+			<if test='mallId'>and mall_id=#{mallId}</if>
+		</where>		
 	</select>	
 	
 	<insert id="insertCategoryTagUnreg" parameterType="categoryTagUnreg" flushCache="true" useGeneratedKeys="true" keyProperty="seq">
@@ -161,22 +207,9 @@
 	<update id="updateCategoryTagUnreg" parameterType="categoryTagUnreg">
 		update tb_category_tag_unreg
 		<set>
-			<if test='useYn != null'>use_yn = #{useYn},</if>
+			<if test='procYn != null'>proc_yn = #{procYn},</if>
 		</set>
 		where seq = #{seq}
-	</update>
-	
-	
-	<select id="getTestList" parameterType="testBbs" resultType="testBbs" useCache="false">
-		select seq, co1, co2, co3, co4
-		from test_bbs
-		order by seq desc
-		LIMIT #{startRow}, #{pageSize}
-	</select>
-	
-	<select id="getTestListCount" parameterType="testBbs" resultType="java.lang.Integer" useCache="false">
-		select COUNT(*)
-		from test_bbs
-	</select>	
+	</update>	
 	
 </mapper>

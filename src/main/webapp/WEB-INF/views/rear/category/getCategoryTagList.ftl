@@ -1,45 +1,48 @@
 <head>
 	<title>카테고리 태그 목록</title>
 	<script type="text/javascript">
-		function insertCategory() {
-			var form = document.cateForm;
-			form.action = "insertForm";
-			form.submit();			
-		}	
+
 	</script>
 </head>
 <body>
-<h3>카테고리 목록</h3>
 
-<form name="cateForm" method="get">
+<form name="cateForm" id="cateForm">
 
 </form>
 
-<table border="1">
-	<tr>
-		<td>카테고리 아이디</td>
-		<td>카테고리 명</td>
-		<td>부모카테고리 아이디</td>
-		<td>사용여부</td>
-	</tr>
-	<#list categoryList as item>
-	<tr>
-		<#if item.level > 1>
-		<td>&nbsp</td>
-		<td>${item.cateId}</td>
-		<td>${item.cateName}</td>
-		<td>${item.useYn}</td>
-		<#else>
-		<td>${item.cateId}</td>
-		<td>${item.cateName}</td>
-		<td>${item.pcateId}</td>
-		<td>${item.useYn}</td>		
-		</#if>
-	</tr>
-	</#list>
-</table>
-<br /><br />
-<button onclick="insertCategory();">등록</button>
+<div class="box-content">
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th width="60">순번</th>
+				<th>카테고리 아이디</th>
+				<th>카테고리 명</th>
+				<th>태그</th>
+				<th>Action</th> 
+			</tr>
+		</thead>
+		<tbody>
+			<#list page.items as item>
+			<tr>
+				<td>${item.seq?c}</td>
+				<td>${item.category.cateId}</td>
+				<td>${item.category.cateName}</td>
+				<td>${item.tag}</td>
+				<td>&nbsp;</td>
+			</tr>
+			</#list>
+			<#if !page.items?has_content>
+			<tr>
+				<td colspan="5">등록된 데이터가 없습니다.</td>
+			</tr>
+			</#if>
+		</tbody>
+	</table>
+	
+	${page.getPageHtml("cateForm")}
+	
+</div>
 
 </body>
 

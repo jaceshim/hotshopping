@@ -2,14 +2,14 @@ package randy.web.domain;
 
 import java.util.List;
 
-import randy.core.j2ee.domain.AbstractDomain;
+import randy.core.j2ee.domain.AbstractPageDomain;
 
 /**
  * 카테고리 도메인.
  * 
  * @author jace
  */
-public class Category extends AbstractDomain {
+public class Category extends AbstractPageDomain {
 
 	/** 카테고리 태그 목록 */
 	private List<CategoryTag> cateTagList;

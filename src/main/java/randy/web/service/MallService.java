@@ -23,9 +23,12 @@ public class MallService extends AbstractService {
 	 * @return List<Category>
 	 */
 	public List<Mall> getMallList(Mall mall) {
+		if (mall == null) {
+			mall = new Mall();
+		}
 		return commonDao.selectList(NAMESPACE + "getMallList", mall);
 	}
-	
+
 	/**
 	 * 몰 등록
 	 * 
@@ -34,10 +37,10 @@ public class MallService extends AbstractService {
 	 */
 	public Integer isnertMall(Mall mall) {
 		commonDao.insert(NAMESPACE + "insertMall", mall);
-		
+
 		return mall.getMallId();
 	}
-	
+
 	/**
 	 * 몰 수정
 	 * 

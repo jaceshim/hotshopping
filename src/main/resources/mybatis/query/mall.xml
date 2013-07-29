@@ -19,6 +19,12 @@
 		from tb_mall
 	</select>
 	
+	<select id="getMall" parameterType="mall" resultType="mall">
+		select <include refid="selectMallSql"/>
+		from tb_mall
+		where mall_id = #{mallId}
+	</select>	
+	
 	<insert id="insertMall" parameterType="mall" useGeneratedKeys="true" keyProperty="mallId">
 		insert into tb_mall (
 				mall_name

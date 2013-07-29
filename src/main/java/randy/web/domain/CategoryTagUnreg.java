@@ -9,6 +9,9 @@ import randy.core.j2ee.domain.AbstractPageDomain;
  */
 public class CategoryTagUnreg extends AbstractPageDomain {
 
+	/** 몰 정보 */
+	private Mall mall;
+
 	/** 순번 */
 	private Integer seq;
 	/** 미등록 태그를 발생시킨 상푼순번 */
@@ -27,6 +30,16 @@ public class CategoryTagUnreg extends AbstractPageDomain {
 	private String procYn;
 	/** 등록일시 */
 	private String regDt;
+
+	private Integer cateId;
+
+	public Mall getMall() {
+		return mall;
+	}
+
+	public void setMall(Mall mall) {
+		this.mall = mall;
+	}
 
 	public Integer getSeq() {
 		return seq;
@@ -98,6 +111,14 @@ public class CategoryTagUnreg extends AbstractPageDomain {
 
 	public void setRegDt(String regDt) {
 		this.regDt = regDt;
+	}
+
+	public Integer getCateId() {
+		return cateId;
+	}
+
+	public void setCateId(Integer cateId) {
+		this.cateId = cateId;
 	}
 
 }
