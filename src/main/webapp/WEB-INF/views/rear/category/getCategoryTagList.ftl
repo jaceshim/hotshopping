@@ -1,16 +1,40 @@
 <head>
 	<title>카테고리 태그 목록</title>
 	<script type="text/javascript">
-
+		var URI_PREFIX = '/rear/category/tag/';
+	
+		function jsList() {
+			var form = document.cateForm;
+			form.action = URI_PREFIX + 'list';
+			form.submit();
+		}
 	</script>
 </head>
 <body>
 
-<form name="cateForm" id="cateForm">
-
-</form>
-
 <div class="box-content">
+
+	<div class="row-fluid">
+		<form name="cateForm" id="cateForm">
+			<input type="hidden" name="pageNum" >
+		<div class="span6">
+			<span>몰 : </span>
+			<select name="cateId" onchange="jsList()">
+				<option value="">-- 선택 --</option>
+				<#assign cateIdParam="-1">
+				<#if !RequestParameters.cateId?exists || RequestParameters.cateId == "">
+					<#assign cateIdParam="-1">
+				<#else>
+					<#assign cateIdParam=RequestParameters.cateId>
+				</#if>
+				<#list categoryList as item>
+				<option value="${item.cateId}" <#if cateIdParam?number == item.cateId>selected="selected"</#if> >${item.cateName}</option>
+				</#list>
+			</select>
+		</div>
+		</form>
+	</div>
+
 
 	<table class="table table-bordered table-striped">
 		<thead>

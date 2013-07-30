@@ -1,6 +1,6 @@
-package randy.web.support.api;
+package randy.web.support.async;
 
-public enum ApiStatus {
+public enum AsyncStatus {
 
 	/** 성공 */
 	SUCCESS("success"),
@@ -9,7 +9,7 @@ public enum ApiStatus {
 
 	private String status;
 
-	private ApiStatus(String status) {
+	private AsyncStatus(String status) {
 		this.status = status;
 	}
 

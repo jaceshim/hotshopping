@@ -1,4 +1,4 @@
-package randy.web.support.api;
+package randy.web.support.async;
 
 /**
  * API 응답처리 도메인.
@@ -6,7 +6,7 @@ package randy.web.support.api;
  * @author jace
  *
  */
-public class ApiResult {
+public class AsyncResult {
 
 	private String status;
 

@@ -13,8 +13,8 @@ import randy.web.domain.Category;
 import randy.web.domain.Product;
 import randy.web.service.CategoryService;
 import randy.web.service.ProductService;
-import randy.web.support.api.ApiResult;
-import randy.web.support.api.ApiStatus;
+import randy.web.support.async.AsyncResult;
+import randy.web.support.async.AsyncStatus;
 
 /**
  * API 콘트롤러.
@@ -39,17 +39,17 @@ public class ApiController extends AbstractController {
 	 */
 	@RequestMapping("/get/product")
 	@ResponseBody	
-	public ApiResult getProductList(@ModelAttribute Product product) {
-		ApiResult result = new ApiResult();
+	public AsyncResult getProductList(@ModelAttribute Product product) {
+		AsyncResult result = new AsyncResult();
 		try {
 			List<Product> data = productService.getProductList(product);
 			if (data != null) {
-				result.setStatus(ApiStatus.SUCCESS.getStatus());
+				result.setStatus(AsyncStatus.SUCCESS.getStatus());
 				result.setData(data);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setStatus(ApiStatus.ERROR.getStatus());
+			result.setStatus(AsyncStatus.ERROR.getStatus());
 		}
 
 		return result;
@@ -63,18 +63,18 @@ public class ApiController extends AbstractController {
 	 */
 	@RequestMapping("/get/category")
 	@ResponseBody
-	public ApiResult getCategory(@ModelAttribute Category category) {
+	public AsyncResult getCategory(@ModelAttribute Category category) {
 
-		ApiResult result = new ApiResult();
+		AsyncResult result = new AsyncResult();
 		try {
 			List<Category> data = categoryService.getCategoryList(category);
 			if (data != null) {
-				result.setStatus(ApiStatus.SUCCESS.getStatus());
+				result.setStatus(AsyncStatus.SUCCESS.getStatus());
 				result.setData(data);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setStatus(ApiStatus.ERROR.getStatus());
+			result.setStatus(AsyncStatus.ERROR.getStatus());
 		}
 
 		return result;

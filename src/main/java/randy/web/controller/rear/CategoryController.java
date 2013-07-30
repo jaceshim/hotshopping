@@ -17,8 +17,8 @@ import randy.web.domain.CategoryTag;
 import randy.web.domain.CategoryTagUnreg;
 import randy.web.service.CategoryService;
 import randy.web.service.MallService;
-import randy.web.support.api.ApiResult;
-import randy.web.support.api.ApiStatus;
+import randy.web.support.async.AsyncResult;
+import randy.web.support.async.AsyncStatus;
 
 /**
  * 카테고리 콘트롤러.
@@ -183,17 +183,17 @@ public class CategoryController extends AbstractRearController {
 	 */
 	@RequestMapping(PATH + "tag/unreg/update.ajax")
 	@ResponseBody
-	public ApiResult updateCategoryTagUnregForAjax(@ModelAttribute CategoryTagUnreg categoryTagUnreg, Model model) {
+	public AsyncResult updateCategoryTagUnregForAjax(@ModelAttribute CategoryTagUnreg categoryTagUnreg, Model model) {
 
-		ApiResult result = new ApiResult();
+		AsyncResult result = new AsyncResult();
 		try {
 			int resultCount = categoryService.updateCategoryTagUnreg(categoryTagUnreg);
 			if (resultCount > 0) {
-				result.setStatus(ApiStatus.SUCCESS.getStatus());
+				result.setStatus(AsyncStatus.SUCCESS.getStatus());
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			result.setStatus(ApiStatus.ERROR.getStatus());
+			result.setStatus(AsyncStatus.ERROR.getStatus());
 		}
 
 		return result;
