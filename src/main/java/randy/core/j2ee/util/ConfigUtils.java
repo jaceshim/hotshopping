@@ -54,5 +54,4 @@ public class ConfigUtils extends PropertyPlaceholderConfigurer {
 	public static String getString(String key) {
 		return propertiesMap.get(key);
 	}
-
 }

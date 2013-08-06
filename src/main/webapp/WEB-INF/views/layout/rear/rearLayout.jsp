@@ -287,7 +287,7 @@
 					</ul>
 				</div>
 				
-				<div>
+				<div id="contentWrapper">
 					<decorator:body />
 				</div>
 				
