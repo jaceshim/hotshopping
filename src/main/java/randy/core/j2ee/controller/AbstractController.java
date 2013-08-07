@@ -57,4 +57,28 @@ public abstract class AbstractController {
 		}*/
 		return REDIRECT + ConfigUtils.getString("global.alert.url");
 	}
+	
+	/**
+	 * Message Key enum
+	 * 
+	 * @author jace
+	 */
+	protected enum Message {
+		INSERT_SUCCESS("common.insert.success"), 
+		INSERT_FAIL("common.insert.fail"), 
+		UPDATE_SUCCESS("common.update.success"), 
+		UPDATE_FAIL("common.update.fail"), 
+		DELETE_SUCCESS("common.delete.success"), 
+		DELETE_FAIL("common.delete.fail");
+
+		private String key;
+
+		private Message(String key) {
+			this.key = key;
+		}
+
+		public String getKey() {
+			return this.key;
+		}
+	}	
 }

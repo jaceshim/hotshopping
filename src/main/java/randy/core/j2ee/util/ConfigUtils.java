@@ -1,31 +1,48 @@
 package randy.core.j2ee.util;
 
 import java.util.HashMap;
-
 import java.util.Map;
 import java.util.Properties;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
- * config성격의 properties파일 정보 호출.
+ * config성격의 properties파일 static access 처리 클래스.
  * 
  * @author jace
  */
-public class ConfigUtils extends PropertyPlaceholderConfigurer {
+@Component
+public class ConfigUtils {
 
-	private static Map<String, String> propertiesMap;
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Override
-	protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props) throws BeansException {
+	private static Map<String, String> propertiesMap = new HashMap<String, String>();;
 
-		super.processProperties(beanFactory, props);
+	/**
+	 * 생성자를 통해서 util:properties를 통해 load한 properties를 injection받는다.
+	 * <strong>생성자 매개변수명과 util:properties의 id명과 동일해야함.</strong>
+	 * 
+	 * @param global
+	 * @param config
+	 */
+	@Autowired
+	public ConfigUtils(Properties global, Properties config) {
+		if (global != null) {
+			setProps(global);
+		}
+		if (config != null) {
+			setProps(config);
+		}
+	}
 
-		propertiesMap = new HashMap<String, String>();
+	private void setProps(Properties props) {
 		for (Object key : props.keySet()) {
 			String keyStr = key.toString();
+
+			logger.debug("--> key : " + keyStr);
 
 			propertiesMap.put(keyStr, props.getProperty(keyStr));
 		}

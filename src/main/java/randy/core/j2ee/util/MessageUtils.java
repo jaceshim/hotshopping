@@ -2,9 +2,11 @@ package randy.core.j2ee.util;
 
 import java.util.Locale;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceAware;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,13 +15,20 @@ import org.springframework.stereotype.Component;
  * @author jace
  */
 @Component
-public final class MessageUtils implements MessageSourceAware {
+public final class MessageUtils {
 
-	private static MessageSource messageSource;
+	static Logger logger = LoggerFactory.getLogger(MessageUtils.class);
 
-	@SuppressWarnings("static-access")
-	public void setMessageSource(MessageSource messageSource) {
-		this.messageSource = messageSource;
+	private static ReloadableResourceBundleMessageSource messageSource;
+
+	/**
+	 * 생성자를 통해서  load한 messasge properties를 injection받는다.
+	 * 
+	 * @param messageSource
+	 */
+	@Autowired
+	public MessageUtils(ReloadableResourceBundleMessageSource messageSource) {
+		MessageUtils.messageSource = messageSource;
 	}
 
 	public static String getMessage(String code) {

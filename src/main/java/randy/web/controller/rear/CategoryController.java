@@ -95,7 +95,7 @@ public class CategoryController extends AbstractRearController {
 		// alert처리 정보생성.
 		AlertInfo alertInfo = new AlertInfo();
 		alertInfo.setAlertType(AlertType.ALERT_AND_GO);
-		alertInfo.setMessage("message.insert.success");
+		alertInfo.setMessage(Message.INSERT_SUCCESS.getKey());
 		alertInfo.setRedirectUrl(VIEW_PREFIX + PATH + "list");
 
 		return this.alert(request, alertInfo);
@@ -148,7 +148,7 @@ public class CategoryController extends AbstractRearController {
 		// alert처리 정보생성.
 		AlertInfo alertInfo = new AlertInfo();
 		alertInfo.setAlertType(AlertType.ALERT_AND_GO);
-		alertInfo.setMessage("message.insert.success");
+		alertInfo.setMessage(Message.INSERT_SUCCESS.getKey());
 		alertInfo.setRedirectUrl(VIEW_PREFIX + PATH + "tag/list");
 
 		return this.alert(request, alertInfo);
