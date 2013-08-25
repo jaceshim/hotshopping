@@ -38,9 +38,13 @@
         <property name="defaultEncoding" value="${global.default-encoding}" />
         <property name="basename" value="classpath:message/message"/>
 	</bean>
+	
+	<!-- 
 
     <task:scheduler id="parseScheduler" pool-size="10" />
     <task:executor id="parseTaskExcutor" pool-size="10"/>
-    <task:annotation-driven executor="parseTaskExcutor" scheduler="parseScheduler"/>	
+    <task:annotation-driven executor="parseTaskExcutor" scheduler="parseScheduler"/>
+    
+     -->	
 
 </beans>

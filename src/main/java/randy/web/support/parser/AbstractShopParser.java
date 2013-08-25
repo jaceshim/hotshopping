@@ -11,7 +11,6 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
-import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,17 +68,16 @@ public abstract class AbstractShopParser implements ShopParser {
 			// 해당 아이템의 카테고리 태그 정보가 존재하는 판단.
 			CategoryTag param = new CategoryTag();
 			param.setTag(item.getCategoryTag());
-			List<CategoryTag> tagList = this.commonDao.selectList(CategoryService.NAMESPACE + "getUniqueCategoryTagList", param);
+			List<CategoryTag> tagList = commonDao.selectList(CategoryService.NAMESPACE + "getUniqueCategoryTagList", param);
 
 			Product addItem = null;
 			// 파서가 추출한 카테고리와 매치되는 카테고리 tag 정보를 호출하여 해당 건수만큼 상품정보를 등록한다. 
 			if (tagList != null && tagList.size() > 0) {
 				for (CategoryTag tagItem : tagList) {
-					Product insertPrd = (Product)ObjectUtils.clone(item);
-					insertPrd.setCateId(tagItem.getCateId());
-					insertPrd.setUseYn("Y");
+					item.setCateId(tagItem.getCateId());
+					item.setUseYn("Y");
 
-					addItem = insertPrd;
+					addItem = item;
 				}
 			} else {
 				item.setUseYn("N");

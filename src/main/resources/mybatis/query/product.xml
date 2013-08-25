@@ -31,6 +31,28 @@
 		</where>
 	</select>
 	
+	<select id="getProductPageList" resultMap="product" parameterType="product" >
+		select <include refid="selectProductSql"/>
+		from tb_product
+		<where>
+			<if test='usYn != null'>use_yn = #{useYn}</if>
+			<if test='mallId != null'>and mall_id = #{mallId}</if>
+			<if test='prdName != null'>and prd_name like concat('%', #{prdName}, '%')</if>
+		</where>
+		order by seq desc 
+		limit #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="getProductPageListCount" resultType="java.lang.Integer" parameterType="product" >
+		select count(*)
+		from tb_product
+		<where>
+			<if test='usYn != null'>use_yn = #{useYn}</if>
+			<if test='mallId != null'>and mall_id = #{mallId}</if>
+			<if test='prdName != null'>and prd_name like concat('%', #{prdName}, '%')</if>
+		</where>		
+	</select>
+	
 	<insert id="insertProduct" parameterType="product" flushCache="true" useGeneratedKeys="true" keyProperty="prdSeq">	
 		insert into tb_product (
 				prd_type
@@ -54,6 +76,13 @@
 			,	#{useYn}
 		)		
 	</insert>
+	
+	<update id="updateProduct" parameterType="product" flushCache="true">
+		update tb_product set
+		<if test='cateId != null nad !cateId.equals("")'>cate_id = #{cateId}</if>
+		<if test='useYn != null nad !useYn.equals("")'>use_yn = #{useYn}</if>
+		where prd_seq = #{prdSeq}
+	</update>
 	
 	<delete id="deleteProduct" parameterType="product" flushCache="true">
 		delete from tb_product

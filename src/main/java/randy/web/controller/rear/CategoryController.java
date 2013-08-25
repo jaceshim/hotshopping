@@ -48,7 +48,7 @@ public class CategoryController extends AbstractRearController {
 		// 카테고리 tree목록 호출.
 		model.addAttribute("categoryList", categoryService.getCategoryTreeList(null));
 
-		return VIEW_PREFIX + "/category/getCategoryList";
+		return VIEW_PREFIX + PATH + "getCategoryList";
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class CategoryController extends AbstractRearController {
 		Category cateParam = new Category();
 		cateParam.setCateId(cateId);
 
-		return VIEW_PREFIX + "/category/getCategory";
+		return VIEW_PREFIX + PATH + "getCategory";
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class CategoryController extends AbstractRearController {
 	@RequestMapping(PATH + "insertform")
 	public String insertCategoryFormForAjax(Model model) {
 
-		return VIEW_PREFIX + "/category/insertCategoryForm";
+		return VIEW_PREFIX + PATH + "/insertCategoryForm";
 	}
 
 	/**
@@ -110,9 +110,12 @@ public class CategoryController extends AbstractRearController {
 	@RequestMapping(PATH + "tag/list")
 	public String getCategoryTagList(@ModelAttribute CategoryTag categoryTag, Model model) {
 		
+		// 카테고리 목록
+		model.addAttribute("categoryList", categoryService.getCategoryList(null));		
+		
 		model.addAttribute("page", categoryService.getCategoryTagPageList(categoryTag));
 
-		return VIEW_PREFIX + "/category/getCategoryTagList";
+		return VIEW_PREFIX + PATH + "getCategoryTagList";
 	}
 
 	/**
@@ -129,7 +132,7 @@ public class CategoryController extends AbstractRearController {
 		categoryParam.setPcateId(0);
 		model.addAttribute("categoryList", categoryService.getCategoryList(categoryParam));
 
-		return VIEW_PREFIX + "/category/insertCategoryTag";
+		return VIEW_PREFIX + PATH + "insertCategoryTag";
 	}
 
 	/**
@@ -170,7 +173,7 @@ public class CategoryController extends AbstractRearController {
 
 		model.addAttribute("page", categoryService.getCategoryTagUnregPageList(categoryTagUnreg));
 
-		return VIEW_PREFIX + "/category/getCategoryTagUnregList";
+		return VIEW_PREFIX + PATH + "getCategoryTagUnregList";
 	}
 
 	/**
