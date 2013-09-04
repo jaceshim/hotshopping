@@ -91,7 +91,7 @@ public class ParseWorker {
 		}
 
 		// 파서실행.
-		this.run();
+		//this.run();
 	}
 
 	/**

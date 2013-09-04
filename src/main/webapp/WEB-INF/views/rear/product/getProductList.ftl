@@ -1,7 +1,7 @@
 <head>
-	<title>카테고리 미등록 태그 목록</title>
+	<title>상품 목록</title>
 	<script type="text/javascript">
-		var URI_PREFIX = '/rear/category/tag/';
+		var URI_PREFIX = '/rear/product/';
 	
 		function insertCategoryTag(seq, cateId) {
 			$.ajax({
@@ -20,7 +20,7 @@
 		
 		function jsList() {
 			var form = document.cateForm;
-			form.action = URI_PREFIX + 'unreg/list';
+			form.action = URI_PREFIX + 'list';
 			form.submit();
 		}
 	</script>
@@ -58,7 +58,7 @@
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th width="60">순번</th>
+				<th width="60">상품순번</th>
 				<th width="80">몰</th>
 				<th>상품순번</th>
 				<th>상품이미지</th>

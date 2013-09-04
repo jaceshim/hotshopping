@@ -23,7 +23,7 @@ public class ManagerController extends AbstractRearController {
 	@RequestMapping(PATH + "loginform")
 	public String loginForm(Model model) {
 
-		return VIEW_PREFIX + PATH + "/login";
+		return VIEW_PREFIX + PATH + "login";
 	}
 
 	/**

@@ -60,13 +60,14 @@
 		,	P.cate_name as cateName
 		,	P.pcate_id as pcateId
 		,	P.use_yn as useYn
-		,	C.tag as tag	
+		,	C.tag as tag
+		,	C.seq as seq
 	</sql>
 	
 	<select id="getCategoryTagList" parameterType="categoryTag" resultType="categoryTag">
 		select <include refid="selectCategoryTagSql"/>
 		from tb_category P 
-		left join tb_category_tag C
+		right join tb_category_tag C
 		on P.cate_id = C.cate_id
 		<where>
 			<if test='pcateId != null'>
@@ -80,12 +81,14 @@
 	
 	<select id="getCategoryTagPageList" resultType="categoryTag" parameterType="categoryTag" >
 		select <include refid="selectCategoryTagSql"/>
-		from tb_category_tag
+		from tb_category P
+		right join tb_category_tag C
+		on P.cate_id = C.cate_id
 		<where>
-			<if test='cateId != null'>cate_id = #{cateId}</if>
-			<if test='tag != null'>and tag like concat('%', #{tag}, '%')</if>
+			<if test='cateId != null'>P.cate_id = #{cateId}</if>
+			<if test='tag != null'>and C.tag like concat('%', #{tag}, '%')</if>
 		</where>
-		order by seq desc 
+		order by C.seq desc 
 		limit #{startRow}, #{pageSize}
 	</select>
 	
@@ -98,8 +101,8 @@
 		</where>		
 	</select>
 	
-	<select id="getUniqueCategoryTagList" parameterType="categoryTag" resultType="categoryTag">
-		select distinct(cateId)
+	<select id="getUniqueCategoryTagList" parameterType="categoryTag" resultType="categoryTag" useCache="false">
+		select distinct(cateId) AS cateId
 		from (
 			select <include refid="selectCategoryTagSql"/>
 			from tb_category P 

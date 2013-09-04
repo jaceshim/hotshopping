@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import randy.core.j2ee.service.AbstractService;
 import randy.core.pagination.Page;
 import randy.web.domain.Category;
 import randy.web.domain.CategoryTag;
 import randy.web.domain.CategoryTagUnreg;
+import randy.web.domain.Product;
 
 /**
  * 카테고리 서비스
@@ -108,21 +110,35 @@ public class CategoryService extends AbstractService {
 	 * @param categoryTagUnreg
 	 * @return int
 	 */
+	@Transactional
 	public int updateCategoryTagUnreg(CategoryTagUnreg categoryTagUnreg) {
-		
-		CategoryTagUnreg tagUnreg = this.getCategoryTagUnreg(categoryTagUnreg);
-		
+
+		CategoryTagUnreg tagUnregInfo = this.getCategoryTagUnreg(categoryTagUnreg);
+
 		CategoryTag categoryTag = new CategoryTag();
 		categoryTag.setCateId(categoryTagUnreg.getCateId());
-		categoryTag.setTag(tagUnreg.getTag());
+		categoryTag.setTag(tagUnregInfo.getTag());
 
 		commonDao.insert(NAMESPACE + "insertCategoryTag", categoryTag);
 
 		// 등록 후 미등록 태그 처리여부를 Y로 업데이트.
 		categoryTagUnreg.setProcYn("Y");
-		return commonDao.update(NAMESPACE + "updateCategoryTagUnreg", categoryTagUnreg);
+		int resultCount = commonDao.update(NAMESPACE + "updateCategoryTagUnreg", categoryTagUnreg);
+		if (resultCount > 0) {
+
+			// 미등록 태그의 상품정보 업데이트.
+			Product prdParam = new Product();
+			prdParam.setPrdSeq(tagUnregInfo.getPrdSeq());
+			prdParam.setUseYn("Y");
+			prdParam.setCateId(categoryTagUnreg.getCateId());
+			commonDao.update(ProductService.NAMESPACE + "updateProduct", prdParam);
+
+		}
+
+		return resultCount;
+
 	}
-	
+
 	/**
 	 * 카테고리 미 등록 태그 상세정보.
 	 * 
@@ -131,7 +147,7 @@ public class CategoryService extends AbstractService {
 	 */
 	public CategoryTagUnreg getCategoryTagUnreg(CategoryTagUnreg categoryTagUnreg) {
 		return commonDao.selectOne(NAMESPACE + "getCategoryTagUnreg", categoryTagUnreg);
-	}	
+	}
 
 	/**
 	 * 카테고리 미 등록 태그 목록을 얻는다.
