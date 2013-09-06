@@ -16,6 +16,15 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
+	<!-- 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/rear/**" />
+			<bean class="randy.web.support.interceptor.RearInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	 -->	
+	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:alwaysUseFullPath="true" />
       
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" p:alwaysUseFullPath="true">

@@ -31,11 +31,10 @@
 			expression="org.springframework.stereotype.Component" />			
 	</context:component-scan>
 	
-	<!-- enabling annotation driven configuration  -->
-	<context:annotation-config />
-
+	<!-- 
     <task:scheduler id="parseScheduler" pool-size="10" />
     <task:executor id="parseTaskExcutor" pool-size="10"/>
-    <task:annotation-driven executor="parseTaskExcutor" scheduler="parseScheduler"/>	
+    <task:annotation-driven executor="parseTaskExcutor" scheduler="parseScheduler"/>
+     -->	
 
 </beans>

@@ -1,8 +1,11 @@
 package randy.web.controller.rear;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import randy.web.service.ManagerService;
 
 /**
  * 관리자 관련 콘트롤러.
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ManagerController extends AbstractRearController {
 
 	private static final String PATH = "/manager/";
+	
+	@Autowired
+	ManagerService managerService;	
 
 	/**
 	 * 로그인 화면

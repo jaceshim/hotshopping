@@ -1,114 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>hot shopping</title>
-<script type="text/javascript">
-/**
- * 쿠키값 추출
- * @param cookieName 쿠키명
- */
-function getCookie( cookieName )
-{
- var search = cookieName + "=";
- var cookie = document.cookie;
- // 현재 쿠키가 존재할 경우
- if( cookie.length > 0 )
- {
-  // 해당 쿠키명이 존재하는지 검색한 후 존재하면 위치를 리턴.
-  startIndex = cookie.indexOf( cookieName );
-  // 만약 존재한다면
-  if( startIndex != -1 )
-  {
-   // 값을 얻어내기 위해 시작 인덱스 조절
-   startIndex += cookieName.length;
-   // 값을 얻어내기 위해 종료 인덱스 추출
-   endIndex = cookie.indexOf( ";", startIndex );
-   // 만약 종료 인덱스를 못찾게 되면 쿠키 전체길이로 설정
-   if( endIndex == -1) endIndex = cookie.length;
-   // 쿠키값을 추출하여 리턴
-   return unescape( cookie.substring( startIndex + 1, endIndex ) );
-  }
-  else
-  {
-   // 쿠키 내에 해당 쿠키가 존재하지 않을 경우
-   return false;
-  }
- }
- else
- {
-  // 쿠키 자체가 없을 경우
-  return false;
- }
-}
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>   
 
-/**
- * 쿠키 설정
- * @param cookieName 쿠키명
- * @param cookieValue 쿠키값
- * @param expireDay 쿠키 유효날짜
- */
-function setCookie( cookieName, cookieValue, expireDate )
-{
- var today = new Date();
- today.setDate( today.getDate() + parseInt( expireDate ) );
- document.cookie = cookieName + "=" + escape( cookieValue ) + "; path=/; expires=" + today.toGMTString() + ";";
-}
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 
-/**
- * 쿠키 삭제
- * @param cookieName 삭제할 쿠키명
- */
-function deleteCookie( cookieName )
-{
- var expireDate = new Date();
- 
- //어제 날짜를 쿠키 소멸 날짜로 설정한다.
- expireDate.setDate( expireDate.getDate() - 1 );
- document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/";
-}
 
-/**
- * 자신이 지정한 값으로 쿠키 설정
- */
-function setMyCookie()
-{
- setCookie( form.setName.value, form.setValue.value, form.expire.value );
- viewCookie(); // 전체 쿠키 출력 갱신
-}
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-/**
- * 자신이 지정한 쿠키명으로 확인
- */
-function getMyCookie()
-{
- alert( "쿠키 값 : " + getCookie( form.getName.value ) );
-}
+		<!-- <link rel="shortcut icon" href="../../assets/ico/favicon.png"> -->
 
-/**
- * 자신이 지정한 쿠키명으로 쿠키 삭제
- */
-function deleteMyCookie()
-{
- deleteCookie( form.deleteName.value );
- alert("쿠키가 삭제되었습니다.");
- viewCookie();
-}
+		<title>Fixed Top Navbar Example for Bootstrap</title>
 
-/**
- * 전체 쿠키 출력
- */
-function viewCookie()
-{
- if( document.cookie.length > 0 )
-  cookieOut.innerText = document.cookie;
- else
-  cookieOut.innerText = "저장된 쿠키가 없습니다.";
-}
-</script>
-</head>
-<body>
-<h3>Welcome to hot shopping!</h3>
-</body>
+		<!-- Bootstrap core CSS -->
+		<link href="/static/css/bootstrap.css" rel="stylesheet">
+		<link href="/static/css/common.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+
+		<script src="/static/js/jquery-1.10.2.min.js"></script>
+		<script src="/static/js/jquery.validate.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
+		<script src="/static/js/common.js"></script>		
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="/static/js/html5shiv.js"></script>
+		<script src="/static/js/respond.min.js"></script>
+		<![endif]-->
+		
+		<decorator:head />
+
+	</head>
+
+	<body>
+		<div class="navbar navbar-fixed-top bs-docs-nav" style="height: 50px;">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Project name</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">관리자명 <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">정보변경</a></li>
+								<li><a href="#">로그아웃</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container bs-docs-container">
+			<div class="row">
+				<div class="col-md-2" style="padding-right: 0px !important;">
+					<div class="bs-sidebar" data-spy="affix">
+						<ul class="nav bs-sidenav">
+							<li><a href="/rear/main">Home</a></li>
+							<li><a href="/rear/product/list">상품관리</a></li>
+							<li>
+								<a href="#" class="dev-dropdown-link">카테고리 관리</a>
+								<ul class="nav">
+									<li><a href="/rear/category/list">카테고리 목록</a></li>
+									<li><a href="/rear/category/tag/list">Tag 목록</a></li>
+									<li><a href="/rear/category/tag/unreg/list">미등록 Tag 목록</a></li>
+								</ul>
+							</li>
+							<li><a href="/rear/member/list">회원 관리</a></li>
+							<li><a href="/rear/apps/version">어플버전 관리</a></li>
+							<li><a href="/rear/notice/list">공지사항 관리</a></li>
+							<li><a href="/rear/manager/list">관리자 관리</a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="col-md-10" role="main">
+					<div id="contentWrapper">
+						<decorator:body />
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<footer class="bs-footer" role="contentinfo">
+			<div class="container">
+				<p>&copy; Company2013</p>
+			</div>
+		</footer>		
+		
+	</body>
+	
 </html>

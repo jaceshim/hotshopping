@@ -12,7 +12,7 @@ import randy.core.j2ee.util.ConfigUtils;
  * @author jace
  */
 @Controller
-public class ScriptController extends AbstractController {
+public class AlertController extends AbstractController {
 
 	/**
 	 * 공통 스크립트 처리.
