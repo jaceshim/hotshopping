@@ -34,7 +34,7 @@ public class RearInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handle) throws Exception {
 		String uri = request.getRequestURI().replaceAll("/+(.*)", "/$1");
 		if (!uri.matches(EXCLUDE_PATTERN)) {
-			Object sessObj = request.getSession().getAttribute(ConfigUtils.getString("global.manaager.session.key"));
+			Object sessObj = request.getSession().getAttribute(ConfigUtils.getString("global.manager.session.key"));
 
 			if (sessObj == null) {
 				response.sendRedirect(LOGIN_URL);

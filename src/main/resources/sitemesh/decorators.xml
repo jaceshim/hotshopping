@@ -13,12 +13,14 @@
     </excludes>
     
     <decorator name="rearDefaultLayout" page="rear/rearLayout.jsp">
-        <pattern>/rear/main</pattern>
+        <pattern>/rear/*</pattern>
     </decorator>
     
+    <!-- 
     <decorator name="ajaxLayout" page="rear/ajaxLayout.jsp">
         <pattern>/rear/*</pattern>
-    </decorator>    
+    </decorator>
+     -->    
     
     <decorator name="defaultLayout" page="rear/noLayout.jsp">
         <pattern>/*</pattern>

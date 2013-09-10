@@ -13,14 +13,7 @@
 		,	DATE_FORMAT(login_dt, '%Y-%m-%d %H:%i:%s') as loginDt
 	</sql>
 	
-	<resultMap id="managerResultMap" type="manager">
-		<result column="mgrId" property="mgrId" />
-		<result column="mgrName" property="mgrName" />
-		<result column="useYn" property="useYn" />
-		<result column="regDt" property="regDt" />
-		<result column="loginDt" property="loginDt" />
-	</resultMap>	
-	<select id="getManager" parameterType="manager" resultMap="managerResultMap">
+	<select id="getManager" parameterType="manager" resultType="manager" >
 		select <include refid="selectManagerSql"/>
 		from tb_manager
 		where mgr_id = #{mgrId}
@@ -28,12 +21,12 @@
 		<if test='useYn != null and !useYn.equals("")'>and use_yn = #{useYn}</if>
 	</select>	
 	
-	<select id="getManagerList" parameterType="manager" resultMap="managerResultMap">
+	<select id="getManagerList" parameterType="manager" resultType="manager" >
 		select <include refid="selectManagerSql"/>
 		from tb_manager	
 	</select>
 	
-	<select id="getManagerPageList" parameterType="manager" resultMap="managerResultMap" >
+	<select id="getManagerPageList" parameterType="manager" resultType="manager" >
 		select <include refid="selectManagerSql"/>
 		from tb_manager
 		<where>

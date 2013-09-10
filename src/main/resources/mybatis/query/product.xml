@@ -31,7 +31,7 @@
 		</where>
 	</select>
 	
-	<select id="getProductPageList" resultMap="product" parameterType="product" >
+	<select id="getProductPageList" parameterType="product" resultType="product">
 		select <include refid="selectProductSql"/>
 		from tb_product
 		<where>
@@ -43,7 +43,7 @@
 		limit #{startRow}, #{pageSize}
 	</select>
 	
-	<select id="getProductPageListCount" resultType="java.lang.Integer" parameterType="product" >
+	<select id="getProductPageListCount" parameterType="product" resultType="java.lang.Integer">
 		select count(*)
 		from tb_product
 		<where>

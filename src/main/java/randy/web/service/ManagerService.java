@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import randy.core.crypto.DESCrypto;
 import randy.core.j2ee.service.AbstractService;
-import randy.core.j2ee.util.ConfigUtils;
 import randy.core.pagination.Page;
 import randy.web.domain.Manager;
 

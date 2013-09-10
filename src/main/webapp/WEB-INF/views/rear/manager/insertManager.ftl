@@ -45,7 +45,12 @@
 					}
 				},
 				submitHandler: function (frm) {
-					frm.submit();
+					$(frm).ajaxForm({
+						target: Common.getContentWrapper(),
+						success: function() {
+							Common.message(Common.info, '정상적으로 처리되었음.');
+						}
+					});
             	}
 			});
 		});
@@ -59,19 +64,7 @@
 			</div>
 			<div class="box-content">
 				<form id="insertForm" name="insertForm" method="post" action="insert" class="form-horizontal">
-				<fieldset>
-					<div class="control-group">
-						<label class="control-label" for="siteId">사이트</label>
-						<div class="controls">
-							<select id="siteId" name="siteId">
-								<option value="">사이트 선택</option>
-								<#list siteList as item>
-								<option value="${item.siteId}">${item.siteName}</option>
-								</#list>
-								<option value="-1">시스템관리자</option>
-							</select>									
-						</div>									
-					</div>				
+				<fieldset>			
 					<div class="control-group">
 						<label class="control-label" for="mgrId">관리자 아이디</label>
 						<div class="controls">

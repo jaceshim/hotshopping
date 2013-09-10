@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
-<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>   
+<%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
@@ -9,93 +9,111 @@
 <html lang="ko">
 	<head>
 		<meta charset="utf-8">
+		<title>Bootstrap Admin ::: <decorator:title /></title>
+		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="">
-		<meta name="author" content="">
 
-		<!-- <link rel="shortcut icon" href="../../assets/ico/favicon.png"> -->
+		<link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="${ctx}/static/css/layout.css">
+		<script type="text/javascript" src="${ctx}/static/js/jquery-1.10.2.min.js"></script>
 
-		<title>Fixed Top Navbar Example for Bootstrap</title>
+		<!-- Demo page code -->
 
-		<!-- Bootstrap core CSS -->
-		<link href="/static/css/bootstrap.css" rel="stylesheet">
-		<link href="/static/css/common.css" rel="stylesheet">
+		<style type="text/css">
+			#line-chart {
+				height:300px;
+				width:800px;
+				margin: 0px auto;
+				margin-top: 1em;
+			}
+			.brand { font-family: georgia, serif; }
+			.brand .first {
+				color: #ccc;
+				font-style: italic;
+			}
+			.brand .second {
+				color: #fff;
+				font-weight: bold;
+			}
+		</style>
 
-		<!-- Custom styles for this template -->
-
-		<script src="/static/js/jquery-1.10.2.min.js"></script>
-		<script src="/static/js/jquery.validate.js"></script>
-		<script src="/static/js/bootstrap.min.js"></script>
-		<script src="/static/js/common.js"></script>		
-
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
-		<script src="/static/js/html5shiv.js"></script>
-		<script src="/static/js/respond.min.js"></script>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 		
-		<decorator:head />
+		<script src="${ctx}/static/js/bootstrap.js"></script>
+		
+        <decorator:head />
 
 	</head>
 
+	<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+	<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+	<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+	<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
+	<!--[if (gt IE 9)|!(IE)]><!-->
 	<body>
-		<div class="navbar navbar-fixed-top bs-docs-nav" style="height: 50px;">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Project name</a>
-				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">관리자명 <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">정보변경</a></li>
-								<li><a href="#">로그아웃</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+	<!--<![endif]-->
+
+		<div class="navbar">
+			<div class="navbar-inner">
+   				<ul class="nav pull-right">
+   					<li id="fat-menu" class="dropdown">
+   						<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+   							<i class="icon-user"></i> Jack Smith
+   							<i class="icon-caret-down"></i>
+   						</a>
+
+   						<ul class="dropdown-menu">
+   							<li><a tabindex="-1" href="#">My Account</a></li>
+   							<li class="divider"></li>
+   							<li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
+   							<li class="divider visible-phone"></li>
+   							<li><a tabindex="-1" href="sign-in.html">Logout</a></li>
+   						</ul>
+   					</li>
+   				</ul>
+   				<a class="brand" href="index.html"><span class="first">Your</span> <span class="second">Company</span></a>
 			</div>
 		</div>
-		
-		<div class="container bs-docs-container">
-			<div class="row">
-				<div class="col-md-2" style="padding-right: 0px !important;">
-					<div class="bs-sidebar" data-spy="affix">
-						<ul class="nav bs-sidenav">
-							<li><a href="/rear/main">Home</a></li>
-							<li><a href="/rear/product/list">상품관리</a></li>
-							<li>
-								<a href="#" class="dev-dropdown-link">카테고리 관리</a>
-								<ul class="nav">
-									<li><a href="/rear/category/list">카테고리 목록</a></li>
-									<li><a href="/rear/category/tag/list">Tag 목록</a></li>
-									<li><a href="/rear/category/tag/unreg/list">미등록 Tag 목록</a></li>
-								</ul>
-							</li>
-							<li><a href="/rear/member/list">회원 관리</a></li>
-							<li><a href="/rear/apps/version">어플버전 관리</a></li>
-							<li><a href="/rear/notice/list">공지사항 관리</a></li>
-							<li><a href="/rear/manager/list">관리자 관리</a></li>
-						</ul>
-					</div>
-				</div>
-				
-				<div class="col-md-10" role="main">
-					<div id="contentWrapper">
+		<div class="sidebar-nav">
+			<a href="/rear/main" class="nav-header" >Home</a>
+            <a href="/rear/product/list" class="nav-header" >상품관리</a>
+            <a href="#dev-category-menu" class="nav-header" data-toggle="collapse"></i>카테고리 관리</a>
+            <ul id="dev-category-menu" class="nav nav-list collapse">
+                <li ><a href="/rear/category/list">카테고리 목록</a></li>
+                <li ><a href="/rear/category/tag/list">TAG 목록</a></li>
+                <li ><a href="/rear/category/tag/unreg/list">미등록 TAG 목록</a></li>
+            </ul>
+			<a href="/rear/member/list" class="nav-header" >회원관리</a>
+            <a href="/rear/apps/version" class="nav-header" >어플버전 관리</a>
+            <a href="/rear/notice/list" class="nav-header" >공지사항 관리</a>
+            <a href="/rear/manager/list" class="nav-header" >관리자 관리</a>
+		</div>
+		<div class="content">
+			<ul class="breadcrumb">
+				<li><a href="index.html"><decorator:title />asdfasdf</li>
+			</ul>
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="row-fluid">
+						<!--  -->
 						<decorator:body />
 					</div>
+					<footer>
+						<hr>
+
+						<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+						<!-- <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p> -->
+
+						<p>&copy; 2013 <a href="#" target="_blank">company</a></p>
+					</footer>
 				</div>
 			</div>
-			
 		</div>
-		
-		<footer class="bs-footer" role="contentinfo">
-			<div class="container">
-				<p>&copy; Company2013</p>
-			</div>
-		</footer>		
-		
 	</body>
-	
 </html>
+
+
