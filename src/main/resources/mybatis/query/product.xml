@@ -35,11 +35,11 @@
 		select <include refid="selectProductSql"/>
 		from tb_product
 		<where>
-			<if test='usYn != null'>use_yn = #{useYn}</if>
+			<if test='useYn != null'>use_yn = #{useYn}</if>
 			<if test='mallId != null'>and mall_id = #{mallId}</if>
 			<if test='prdName != null'>and prd_name like concat('%', #{prdName}, '%')</if>
 		</where>
-		order by seq desc 
+		order by prd_seq desc 
 		limit #{startRow}, #{pageSize}
 	</select>
 	
@@ -47,7 +47,7 @@
 		select count(*)
 		from tb_product
 		<where>
-			<if test='usYn != null'>use_yn = #{useYn}</if>
+			<if test='useYn != null'>use_yn = #{useYn}</if>
 			<if test='mallId != null'>and mall_id = #{mallId}</if>
 			<if test='prdName != null'>and prd_name like concat('%', #{prdName}, '%')</if>
 		</where>		
