@@ -1,5 +1,12 @@
-.dev-row-wrap {
-	
+label.error {
+	margin-left: 5px;
+	color: #d14;
+	display: inline-block !important;
+}
+
+.content-title {
+	font-size: 1.2em;
+	font-weight: bold;
 }
 
 .prd-img {

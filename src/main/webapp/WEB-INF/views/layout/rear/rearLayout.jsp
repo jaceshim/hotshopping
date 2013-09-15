@@ -134,8 +134,8 @@
 		<div class="content">
 			<ul class="breadcrumb">
 				<li>
-					<i class="icon-info-sign"></i>
-					<strong><decorator:title /></strong>
+					<i class="icon-globe"></i>
+					<span class="content-title"><decorator:title /></span>
 				</li>
 			</ul>
 
