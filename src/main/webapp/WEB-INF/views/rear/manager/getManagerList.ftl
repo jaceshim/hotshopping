@@ -19,29 +19,25 @@
 				$form.attr('action', URI_PREFIX + 'insertform');
 				$('#mgrId').remove();
 				
-				$form.ajaxForm({
-					target: Common.getContentWrapper()
-				});			
+				$form.submit();
 			});
 		});
 		
 	</script>
 </head>
 <body>
-	<form name="linkForm" id="linkForm" method="post">
-		<input type="hidden" name="mgrId" id="mgrId" >
-	</form>
-	
-	<h2 class="dev-page-title">관리자 목록</h2>
-	
-	<div class="table-responsive">
-		<table class="table table-bordered">
+
+	<div class="box-content">
+		<form name="linkForm" id="linkForm" method="post">
+			<input type="hidden" name="mgrId" id="mgrId" >
+		</form>
+
+		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>관리자 아이디</th>
 					<th>관리자 명</th>
 					<th>활성여부</th>
-					<th>사이트</th>
 					<th>등록일시</th>
 					<th>마지막 로그인 일시</th>
 					<th>Actions</th>
@@ -55,13 +51,6 @@
 					<td class="center">
 						<#if item.useYn == "Y"> 활성
 						<#else> 비활성
-						</#if>
-					</td>
-					<td>
-						<#if item.siteId == "sys">
-							시스템관리자 그룹
-						<#else>
-							${item.site.siteName}
 						</#if>
 					</td>
 					<td>${item.regDt}</td>

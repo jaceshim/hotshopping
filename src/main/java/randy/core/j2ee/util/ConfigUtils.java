@@ -42,7 +42,7 @@ public class ConfigUtils {
 		for (Object key : props.keySet()) {
 			String keyStr = key.toString();
 
-			logger.debug("--> key : " + keyStr);
+			//logger.debug("--> key : " + keyStr);
 
 			propertiesMap.put(keyStr, props.getProperty(keyStr));
 		}

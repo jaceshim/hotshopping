@@ -58,13 +58,13 @@
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th width="60">순번</th>
-				<th width="80">몰</th>
+				<th>#</th>
+				<th">몰</th>
 				<th>상품순번</th>
 				<th>상품이미지</th>
 				<th>상품명</th>
 				<th>태그</th>
-				<th width="40">처리여부</th>
+				<th>처리여부</th>
 				<th>등록일시</th>
 				<th width="100">Action</th> 
 			</tr>

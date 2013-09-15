@@ -33,6 +33,12 @@
 		ON      hi.cate_id = ho.cate_id
 	</select>
 	
+	<select id="getCategory" parameterType="category" resultType="category">
+		select <include refid="selectCategorySql"/>
+		from tb_category
+		where cate_id = #{cateId}
+	</select>	
+	
 	<select id="getCategoryList" parameterType="category" resultType="category">
 		select <include refid="selectCategorySql"/>
 		from tb_category

@@ -57,46 +57,39 @@
 	</script>	
 </head>
 <body>
-	<div class="row-fluid">		
-		<div class="box span12">
-			<div class="box-header well" data-original-title>
-				<h2><i class="icon-user"></i> 관리자 등록</h2>
+	<div class="box-content">
+		<form id="insertForm" name="insertForm" method="post" action="insert" class="form-horizontal">
+		<fieldset>			
+			<div class="control-group">
+				<label class="control-label" for="mgrId">관리자 아이디</label>
+				<div class="controls">
+					<input id="mgrId" name="mgrId" type="text">
+				</div>									
 			</div>
-			<div class="box-content">
-				<form id="insertForm" name="insertForm" method="post" action="insert" class="form-horizontal">
-				<fieldset>			
-					<div class="control-group">
-						<label class="control-label" for="mgrId">관리자 아이디</label>
-						<div class="controls">
-							<input id="mgrId" name="mgrId" type="text">
-						</div>									
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="mgrName">관리자 명</label>
-						<div class="controls">
-							<input id="mgrName" name="mgrName" type="text">
-						</div>									
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="password">비밀번호</label>
-						<div class="controls">
-							<input id="password" name="password" type="password">
-						</div>									
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="password2">비밀번호 확인</label>
-						<div class="controls">
-							<input id="password2" name="password2" type="password">
-						</div>									
-					</div>										
-					<div class="form-actions">
-						<button type="submit" class="btn btn-primary">등록</button>
-						<button class="btn" onclick="history.back(); return false;">취소</button>
-					</div>														
-				</fieldset>
-				</form>								
+			<div class="control-group">
+				<label class="control-label" for="mgrName">관리자 명</label>
+				<div class="controls">
+					<input id="mgrName" name="mgrName" type="text">
+				</div>									
 			</div>
-		</div>
+			<div class="control-group">
+				<label class="control-label" for="password">비밀번호</label>
+				<div class="controls">
+					<input id="password" name="password" type="password">
+				</div>									
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="password2">비밀번호 확인</label>
+				<div class="controls">
+					<input id="password2" name="password2" type="password">
+				</div>									
+			</div>										
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">등록</button>
+				<button class="btn" onclick="history.back(); return false;">취소</button>
+			</div>														
+		</fieldset>
+		</form>								
 	</div>
 	
 </body>

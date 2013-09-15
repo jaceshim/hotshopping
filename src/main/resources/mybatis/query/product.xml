@@ -18,7 +18,21 @@
 		,	use_yn        AS useYn
 	</sql>
 	
-	<select id="getProductList" parameterType="product" resultType="product">
+	<resultMap id="productResultMap" type="product">
+		<result property="prdSeq" column="prdSeq"/>
+		<result property="prdType" column="prdType"/>
+		<result property="cateId" column="cateId"/>
+		<result property="mallId" column="mallId"/>
+		<result property="prdName" column="prdName"/>
+		<result property="prdOrgId" column="prdOrgId"/>
+		<result property="prdPrice" column="prdPrice"/>
+		<result property="prdThumbUrl" column="prdThumbUrl"/>
+		<result property="useYn" column="useYn"/>
+		<association property="category" column="{cateId=cateId}" select="randy.sql.category.getCategory" />
+		<association property="mall" column="{mallId=mallId}" select="randy.sql.mall.getMall" />
+	</resultMap>
+	
+	<select id="getProductList" parameterType="product" resultMap="productResultMap">
 		select <include refid="selectProductSql"/>
 		from tb_product
 		<where>
@@ -31,7 +45,7 @@
 		</where>
 	</select>
 	
-	<select id="getProductPageList" parameterType="product" resultType="product">
+	<select id="getProductPageList" parameterType="product" resultMap="productResultMap">
 		select <include refid="selectProductSql"/>
 		from tb_product
 		<where>

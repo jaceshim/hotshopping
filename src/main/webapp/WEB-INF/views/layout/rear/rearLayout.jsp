@@ -15,7 +15,7 @@
 
 		<link rel="stylesheet" type="text/css" href="${ctx}/static/css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="${ctx}/static/css/layout.css">
-		<script type="text/javascript" src="${ctx}/static/js/jquery-1.10.2.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css">
 
 		<!-- Demo page code -->
 
@@ -37,6 +37,9 @@
 			}
 		</style>
 
+
+		<script type="text/javascript" src="${ctx}/static/js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="${ctx}/static/js/jquery.validate.js"></script>
 		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -78,26 +81,62 @@
 			</div>
 		</div>
 		<div class="sidebar-nav">
-			<ul class="nav">
-			<li><a href="/rear/main" class="nav-header">Home</a></li>
-            <li><a href="/rear/product/list" class="nav-header" >상품관리</a></li>
-            <li><a href="#dev-category-menu" class="nav-header" data-toggle="collapse"></i>카테고리 관리</a>
-            
+			<a href="/rear/main" class="nav-header">
+				<i class="icon-home"></i>
+				Home
+			</a>	
+			<a href="/rear/product/list" class="nav-header">
+				<i class="icon-gift"></i>
+				상품관리
+			</a>	
+			<a href="#dev-category-menu" class="nav-header" data-toggle="collapse">
+				<i class="icon-list-alt"></i>
+				카테고리 관리
+				<i class="icon-chevron-down"></i>
+			</a>
             <ul id="dev-category-menu" class="nav nav-list collapse">
-                <li ><a href="/rear/category/list">카테고리 목록</a></li>
-                <li ><a href="/rear/category/tag/list">TAG 목록</a></li>
-                <li ><a href="/rear/category/tag/unreg/list">미등록 TAG 목록</a></li>
-            </ul></li>
-			<li><a href="/rear/member/list" class="nav-header" >회원관리</a></li>
-            <li><a href="/rear/apps/version" class="nav-header" >어플버전 관리</a></li>
-            <li><a href="/rear/notice/list" class="nav-header" >공지사항 관리</a></li>
-            <li><a href="/rear/manager/list" class="nav-header" >관리자 관리</a></li>				
-			</ul>
-
+                <li>
+                	<a href="/rear/category/list">
+                		<i class="icon-list-alt"></i>
+                		카테고리 목록
+                	</a>
+                </li>
+                <li>
+                	<a href="/rear/category/tag/list">
+                		<i class="icon-tags"></i>
+                		TAG 목록
+                	</a>
+                </li>
+                <li>
+                	<a href="/rear/category/tag/unreg/list">
+                		<i class="icon-flag"></i>
+                		미등록 TAG 목록
+                	</a>
+                </li>
+            </ul>
+	        <a href="/rear/member/list" class="nav-header">
+	        	<i class="icon-user"></i>
+	        	회원관리
+	        </a>
+	        <a href="/rear/apps/version" class="nav-header">
+	        	<i class="icon-eye-open"></i>
+	        	어플버전 관리
+	        </a>
+	        <a href="/rear/notice/list" class="nav-header">
+	        	<i class="icon-bullhorn"></i>
+	        	공지사항 관리
+	        </a>
+	        <a href="/rear/manager/list" class="nav-header" >
+	        	<i class="icon-user"></i>
+	        	관리자 관리
+	        </a>
 		</div>
 		<div class="content">
 			<ul class="breadcrumb">
-				<li><a href="index.html"><decorator:title /></li>
+				<li>
+					<i class="icon-info-sign"></i>
+					<strong><decorator:title /></strong>
+				</li>
 			</ul>
 
 			<div class="container-fluid">

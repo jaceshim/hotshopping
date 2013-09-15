@@ -1,7 +1,5 @@
 package randy.web.domain;
 
-import java.util.List;
-
 import randy.core.j2ee.domain.AbstractPageDomain;
 
 /**
@@ -11,11 +9,15 @@ import randy.core.j2ee.domain.AbstractPageDomain;
  */
 public class Product extends AbstractPageDomain {
 
-	/** 카테고리 id */
-	private List<Integer> cateIdList;
+	/** 몰 */
+	private Mall mall;
 
-	/** 미등록 카테고리 태그. */
+	/** 카테고리 */
+	private Category category;
+
 	private CategoryTagUnreg categoryTagUnreg;
+
+	private String categoryTag;
 
 	/** 상품순번 */
 	private Integer prdSeq;
@@ -35,17 +37,23 @@ public class Product extends AbstractPageDomain {
 	private Integer prdPrice;
 	/** 썸네일 URL */
 	private String prdThumbUrl;
-	/** 상품 카테고리 태그 */
-	private String categoryTag;
 	/** 사용여부 */
 	private String useYn;
 
-	public List<Integer> getCateIdList() {
-		return cateIdList;
+	public Mall getMall() {
+		return mall;
 	}
 
-	public void setCateIdList(List<Integer> cateIdList) {
-		this.cateIdList = cateIdList;
+	public void setMall(Mall mall) {
+		this.mall = mall;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public CategoryTagUnreg getCategoryTagUnreg() {
@@ -54,6 +62,14 @@ public class Product extends AbstractPageDomain {
 
 	public void setCategoryTagUnreg(CategoryTagUnreg categoryTagUnreg) {
 		this.categoryTagUnreg = categoryTagUnreg;
+	}
+
+	public String getCategoryTag() {
+		return categoryTag;
+	}
+
+	public void setCategoryTag(String categoryTag) {
+		this.categoryTag = categoryTag;
 	}
 
 	public Integer getPrdSeq() {
@@ -126,14 +142,6 @@ public class Product extends AbstractPageDomain {
 
 	public void setPrdThumbUrl(String prdThumbUrl) {
 		this.prdThumbUrl = prdThumbUrl;
-	}
-
-	public String getCategoryTag() {
-		return categoryTag;
-	}
-
-	public void setCategoryTag(String categoryTag) {
-		this.categoryTag = categoryTag;
 	}
 
 	public String getUseYn() {

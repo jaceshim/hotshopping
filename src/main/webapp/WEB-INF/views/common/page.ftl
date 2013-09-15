@@ -14,7 +14,7 @@
 	    form.submit();		
 	}
 </script>
-<div class="pagination pagination-centered">
+<div class="pagination">
 	<ul>
 
 		<#-- TODO: 로직검토 
