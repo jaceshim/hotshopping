@@ -119,6 +119,32 @@ var Common = Common || (function(){
 })();
 
 $(function() {
+	
+	console.log('-->ffdfdfdf');
+	
 	$("[rel=tooltip]").tooltip();
-	//$('.demo-cancel-click').click(function(){return false;});
+	$('a[href*="dev-category-menu"]').bind('click', function() {
+		var $targetObj = $('#dev-category-menu');
+		if ($targetObj.is(':visible')) {
+			$targetObj.slideUp();
+			$(this).children('i.icon-chevron-up').remove();
+			$(this).append('<i class="icon-chevron-down"></i>');
+		} else {
+			$targetObj.slideDown();
+			$(this).children('i.icon-chevron-down').remove();
+			$(this).append('<i class="icon-chevron-up"></i>');			
+		}
+		
+	});
+	
+	/*
+	$('#dev-category-menu').on('show', function () {
+		console.log('closed menu....');
+		var $aObj = $(this).prev();
+		
+		$aObj.children('i.icon-chevron-up').remove();
+		$aObj.append('<i class="icon-chevron-down"></i>');
+		
+	});
+	*/
 });

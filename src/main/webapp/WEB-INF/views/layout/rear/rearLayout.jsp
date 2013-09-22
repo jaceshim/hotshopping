@@ -46,6 +46,7 @@
 		<![endif]-->
 		
 		<script src="${ctx}/static/js/bootstrap.js"></script>
+		<script src="${ctx}/static/js/common.js"></script>
 		
         <decorator:head />
 
@@ -88,13 +89,14 @@
 			<a href="/rear/product/list" class="nav-header">
 				<i class="icon-gift"></i>
 				상품관리
-			</a>	
-			<a href="#dev-category-menu" class="nav-header" data-toggle="collapse">
+			</a>
+			
+			<a href="#dev-category-menu" class="nav-header">
 				<i class="icon-list-alt"></i>
 				카테고리 관리
 				<i class="icon-chevron-down"></i>
 			</a>
-            <ul id="dev-category-menu" class="nav nav-list collapse">
+            <ul id="dev-category-menu" class="nav nav-list" style="display: none;">
                 <li>
                 	<a href="/rear/category/list">
                 		<i class="icon-list-alt"></i>
@@ -138,7 +140,6 @@
 					<span class="content-title"><decorator:title /></span>
 				</li>
 			</ul>
-
 			<div class="container-fluid">
 				<div class="row-fluid">
 					<div class="row-fluid">

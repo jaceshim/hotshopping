@@ -14,3 +14,7 @@ label.error {
 	height: 50px;
 }
 
+.sidebar-nav .nav-header .icon-chevron-down,  .sidebar-nav .nav-header .icon-chevron-up{
+	float: right;
+	margin-top: 6px;
+}
