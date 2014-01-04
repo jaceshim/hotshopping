@@ -41,7 +41,10 @@
 			</if>
 			<if test='cateId != null'>
 				AND cate_id = #{cateId}
-			</if>			
+			</if>
+			<if test='prdOrgId != null'>
+				AND prd_org_id = #{prdOrgId}
+			</if>						
 		</where>
 	</select>
 	

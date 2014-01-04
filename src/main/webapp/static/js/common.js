@@ -119,9 +119,6 @@ var Common = Common || (function(){
 })();
 
 $(function() {
-	
-	console.log('-->ffdfdfdf');
-	
 	$("[rel=tooltip]").tooltip();
 	$('a[href*="dev-category-menu"]').bind('click', function() {
 		var $targetObj = $('#dev-category-menu');

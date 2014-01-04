@@ -65,6 +65,12 @@ public abstract class AbstractShopParser implements ShopParser {
 		List<Product> insertTodaySpecialList = new ArrayList<Product>();
 
 		for (Product item : todaySpecialList) {
+			// 해당 아이템이 기 등록되어 있는 경우는 등록처리 하지 않는다.
+			List<Product> existsPrdList = commonDao.selectList("getProductList", item);
+			if (existsPrdList != null && existsPrdList.size() > 0) {
+				continue;
+			}
+			
 			// 해당 아이템의 카테고리 태그 정보가 존재하는 판단.
 			CategoryTag param = new CategoryTag();
 			param.setTag(item.getCategoryTag());
